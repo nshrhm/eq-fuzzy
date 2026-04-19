@@ -1,0 +1,119 @@
+\documentclass[conference]{IEEEtran}
+
+\makeatletter
+\def\ps@IEEEtitlepagestyle{%
+  \def\@oddfoot{\mycopyrightnotice}%
+  \def\@evenfoot{}%
+}
+\def\mycopyrightnotice{%
+  {\footnotesize XXX-X-XXXX-XXXX-X/XX/\$XX.00~\copyright~20XX IEEE\hfill}%
+  \gdef\mycopyrightnotice{}
+}
+\makeatother
+
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{booktabs}
+
+\usepackage{eso-pic}
+\newcommand\AtPageUpperMyright[1]{\AtPageUpperLeft{%
+ \put(\LenToUnit{0.17\paperwidth},\LenToUnit{-2cm}){%
+     \parbox{0.9\textwidth}{\raggedleft\fontsize{8}{11}\selectfont #1}}%
+ }}
+\newcommand{\conf}[1]{%
+\AddToShipoutPictureBG*{%
+\AtPageUpperMyright{#1}
+}
+}
+
+\begin{document}
+
+\title{\vspace*{1cm} Human-Grounded Multilingual Evaluation of Contemporary Large Language Models for Literary Emotion Understanding}
+
+\author{
+\IEEEauthorblockN{Naruki Shirahama}
+\IEEEauthorblockA{\textit{Shimonoseki City University} \\
+Shimonoseki, Yamaguchi, Japan \\
+nshirahama@ieee.org}
+\and
+\IEEEauthorblockN{Yuma Yoshimoto}
+\IEEEauthorblockA{\textit{NIT (KOSEN), Kitakyushu College} \\
+Kitakyushu, Fukuoka, Japan \\
+yoshimoto@kct.ac.jp}
+\and
+\IEEEauthorblockN{Naofumi Nakaya}
+\IEEEauthorblockA{\textit{Juntendo University} \\
+Urayasu, Chiba, Japan \\
+n.nakaya.ac@juntendo.ac.jp}
+\and
+\IEEEauthorblockN{Satoshi Watanabe}
+\IEEEauthorblockA{\textit{Shizuoka Institute of Science and Technology} \\
+Fukuroi, Shizuoka, Japan \\
+satoshi\_watanabe@ieee.org}
+}
+
+\maketitle
+\conf{\textit{Proc. of the International Conference on Electrical, Computer, Communications and Mechatronics Engineering (ICECCME 2026) \\
+15--17 October 2026, Bali, Indonesia}}
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+large language models, human-grounded evaluation, literary emotion understanding, multilingual robustness, visual analogue scale
+\end{IEEEkeywords}
+
+\section{Introduction}
+\input{sections/introduction}
+
+\section{Related Work}
+\input{sections/related_work}
+
+\section{Data and Methods}
+\input{sections/methods}
+
+\section{Results}
+\input{sections/results}
+
+\section{Discussion}
+\input{sections/discussion}
+
+\section{Conclusion}
+\input{sections/conclusion}
+
+\input{sections/acknowledgements}
+
+\IEEEtriggeratref{5}
+\begin{thebibliography}{00}
+
+\bibitem{shirahama2025vas}
+N. Shirahama, N. Nakaya, S. Watanabe, et al., ``Assessing Emotional Intelligence in AI: Visual Analogue Scale vs. Likert Scale in Short Story Comprehension,'' \emph{Journal of the Institute of Industrial Applications Engineers}, vol. 13, no. 1, pp. 21--31, 2025.
+
+\bibitem{shirahama2026mdpi}
+N. Shirahama, Y. Yoshimoto, N. Nakaya, and S. Watanabe, ``Mathematical Framework for Characterizing Emotional Individuality in Large Language Models: Temperature Control, Fuzzy Entropy, and Persona-Based Diversity Analysis,'' \emph{Mathematics}, vol. 14, no. 7, Art. no. 1224, 2026.
+
+\bibitem{paech2024eqbench}
+S. J. Paech, ``EQ-Bench: An Emotional Intelligence Benchmark for Large Language Models,'' arXiv:2312.06281, 2024.
+
+\bibitem{huang2024emotionbench}
+J. Huang, M. H. Lam, E. J. Li, S. Ren, W. Wang, W. Jiao, Z. Tu, and M. R. Lyu, ``Emotionally Numb or Empathetic? Evaluating How LLMs Feel Using EmotionBench,'' arXiv:2308.03656, 2024.
+
+\bibitem{sabour2024emobench}
+S. Sabour, S. Liu, Z. Zhang, J. Liu, J. Zhou, A. Sunaryo, T. M. C. Lee, R. Mihalcea, and M. Huang, ``EmoBench: Evaluating the Emotional Intelligence of Large Language Models,'' in \emph{Proc. 62nd Annual Meeting of the Association for Computational Linguistics (ACL)}, 2024, pp. 5986--6004.
+
+\bibitem{chen2024emotionqueen}
+Y. Chen, S. Yan, S. Liu, Y. Li, and Y. Xiao, ``EmotionQueen: A Benchmark for Evaluating Empathy of Large Language Models,'' in \emph{Findings of the Association for Computational Linguistics: ACL 2024}, 2024, pp. 2149--2176.
+
+\bibitem{openrouterplatform}
+N. Shirahama, N. Nakaya, and S. Watanabe, ``Development of an Experimental Platform for Evaluating LLM Emotion Understanding,'' \emph{ICIC Express Letters}, vol. 20, pp. 191--198, 2026.
+
+\end{thebibliography}
+
+\end{document}

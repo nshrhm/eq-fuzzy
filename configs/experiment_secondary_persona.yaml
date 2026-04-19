@@ -1,0 +1,49 @@
+study:
+  name: iceccme2026_persona_sensitivity_multilingual
+  paper_short_name: iceccme2026_secondary_persona
+  primary_language: ja
+  secondary_languages:
+  - en
+  - zh
+  story_ids:
+  - T1
+  - T2
+  - T3
+  emotions:
+  - interest
+  - surprise
+  - sadness
+  - anger
+  personas:
+  - persona_id: p1
+    persona_label: college_freshman
+    temperature: 0.7
+    analysis_role: secondary
+  - persona_id: p2
+    persona_label: literary_scholar
+    temperature: 0.4
+    analysis_role: secondary
+  - persona_id: p3
+    persona_label: emotive_poet
+    temperature: 0.9
+    analysis_role: secondary
+  - persona_id: p4
+    persona_label: emotionless_robot
+    temperature: 0.1
+    analysis_role: secondary
+  repetitions: 5
+  source_catalogs:
+    texts: configs/texts_from_definitions.yaml
+    secondary_personas: configs/personas_from_definitions.yaml
+    definitions_py: external/jaciii_iihmsp2025/definitions.py
+outputs:
+  manifest: data/manifests/iceccme2026_secondary_persona_manifest.csv
+  human_reference: data/derived_public/human_vas_summary.csv
+  alignment_dir: results/csv
+analysis:
+  primary_endpoint: persona_sensitivity_relative_to_primary
+  secondary_endpoint: cross_language_drift_within_persona
+  aggregate_over:
+  - persona_id
+  - repetition
+  paper_role: supplementary_or_appendix

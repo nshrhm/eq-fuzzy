@@ -1,0 +1,12 @@
+{
+  "n_respondents_total": 91,
+  "n_complete_case": 86,
+  "n_nonmissing_scores": 1056,
+  "n_total_possible_scores": 1092,
+  "nonmissing_rate": 0.967033,
+  "story_level_nonmissing_counts": {
+    "T1": 364,
+    "T2": 348,
+    "T3": 344
+  }
+}

@@ -1,0 +1,13 @@
+story_id,emotion,human_mean
+T1,anger,24.956
+T1,interest,63.1099
+T1,sadness,30.7363
+T1,surprise,48.4945
+T2,anger,34.7701
+T2,interest,53.3448
+T2,sadness,50.6667
+T2,surprise,46.023
+T3,anger,23.3256
+T3,interest,73.2442
+T3,sadness,23.0581
+T3,surprise,61.6977

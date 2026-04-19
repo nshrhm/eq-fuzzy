@@ -1,0 +1,78 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "story_id",
+    "persona_id",
+    "language",
+    "scores",
+    "reasons"
+  ],
+  "properties": {
+    "story_id": {
+      "type": "string"
+    },
+    "persona_id": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interest",
+        "surprise",
+        "sadness",
+        "anger"
+      ],
+      "properties": {
+        "interest": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "surprise": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "sadness": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "anger": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "reasons": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interest",
+        "surprise",
+        "sadness",
+        "anger"
+      ],
+      "properties": {
+        "interest": {
+          "type": "string"
+        },
+        "surprise": {
+          "type": "string"
+        },
+        "sadness": {
+          "type": "string"
+        },
+        "anger": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

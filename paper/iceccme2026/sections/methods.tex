@@ -1,0 +1,37 @@
+\textbf{Human reference data.} The benchmark uses respondent-level VAS data for three short Japanese literary texts and four affect dimensions: interest, surprise, sadness, and anger. Ninety-one human responses were collected, of which 86 were complete cases retained for the primary aggregate reference profile. The task was administered in Japanese to student participants, and the public repository stores only sanitized numeric derivatives. The raw survey export is kept private because survey platforms may include metadata that should not be redistributed.
+
+\textbf{Texts and model panel.} The computational benchmark evaluates the same three works used in the human task and compares six contemporary LLMs from six major providers: Claude Sonnet 4.5, GPT-5.4, Grok 4.20, Qwen3.6 Plus, DeepSeek V3.2, and Gemini 2.5 Pro. Each model was queried in Japanese, English, and Chinese. The model panel was intentionally kept compact to match the engineering-pilot scope of the paper while preserving vendor diversity.
+
+\textbf{Task definition.} The neutral-reader model run operationalized the same four affect dimensions on a 0--100 scale to approximate the human VAS task. A neutral-reader prompt was used in all languages so that the benchmark would not collapse back into persona-conditioned evaluation. Japanese source texts and Japanese task instructions were used in the primary human--LLM alignment condition. English and Chinese conditions reused the same task definition and were analyzed separately as cross-language robustness tests. This design keeps persona-conditioned prompting outside the center of the present paper, because persona and temperature were confounded in our earlier LLM-only design \cite{shirahama2026mdpi}.
+
+\textbf{Aggregation.} Let $s \in \{1,2,3\}$ index texts and $d \in \{1,2,3,4\}$ index affect dimensions. The Japanese human reference profile is
+\begin{equation}
+H_{s,d}=\frac{1}{N_s}\sum_{i=1}^{N_s} y_{i,s,d},
+\end{equation}
+where $y_{i,s,d}$ is the VAS score from respondent $i$ and $N_s$ is the number of complete human responses for text $s$. For model $m$, language $\ell \in \{\mathrm{JA},\mathrm{EN},\mathrm{ZH}\}$, and repetition count $R=10$, the aggregated model profile is
+\begin{equation}
+M_{m,\ell,s,d}=\frac{1}{R}\sum_{r=1}^{R} x_{m,\ell,s,d,r}.
+\end{equation}
+This yields a 12-value story-by-emotion profile for each model-language condition.
+
+\textbf{Metrics.} The primary endpoint is Japanese human alignment. For each model, Japanese scores were aggregated to a story-by-emotion profile and compared against the Japanese human reference using mean absolute error (MAE), Pearson correlation, and Spearman rank correlation:
+\begin{equation}
+\mathrm{MAE}_{m,\mathrm{JA}}=\frac{1}{12}\sum_{s,d}\left|M_{m,\mathrm{JA},s,d}-H_{s,d}\right|.
+\end{equation}
+English and Chinese were not treated as additional human-grounded endpoints. Instead, cross-language drift was defined as the mean absolute difference between each model's English or Chinese story-by-emotion score profile and the same model's Japanese profile:
+\begin{equation}
+D_{m,\ell}=\frac{1}{12}\sum_{s,d}\left|M_{m,\ell,s,d}-M_{m,\mathrm{JA},s,d}\right|,~~
+\ell \in \{\mathrm{EN},\mathrm{ZH}\}.
+\end{equation}
+We also report the average drift
+\begin{equation}
+\bar{D}_m=\frac{D_{m,\mathrm{EN}}+D_{m,\mathrm{ZH}}}{2}.
+\end{equation}
+Lower MAE and lower drift are better. Because the benchmark is intentionally compact, the paper emphasizes descriptive comparison and screening utility rather than formal significance testing.
+
+\begin{table}[t]
+\caption{Primary benchmark design summary.}
+\label{tab:design}
+\centering
+\input{tables/table1_dataset_summary.tex}
+\end{table}
