@@ -25,6 +25,6 @@
 | `src/iceccme2026/metrics.py` | human alignment and cross-language drift scoring |
 | `data/iceccme2026/derived_public/*` | sanitized human reference data |
 | `data/iceccme2026/manifests/iceccme2026_default_manifest.csv` | the ICECCME specific multilingual run grid |
-| `prompts/*` | versioned prompt and schema assets for this paper |
-| `docs/paper_blueprint.md` | title, abstract, figure plan, and section budget fixed for the conference paper |
+| `prompts/iceccme/*`, `prompts/shared/response_schema.json` | versioned prompt and schema assets for this paper |
+| `docs/iceccme2026/paper_blueprint.md` | title, abstract, figure plan, and section budget fixed for the conference paper |
 | `paper/iceccme2026/*` | ICECCME specific paper skeleton on the uploaded IEEE template |

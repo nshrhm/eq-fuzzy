@@ -43,7 +43,11 @@ Operating rule: **Share code, not claims.**
    - `docs/MONOREPO_POLICY.md`
    - `docs/MIGRATION_PLAN.md`
 2. add workstream context docs under `docs/context/`
-3. add empty future directories:
+3. isolate workstream-specific docs under:
+   - `docs/iceccme2026/`
+   - `docs/scis2026/`
+   - `docs/icicic2026/`
+4. add empty future directories:
    - `configs/scis/`
    - `configs/icicic/`
    - `prompts/scis/`
@@ -55,8 +59,8 @@ Operating rule: **Share code, not claims.**
    - `artifacts/iceccme2026/`
    - `artifacts/scis2026/`
    - `artifacts/icicic2026/`
-4. keep `src/iceccme2026/` as-is
-5. do not move current raw or processed ICECCME files
+5. keep `src/iceccme2026/` as-is
+6. do not move current raw or processed ICECCME files
 
 ### Result
 The repository remains operational for ICECCME and becomes ready for SCIS / ICICIC.

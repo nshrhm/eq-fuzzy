@@ -84,7 +84,7 @@ Before SCIS or ICICIC work starts, path ownership is fixed in `docs/PATH_OWNERSH
 - `deepseek/deepseek-v3.2`
 - `qwen/qwen3.6-plus`
 
-See `docs/model_selection_openrouter_2026-04-17.md` for the rationale and reserve models.
+See `docs/iceccme2026/model_selection_openrouter_2026-04-17.md` for the rationale and reserve models.
 
 ## Important current ICECCME config files
 
@@ -182,11 +182,15 @@ Only extract code after a second workstream actually needs it and the behavior c
 
 ## Monorepo docs
 
+- `docs/README.md` - documentation ownership and navigation
 - `docs/WORKSTREAMS.md` - scientific separation of ICECCME, SCIS, and ICICIC
 - `docs/MONOREPO_POLICY.md` - repository rules and SPReAD boundary
 - `docs/MIGRATION_PLAN.md` - non-destructive migration sequence and shared-core targets
 - `docs/PATH_OWNERSHIP.md` - ownership map for shared, ICECCME, SCIS, and ICICIC paths
 - `docs/context/` - canonical context prompts for shared and per-workstream planning
+- `docs/iceccme2026/` - ICECCME-specific run guides, output inventory, reproducibility notes, and paper planning notes
+- `docs/scis2026/` - SCIS-specific planning notes; placeholder until the real experiment design is fixed
+- `docs/icicic2026/` - ICICIC-specific planning notes; placeholder until the real experiment design is fixed
 
 ## Archive note
 
