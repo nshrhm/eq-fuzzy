@@ -3,7 +3,7 @@ from __future__ import annotations
 """Run an OpenRouter-backed experiment manifest for ICECCME 2026.
 
 This script reads a manifest CSV produced by `python main.py build-manifest`, loads the
-validated multilingual text files from `data/raw_private/texts/<lang>/<story>.txt`,
+validated multilingual text files from `data/iceccme2026/raw_private/texts/<lang>/<story>.txt`,
 constructs the system/user prompts, calls OpenRouter's chat completions endpoint with
 JSON-schema structured outputs, and writes one JSONL line per completed request.
 
@@ -429,10 +429,10 @@ def fetch_and_parse_completion(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the ICECCME primary manifest on OpenRouter")
     parser.add_argument("--repo-root", default=".")
-    parser.add_argument("--manifest", default="data/manifests/iceccme2026_primary_neutral_manifest.csv")
-    parser.add_argument("--texts-dir", default="data/raw_private/texts")
-    parser.add_argument("--schema", default="prompts/response_schema.json")
-    parser.add_argument("--output-jsonl", default="data/raw_private/openrouter_primary_raw.jsonl")
+    parser.add_argument("--manifest", default="data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv")
+    parser.add_argument("--texts-dir", default="data/iceccme2026/raw_private/texts")
+    parser.add_argument("--schema", default="prompts/shared/response_schema.json")
+    parser.add_argument("--output-jsonl", default="data/iceccme2026/raw_private/openrouter_primary_raw.jsonl")
     parser.add_argument("--limit", type=int, default=None, help="Run only the first N unfinished manifest rows")
     parser.add_argument("--offset", type=int, default=0, help="Skip the first N manifest rows")
     parser.add_argument(

@@ -30,5 +30,12 @@ data/raw_private/**
 !data/raw_private/texts/
 !data/raw_private/texts/README.md
 data/interim/**
+data/iceccme2026/raw_private/**
+!data/iceccme2026/raw_private/
+!data/iceccme2026/raw_private/human/
+!data/iceccme2026/raw_private/human/README.md
+!data/iceccme2026/raw_private/texts/
+!data/iceccme2026/raw_private/texts/README.md
+data/iceccme2026/interim/**
 snapshots/**
 paper/iceccme2026.old/**

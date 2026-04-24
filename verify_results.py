@@ -15,12 +15,12 @@ def assert_exists(path: Path) -> None:
 
 
 def main() -> None:
-    human_summary = REPO / 'data/derived_public/human_vas_summary.csv'
-    primary_manifest = REPO / 'data/manifests/iceccme2026_primary_neutral_manifest.csv'
-    secondary_manifest = REPO / 'data/manifests/iceccme2026_secondary_persona_manifest.csv'
+    human_summary = REPO / 'data/iceccme2026/derived_public/human_vas_summary.csv'
+    primary_manifest = REPO / 'data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv'
+    secondary_manifest = REPO / 'data/iceccme2026/manifests/iceccme2026_secondary_persona_manifest.csv'
     human_json = REPO / 'results/json/human_reference_summary.json'
-    primary_manifest_json = REPO / 'results/json/iceccme2026_primary_neutral_manifest_summary.json'
-    secondary_manifest_json = REPO / 'results/json/iceccme2026_secondary_persona_manifest_summary.json'
+    primary_manifest_json = REPO / 'data/iceccme2026/results/json/iceccme2026_primary_neutral_manifest_summary.json'
+    secondary_manifest_json = REPO / 'data/iceccme2026/results/json/iceccme2026_secondary_persona_manifest_summary.json'
     text_catalog = REPO / 'data/catalogs/text_catalog.csv'
     persona_catalog = REPO / 'data/catalogs/persona_catalog.csv'
 

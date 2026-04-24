@@ -14,6 +14,13 @@ def _load_yaml(path: str | Path) -> dict[str, Any]:
         return yaml.safe_load(f)
 
 
+def _manifest_summary_path(output_path: Path) -> Path:
+    resolved_output = output_path.resolve()
+    if resolved_output.parent.name == "manifests" and resolved_output.parent.parent.name == "iceccme2026":
+        return resolved_output.parent.parent / "results" / "json" / f"{output_path.stem}_summary.json"
+    return output_path.parents[2] / "results" / "json" / f"{output_path.stem}_summary.json"
+
+
 def build_manifest(config_path: str | Path, models_path: str | Path, output_path: str | Path) -> pd.DataFrame:
     config = _load_yaml(config_path)
     models_cfg = _load_yaml(models_path)
@@ -57,7 +64,7 @@ def build_manifest(config_path: str | Path, models_path: str | Path, output_path
     output_path.parent.mkdir(parents=True, exist_ok=True)
     manifest.to_csv(output_path, index=False)
 
-    summary_path = output_path.parents[2] / "results" / "json" / f"{output_path.stem}_summary.json"
+    summary_path = _manifest_summary_path(output_path)
     summary_path.parent.mkdir(parents=True, exist_ok=True)
     summary = {
         "run_id": run_id,

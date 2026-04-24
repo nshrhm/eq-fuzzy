@@ -26,8 +26,8 @@ study:
     secondary_personas: configs/shared/personas_from_definitions.yaml
     definitions_py: external/jaciii_iihmsp2025/definitions.py
 outputs:
-  manifest: data/manifests/iceccme2026_primary_neutral_manifest.csv
-  human_reference: data/derived_public/human_vas_summary.csv
+  manifest: data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
+  human_reference: data/iceccme2026/derived_public/human_vas_summary.csv
   alignment_dir: results/csv
 prompts:
   user_template: prompts/iceccme/emotion_eval_user_template_multilingual_json.md

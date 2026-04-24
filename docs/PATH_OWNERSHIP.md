@@ -28,8 +28,7 @@ These paths remain valid for the current ICECCME 2026 workflow. Do not move them
 | `configs/*.yaml` | compatibility symlinks | Root-level links preserving current commands while canonical configs live under `configs/iceccme/` and `configs/shared/`. |
 | `prompts/*.md`, `prompts/*.json` | compatibility symlinks | Root-level links preserving current manifests and runner commands while canonical prompt assets live under `prompts/iceccme/` and `prompts/shared/`. |
 | `results/` | `iceccme` compatibility | Existing derived CSV/JSON outputs used by ICECCME scripts. |
-| `data/manifests/iceccme2026_*.csv` | `iceccme` | ICECCME run manifests. |
-| `data/results/json/iceccme2026_*.json` | `iceccme` | ICECCME manifest summaries preserved for compatibility. |
+| `data/derived_public`, `data/manifests`, `data/interim`, `data/raw_private`, `data/results` | compatibility symlinks | Root-level links preserving current commands while canonical ICECCME data lives under `data/iceccme2026/`. |
 
 ## Future canonical paths
 
@@ -44,6 +43,7 @@ New work should use these paths once each workstream has a real design.
 | `configs/iceccme/` | `iceccme` | Canonical ICECCME experiment and paper configs; root configs remain compatibility symlinks. |
 | `prompts/iceccme/` | `iceccme` | Canonical ICECCME prompt text; root prompts remain compatibility symlinks. |
 | `scripts/iceccme2026/` | `iceccme` | Canonical ICECCME script implementations; root scripts remain compatibility wrappers. |
+| `data/iceccme2026/` | `iceccme` | Canonical ICECCME derived data, manifests, interim files, raw-private local data, and data-side summaries. |
 | `runs/iceccme/` | `iceccme` | New ICECCME run outputs and logs. |
 | `artifacts/iceccme/` | `iceccme` | New ICECCME generated figures, tables, and manuscript exports. |
 | `configs/scis/` | `scis` | Real SCIS configs only; no placeholder experiment YAML. |

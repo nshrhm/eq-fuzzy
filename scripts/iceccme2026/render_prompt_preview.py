@@ -385,6 +385,7 @@ def read_text_content(
 
 def find_default_schema_path(repo_root: Path) -> Path | None:
     candidates = [
+        repo_root / "prompts" / "shared" / "response_schema.json",
         repo_root / "prompts" / "response_schema.json",
         repo_root / "response_schema.json",
     ]

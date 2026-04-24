@@ -69,6 +69,7 @@ The current working pipeline is still the ICECCME 2026 pipeline. This bootstrap 
 - root-level commands in `main.py`, `run_openrouter_manifest.py`, and `scripts/*.py` remain the current runnable interface.
 - `scripts/iceccme2026/` is the canonical home for ICECCME script implementations; root-level `scripts/*.py` files are compatibility wrappers.
 - root-level `configs/*.yaml`, `prompts/*`, and `results/*` are ICECCME compatibility paths for the current pipeline.
+- `data/iceccme2026/` is the canonical home for ICECCME data; root-level `data/derived_public`, `data/manifests`, `data/interim`, `data/raw_private`, and `data/results` are compatibility symlinks.
 - SCIS and ICICIC directories are placeholders only until their real configs, prompts, and analysis code are designed.
 
 Before SCIS or ICICIC work starts, path ownership is fixed in `docs/PATH_OWNERSHIP.md`. New generated outputs should use `runs/<workstream>/...` or `artifacts/<workstream>/...`; future SCIS and ICICIC code must not overwrite the existing ICECCME-compatible `results/*` outputs.
@@ -103,16 +104,16 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-python main.py prepare-human   --input /absolute/path/to/文学短編作品.xlsx   --output-dir data/derived_public
+python main.py prepare-human   --input /absolute/path/to/文学短編作品.xlsx   --output-dir data/iceccme2026/derived_public
 
-python main.py build-manifest   --config configs/experiment.yaml   --models configs/models_default.yaml   --output data/manifests/iceccme2026_primary_neutral_manifest.csv
+python main.py build-manifest   --config configs/iceccme/experiment.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 
-python main.py build-manifest   --config configs/experiment_secondary_persona.yaml   --models configs/models_default.yaml   --output data/manifests/iceccme2026_secondary_persona_manifest.csv
+python main.py build-manifest   --config configs/iceccme/experiment_secondary_persona.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_secondary_persona_manifest.csv
 
 python verify_results.py
 
 # optional: normalize raw run outputs into the long-format file expected by score-alignment
-python main.py normalize-model-scores   --input path/to/raw_outputs.jsonl   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv   --join-on-order   --output data/interim/model_scores.csv
+python main.py normalize-model-scores   --input path/to/raw_outputs.jsonl   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv   --join-on-order   --output data/iceccme2026/interim/model_scores.csv
 ```
 
 ## Prompt tooling
@@ -122,7 +123,7 @@ The root-level prompt files are compatibility symlinks. ICECCME prompt text live
 Use the preview script before large runs:
 
 ```bash
-python scripts/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/raw_private/texts/ja/T1.txt   --output T1_p0_ja_prompt.txt
+python scripts/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/iceccme2026/raw_private/texts/ja/T1.txt   --output T1_p0_ja_prompt.txt
 ```
 
 ## Paper artifact regeneration
@@ -151,6 +152,7 @@ The following directories are intentionally empty except for `.gitkeep` or a sma
 - `scripts/iceccme2026/`
 - `scripts/scis2026/`
 - `scripts/icicic2026/`
+- `data/iceccme2026/`
 - `paper/scis2026/`
 - `paper/icicic2026/`
 - `runs/iceccme/`
