@@ -70,12 +70,12 @@ The current working pipeline is still the ICECCME 2026 pipeline. ICECCME-specifi
 - `python -m src.iceccme2026.verify` is the canonical verification command.
 - `paper/iceccme2026/` remains the working manuscript path.
 - `scripts/iceccme2026/` is the canonical home for ICECCME script implementations.
-- root-level `configs/*.yaml`, `prompts/*`, and `results/{csv,json,tables,figures}` are compatibility paths for the current pipeline.
+- `configs/iceccme/`, `configs/shared/`, `prompts/iceccme/`, and `prompts/shared/` are the canonical config and prompt locations.
 - `results/iceccme2026/` is the canonical home for ICECCME result CSV/JSON/table/figure outputs.
-- `data/iceccme2026/` is the canonical home for ICECCME data; root-level `data/derived_public`, `data/manifests`, `data/interim`, `data/raw_private`, and `data/results` are compatibility symlinks.
+- `data/iceccme2026/` is the canonical home for ICECCME data.
 - SCIS and ICICIC directories are placeholders only until their real configs, prompts, and analysis code are designed.
 
-Before SCIS or ICICIC work starts, path ownership is fixed in `docs/PATH_OWNERSHIP.md`. New generated outputs should use `runs/<workstream>/...` or `artifacts/<workstream>/...`; future SCIS and ICICIC code must not overwrite the existing ICECCME-compatible `results/*` outputs.
+Before SCIS or ICICIC work starts, path ownership is fixed in `docs/PATH_OWNERSHIP.md`. New generated outputs should use `runs/<workstream>/...` or `artifacts/<workstream>/...`; future SCIS and ICICIC code must not overwrite the existing ICECCME `results/iceccme2026/*` outputs.
 
 ## Default current model panel for ICECCME (core 6)
 
@@ -90,15 +90,15 @@ See `docs/iceccme2026/model_selection_openrouter_2026-04-17.md` for the rational
 
 ## Important current ICECCME config files
 
-- `configs/experiment.yaml` - default **primary neutral** run
-- `configs/experiment_secondary_persona.yaml` - secondary persona sensitivity run
-- `configs/models_default.yaml` - selected OpenRouter core-6 panel
-- `configs/models_budget4.yaml` - smaller budget fallback panel
-- `configs/texts_from_definitions.yaml` - source-of-truth text mapping from `definitions.py`
-- `configs/personas_from_definitions.yaml` - original p1-p4 mapping from `definitions.py`
-- `configs/personas_primary_neutral.yaml` - new p0 neutral persona for the main paper endpoint
+- `configs/iceccme/experiment.yaml` - default **primary neutral** run
+- `configs/iceccme/experiment_secondary_persona.yaml` - secondary persona sensitivity run
+- `configs/shared/models_default.yaml` - selected OpenRouter core-6 panel
+- `configs/shared/models_budget4.yaml` - smaller budget fallback panel
+- `configs/shared/texts_from_definitions.yaml` - source-of-truth text mapping from `definitions.py`
+- `configs/shared/personas_from_definitions.yaml` - original p1-p4 mapping from `definitions.py`
+- `configs/iceccme/personas_primary_neutral.yaml` - new p0 neutral persona for the main paper endpoint
 
-These root-level files are compatibility symlinks. The canonical config locations are `configs/iceccme/` for ICECCME-specific experiment and paper settings, and `configs/shared/` for model/text/persona registries that can be reused by later workstreams.
+The canonical config locations are `configs/iceccme/` for ICECCME-specific experiment and paper settings, and `configs/shared/` for model/text/persona registries that can be reused by later workstreams.
 
 ## First commands to run
 
@@ -130,7 +130,7 @@ make iceccme-paper
 
 ## Prompt tooling
 
-The root-level prompt files are compatibility symlinks. ICECCME prompt text lives in `prompts/iceccme/`, and the shared response schema lives in `prompts/shared/`.
+ICECCME prompt text lives in `prompts/iceccme/`, and the shared response schema lives in `prompts/shared/`.
 
 Use the preview script before large runs:
 

@@ -6,17 +6,17 @@
 - `requirements.txt` に `scipy>=1.11` を追加済み
 - standalone scripts は repo root を `sys.path` に追加する修正済み
 - private texts は以下に配置済み
-  - `data/raw_private/texts/ja/T1.txt`
-  - `data/raw_private/texts/ja/T2.txt`
-  - `data/raw_private/texts/ja/T3.txt`
-  - `data/raw_private/texts/en/T1.txt`
-  - `data/raw_private/texts/en/T2.txt`
-  - `data/raw_private/texts/en/T3.txt`
-  - `data/raw_private/texts/zh/T1.txt`
-  - `data/raw_private/texts/zh/T2.txt`
-  - `data/raw_private/texts/zh/T3.txt`
+  - `data/iceccme2026/raw_private/texts/ja/T1.txt`
+  - `data/iceccme2026/raw_private/texts/ja/T2.txt`
+  - `data/iceccme2026/raw_private/texts/ja/T3.txt`
+  - `data/iceccme2026/raw_private/texts/en/T1.txt`
+  - `data/iceccme2026/raw_private/texts/en/T2.txt`
+  - `data/iceccme2026/raw_private/texts/en/T3.txt`
+  - `data/iceccme2026/raw_private/texts/zh/T1.txt`
+  - `data/iceccme2026/raw_private/texts/zh/T2.txt`
+  - `data/iceccme2026/raw_private/texts/zh/T3.txt`
 - human workbook を置く場合
-  - `data/raw_private/human/文学短編作品.xlsx`
+  - `data/iceccme2026/raw_private/human/文学短編作品.xlsx`
 
 ## 実行順
 
@@ -24,39 +24,39 @@
 
 ```bash
 python scripts/iceccme2026/prepare_human_data.py \
-  --input data/raw_private/human/文学短編作品.xlsx \
-  --output-dir data/derived_public
+  --input data/iceccme2026/raw_private/human/文学短編作品.xlsx \
+  --output-dir data/iceccme2026/derived_public
 ```
 
 同等の canonical module コマンド:
 
 ```bash
 python -m src.iceccme2026.cli prepare-human \
-  --input data/raw_private/human/文学短編作品.xlsx \
-  --output-dir data/derived_public
+  --input data/iceccme2026/raw_private/human/文学短編作品.xlsx \
+  --output-dir data/iceccme2026/derived_public
 ```
 
 主要出力:
-- `data/derived_public/human_vas_summary.csv`
-- `data/derived_public/human_reference_12cell.csv`
-- `data/derived_public/human_respondent_summary.csv`
+- `data/iceccme2026/derived_public/human_vas_summary.csv`
+- `data/iceccme2026/derived_public/human_reference_12cell.csv`
+- `data/iceccme2026/derived_public/human_respondent_summary.csv`
 
 ### 2. primary manifest を生成
 
 ```bash
 python scripts/iceccme2026/build_run_manifest.py \
-  --config configs/experiment.yaml \
-  --models configs/models_default.yaml \
-  --output data/manifests/iceccme2026_primary_neutral_manifest.csv
+  --config configs/iceccme/experiment.yaml \
+  --models configs/shared/models_default.yaml \
+  --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 ```
 
 同等の canonical module コマンド:
 
 ```bash
 python -m src.iceccme2026.cli build-manifest \
-  --config configs/experiment.yaml \
-  --models configs/models_default.yaml \
-  --output data/manifests/iceccme2026_primary_neutral_manifest.csv
+  --config configs/iceccme/experiment.yaml \
+  --models configs/shared/models_default.yaml \
+  --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 ```
 
 想定行数:
@@ -67,7 +67,7 @@ python -m src.iceccme2026.cli build-manifest \
 ```bash
 python - <<'PY'
 import pandas as pd
-p='data/manifests/iceccme2026_primary_neutral_manifest.csv'
+p='data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv'
 df=pd.read_csv(p)
 print(df.shape)
 print(df.head())
@@ -82,7 +82,7 @@ python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
-  --text-file data/raw_private/texts/ja/T1.txt \
+  --text-file data/iceccme2026/raw_private/texts/ja/T1.txt \
   --output /tmp/T1_p0_ja_prompt.txt
 ```
 
@@ -93,7 +93,7 @@ python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
-  --text-file data/raw_private/texts/ja/T1.txt
+  --text-file data/iceccme2026/raw_private/texts/ja/T1.txt
 ```
 
 ### 4. OpenRouter 実行
@@ -109,9 +109,9 @@ export OPENROUTER_API_KEY='YOUR_KEY_HERE'
 ```bash
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/raw_private/texts \
-  --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --texts-dir data/iceccme2026/raw_private/texts \
+  --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --limit 6 \
   --sleep-sec 1.0 \
   --resume
@@ -122,9 +122,9 @@ python -m src.iceccme2026.openrouter_runner \
 ```bash
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/raw_private/texts \
-  --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --texts-dir data/iceccme2026/raw_private/texts \
+  --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --sleep-sec 0.7 \
   --resume
 ```
@@ -133,19 +133,19 @@ python -m src.iceccme2026.openrouter_runner \
 
 ```bash
 python -m src.iceccme2026.cli normalize-model-scores \
-  --input data/raw_private/openrouter_primary_raw.jsonl \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
-  --output data/interim/model_scores.csv
+  --output data/iceccme2026/interim/model_scores.csv
 ```
 
 ### 6. human alignment を採点
 
 ```bash
 python scripts/iceccme2026/score_human_alignment.py \
-  --human data/derived_public/human_vas_summary.csv \
-  --model-scores data/interim/model_scores.csv \
-  --output-dir results/csv \
+  --human data/iceccme2026/derived_public/human_vas_summary.csv \
+  --model-scores data/iceccme2026/interim/model_scores.csv \
+  --output-dir results/iceccme2026/csv \
   --primary-language ja
 ```
 
@@ -153,67 +153,67 @@ python scripts/iceccme2026/score_human_alignment.py \
 
 ```bash
 python -m src.iceccme2026.cli score-alignment \
-  --human data/derived_public/human_vas_summary.csv \
-  --model-scores data/interim/model_scores.csv \
-  --output-dir results/csv \
+  --human data/iceccme2026/derived_public/human_vas_summary.csv \
+  --model-scores data/iceccme2026/interim/model_scores.csv \
+  --output-dir results/iceccme2026/csv \
   --primary-language ja
 ```
 
 主要出力:
-- `results/csv/model_language_alignment.csv`
-- `results/csv/model_language_cell_level.csv`
+- `results/iceccme2026/csv/model_language_alignment.csv`
+- `results/iceccme2026/csv/model_language_cell_level.csv`
 
 ### 7. primary ranking / language drift table を出力
 
 ```bash
 python scripts/iceccme2026/export_primary_tables.py \
-  --alignment results/csv/model_language_alignment.csv \
-  --output-dir results/csv \
+  --alignment results/iceccme2026/csv/model_language_alignment.csv \
+  --output-dir results/iceccme2026/csv \
   --primary-language ja \
   --primary-persona p0
 ```
 
 主要出力:
-- `results/csv/ja_primary_ranking.csv`
-- `results/csv/model_language_drift_vs_ja.csv`
+- `results/iceccme2026/csv/ja_primary_ranking.csv`
+- `results/iceccme2026/csv/model_language_drift_vs_ja.csv`
 
 ## いちばん安全な実行順
 
 ```bash
 python scripts/iceccme2026/prepare_human_data.py \
-  --input data/raw_private/human/文学短編作品.xlsx \
-  --output-dir data/derived_public
+  --input data/iceccme2026/raw_private/human/文学短編作品.xlsx \
+  --output-dir data/iceccme2026/derived_public
 
 python scripts/iceccme2026/build_run_manifest.py \
-  --config configs/experiment.yaml \
-  --models configs/models_default.yaml \
-  --output data/manifests/iceccme2026_primary_neutral_manifest.csv
+  --config configs/iceccme/experiment.yaml \
+  --models configs/shared/models_default.yaml \
+  --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 
 python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
-  --text-file data/raw_private/texts/ja/T1.txt
+  --text-file data/iceccme2026/raw_private/texts/ja/T1.txt
 
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/raw_private/texts \
-  --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --texts-dir data/iceccme2026/raw_private/texts \
+  --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --limit 6 \
   --sleep-sec 1.0 \
   --resume
 
 python -m src.iceccme2026.cli normalize-model-scores \
-  --input data/raw_private/openrouter_primary_raw.jsonl \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
-  --output data/interim/model_scores.csv
+  --output data/iceccme2026/interim/model_scores.csv
 
 python scripts/iceccme2026/score_human_alignment.py \
-  --human data/derived_public/human_vas_summary.csv \
-  --model-scores data/interim/model_scores.csv \
-  --output-dir results/csv \
+  --human data/iceccme2026/derived_public/human_vas_summary.csv \
+  --model-scores data/iceccme2026/interim/model_scores.csv \
+  --output-dir results/iceccme2026/csv \
   --primary-language ja
 ```
 

@@ -24,10 +24,6 @@ These paths remain valid for the current ICECCME 2026 workflow. Root-level Pytho
 | `src/iceccme2026/` | `iceccme` | Working implementation package, including CLI, runner, verification, analysis, and export code. |
 | `paper/iceccme2026/` | `iceccme` | Manuscript source and submission-specific assets. |
 | root-level ICECCME guide docs | deprecated compatibility location | ICECCME guides now belong under `docs/iceccme2026/`; do not add new workstream-specific docs at the repository root. |
-| `configs/*.yaml` | compatibility symlinks | Root-level links preserving current commands while canonical configs live under `configs/iceccme/` and `configs/shared/`. |
-| `prompts/*.md`, `prompts/*.json` | compatibility symlinks | Root-level links preserving current manifests and runner commands while canonical prompt assets live under `prompts/iceccme/` and `prompts/shared/`. |
-| `results/{csv,json,tables,figures}` | compatibility symlinks | Root-level links preserving current commands while canonical ICECCME results live under `results/iceccme2026/`. |
-| `data/derived_public`, `data/manifests`, `data/interim`, `data/raw_private`, `data/results` | compatibility symlinks | Root-level links preserving current commands while canonical ICECCME data lives under `data/iceccme2026/`. |
 
 ## Future canonical paths
 
@@ -39,8 +35,8 @@ New work should use these paths once each workstream has a real design.
 | `configs/shared/` | `shared` | Shared model, text, and persona registry/config fragments, not paper-specific experiment plans. |
 | `prompts/shared/` | `shared` | Shared schemas or prompt fragments only when they are claim-neutral. |
 | `data/catalogs/` | `shared` | Text, persona, and model catalogs with provenance. |
-| `configs/iceccme/` | `iceccme` | Canonical ICECCME experiment and paper configs; root configs remain compatibility symlinks. |
-| `prompts/iceccme/` | `iceccme` | Canonical ICECCME prompt text; root prompts remain compatibility symlinks. |
+| `configs/iceccme/` | `iceccme` | Canonical ICECCME experiment and paper configs. |
+| `prompts/iceccme/` | `iceccme` | Canonical ICECCME prompt text. |
 | `scripts/iceccme2026/` | `iceccme` | Canonical ICECCME script implementations. |
 | `data/iceccme2026/` | `iceccme` | Canonical ICECCME derived data, manifests, interim files, raw-private local data, and data-side summaries. |
 | `results/iceccme2026/` | `iceccme` | Canonical ICECCME result CSV/JSON/table/figure outputs. |
@@ -83,7 +79,7 @@ Good candidates for later extraction are generic parts of manifest construction,
 
 New generated outputs should go under `runs/<workstream>/...` or `artifacts/<workstream>/...`.
 
-The existing `results/` directory remains an ICECCME compatibility output location. Future SCIS and ICICIC code must not overwrite `results/*` unless a compatibility wrapper explicitly documents why.
+ICECCME result tables, figures, and machine-readable summaries live under `results/iceccme2026/`. Future SCIS and ICICIC code must not overwrite `results/iceccme2026/*`.
 
 ## Documentation isolation rule
 

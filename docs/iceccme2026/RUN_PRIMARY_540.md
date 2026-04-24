@@ -7,38 +7,38 @@ This note assumes you already fixed:
 ## 1. Confirm the expected private inputs
 
 ```text
-data/raw_private/texts/ja/T1.txt
-data/raw_private/texts/ja/T2.txt
-data/raw_private/texts/ja/T3.txt
-data/raw_private/texts/en/T1.txt
-data/raw_private/texts/en/T2.txt
-data/raw_private/texts/en/T3.txt
-data/raw_private/texts/zh/T1.txt
-data/raw_private/texts/zh/T2.txt
-data/raw_private/texts/zh/T3.txt
+data/iceccme2026/raw_private/texts/ja/T1.txt
+data/iceccme2026/raw_private/texts/ja/T2.txt
+data/iceccme2026/raw_private/texts/ja/T3.txt
+data/iceccme2026/raw_private/texts/en/T1.txt
+data/iceccme2026/raw_private/texts/en/T2.txt
+data/iceccme2026/raw_private/texts/en/T3.txt
+data/iceccme2026/raw_private/texts/zh/T1.txt
+data/iceccme2026/raw_private/texts/zh/T2.txt
+data/iceccme2026/raw_private/texts/zh/T3.txt
 ```
 
 If needed, also place the SurveyMonkey workbook at:
 
 ```text
-data/raw_private/human/文学短編作品.xlsx
+data/iceccme2026/raw_private/human/文学短編作品.xlsx
 ```
 
 ## 2. Build or rebuild the Japanese human reference
 
 ```bash
 python -m src.iceccme2026.cli prepare-human \
-  --input data/raw_private/human/文学短編作品.xlsx \
-  --output-dir data/derived_public
+  --input data/iceccme2026/raw_private/human/文学短編作品.xlsx \
+  --output-dir data/iceccme2026/derived_public
 ```
 
 ## 3. Build the primary manifest
 
 ```bash
 python -m src.iceccme2026.cli build-manifest \
-  --config configs/experiment.yaml \
-  --models configs/models_default.yaml \
-  --output data/manifests/iceccme2026_primary_neutral_manifest.csv
+  --config configs/iceccme/experiment.yaml \
+  --models configs/shared/models_default.yaml \
+  --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 ```
 
 Expected size: 540 rows.
@@ -50,7 +50,7 @@ python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
-  --text-file data/raw_private/texts/ja/T1.txt
+  --text-file data/iceccme2026/raw_private/texts/ja/T1.txt
 ```
 
 ## 5. Export your OpenRouter API key
@@ -64,9 +64,9 @@ export OPENROUTER_API_KEY='YOUR_KEY_HERE'
 ```bash
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/raw_private/texts \
-  --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --texts-dir data/iceccme2026/raw_private/texts \
+  --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --limit 1 \
   --dry-run
 ```
@@ -76,9 +76,9 @@ python -m src.iceccme2026.openrouter_runner \
 ```bash
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/raw_private/texts \
-  --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --texts-dir data/iceccme2026/raw_private/texts \
+  --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --limit 6 \
   --sleep-sec 1.0 \
   --resume
@@ -88,19 +88,19 @@ python -m src.iceccme2026.openrouter_runner \
 
 ```bash
 python -m src.iceccme2026.cli normalize-model-scores \
-  --input data/raw_private/openrouter_primary_raw.jsonl \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
-  --output data/interim/model_scores.csv
+  --output data/iceccme2026/interim/model_scores.csv
 ```
 
 ## 9. Score human alignment
 
 ```bash
 python -m src.iceccme2026.cli score-alignment \
-  --human data/derived_public/human_vas_summary.csv \
-  --model-scores data/interim/model_scores.csv \
-  --output-dir results/csv \
+  --human data/iceccme2026/derived_public/human_vas_summary.csv \
+  --model-scores data/iceccme2026/interim/model_scores.csv \
+  --output-dir results/iceccme2026/csv \
   --primary-language ja
 ```
 
@@ -109,9 +109,9 @@ python -m src.iceccme2026.cli score-alignment \
 ```bash
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/raw_private/texts \
-  --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --texts-dir data/iceccme2026/raw_private/texts \
+  --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --sleep-sec 0.7 \
   --resume
 ```
@@ -120,15 +120,15 @@ After completion:
 
 ```bash
 python -m src.iceccme2026.cli normalize-model-scores \
-  --input data/raw_private/openrouter_primary_raw.jsonl \
-  --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
+  --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
+  --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
-  --output data/interim/model_scores.csv
+  --output data/iceccme2026/interim/model_scores.csv
 
 python -m src.iceccme2026.cli score-alignment \
-  --human data/derived_public/human_vas_summary.csv \
-  --model-scores data/interim/model_scores.csv \
-  --output-dir results/csv \
+  --human data/iceccme2026/derived_public/human_vas_summary.csv \
+  --model-scores data/iceccme2026/interim/model_scores.csv \
+  --output-dir results/iceccme2026/csv \
   --primary-language ja
 ```
 
