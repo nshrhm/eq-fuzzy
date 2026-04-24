@@ -177,7 +177,7 @@ The following directories are intentionally empty except for `.gitkeep` or a sma
 - `artifacts/scratch/`
 - `artifacts/scratch/figures/`
 - `artifacts/scratch/tables/`
-- `artifacts/manuscripts/`
+- `artifacts/scratch/manuscripts/`
 - `snapshots/iceccme2026/`
 - `snapshots/scis2026/`
 - `snapshots/icicic2026/`
