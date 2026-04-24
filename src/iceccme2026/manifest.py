@@ -51,8 +51,8 @@ def build_manifest(config_path: str | Path, models_path: str | Path, output_path
                 "persona_label": persona["persona_label"],
                 "temperature": float(persona["temperature"]),
                 "repetition": int(repetition),
-                "prompt_template": config.get("prompts", {}).get("user_template", "prompts/emotion_eval_user_template_multilingual_json.md"),
-                "response_schema": config.get("prompts", {}).get("response_schema", "prompts/response_schema.json"),
+                "prompt_template": config.get("prompts", {}).get("user_template", "prompts/iceccme/emotion_eval_user_template_multilingual_json.md"),
+                "response_schema": config.get("prompts", {}).get("response_schema", "prompts/shared/response_schema.json"),
                 "should_compare_to_human_primary": language == study["primary_language"],
                 "notes": "Review overlap against any simultaneously submitted paper before execution.",
             }

@@ -10,7 +10,7 @@
 - Persona: **p0 Neutral Reader** only
 - Languages: ja / en / zh
 - Stories: T1 / T2 / T3
-- Models: core 6 from `configs/models_default.yaml`
+- Models: core 6 from `configs/shared/models_default.yaml`
 - Repeats: 10
 
 ### Secondary sensitivity analysis

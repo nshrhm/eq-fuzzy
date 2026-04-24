@@ -25,9 +25,9 @@ Minimum must-pass commands:
 python main.py prepare-human ...
 python main.py build-manifest ...
 python main.py score-alignment ...
-python scripts/plot_figure2_ja_ranking.py
-python scripts/plot_figure3_cross_language_drift.py
-python scripts/export_table2_primary.py
+python scripts/iceccme2026/plot_figure2_ja_ranking.py
+python scripts/iceccme2026/plot_figure3_cross_language_drift.py
+python scripts/iceccme2026/export_table2_primary.py
 ```
 
 ## Phase 1 — documentation-first monorepo conversion

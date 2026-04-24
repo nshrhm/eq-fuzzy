@@ -34,13 +34,13 @@ Keep these paths and commands stable:
 
 - `src/iceccme2026/`
 - `paper/iceccme2026/`
-- `configs/experiment.yaml`
-- `configs/experiment_secondary_persona.yaml`
+- `configs/iceccme/experiment.yaml`
+- `configs/iceccme/experiment_secondary_persona.yaml`
 - `main.py`
 - `run_openrouter_manifest.py`
-- `scripts/plot_figure2_ja_ranking.py`
-- `scripts/plot_figure3_cross_language_drift.py`
-- `scripts/export_table2_primary.py`
+- `scripts/iceccme2026/plot_figure2_ja_ranking.py`
+- `scripts/iceccme2026/plot_figure3_cross_language_drift.py`
+- `scripts/iceccme2026/export_table2_primary.py`
 
 ## Differentiation
 

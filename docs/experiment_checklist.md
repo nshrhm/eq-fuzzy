@@ -3,7 +3,7 @@
 ## Before the run
 - [ ] Verify T1–T3 mapping against `external/jaciii_iihmsp2025/definitions.py`.
 - [ ] Confirm that the EN and ZH texts are the validated translations you want to compare.
-- [ ] Freeze the model IDs in `configs/models_default.yaml`.
+- [ ] Freeze the model IDs in `configs/shared/models_default.yaml`.
 - [ ] Freeze the prompt files and response schema.
 - [ ] Decide whether the paper will report only the primary neutral run or also one compact persona-sensitivity figure.
 

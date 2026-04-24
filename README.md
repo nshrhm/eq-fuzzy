@@ -124,7 +124,7 @@ The root-level prompt files are compatibility symlinks. ICECCME prompt text live
 Use the preview script before large runs:
 
 ```bash
-python scripts/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/iceccme2026/raw_private/texts/ja/T1.txt   --output T1_p0_ja_prompt.txt
+python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/iceccme2026/raw_private/texts/ja/T1.txt   --output T1_p0_ja_prompt.txt
 ```
 
 ## Paper artifact regeneration
@@ -132,9 +132,9 @@ python scripts/render_prompt_preview.py   --story-id T1   --persona-id p0   --la
 After `results/iceccme2026/csv/ja_primary_ranking.csv` and `results/iceccme2026/csv/model_language_drift_vs_ja.csv` exist, regenerate Figure 2, Figure 3, and Table 2 with:
 
 ```bash
-python scripts/plot_figure2_ja_ranking.py
-python scripts/plot_figure3_cross_language_drift.py
-python scripts/export_table2_primary.py
+python scripts/iceccme2026/plot_figure2_ja_ranking.py
+python scripts/iceccme2026/plot_figure3_cross_language_drift.py
+python scripts/iceccme2026/export_table2_primary.py
 ```
 
 ## Future directory stubs
