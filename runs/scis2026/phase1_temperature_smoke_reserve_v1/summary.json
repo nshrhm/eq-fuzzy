@@ -1,0 +1,67 @@
+{
+  "models": [
+    {
+      "model_id": "anthropic/claude-haiku-4.5",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "reserve_candidates",
+      "candidate_role": "budget_substitute",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 4,
+      "n_failed": 0,
+      "malformed_or_error_rate": 0.0,
+      "mean_elapsed_sec": 5.841,
+      "error_status_codes": [],
+      "validation_errors": [],
+      "passes_phase1_gate": true
+    },
+    {
+      "model_id": "openai/gpt-5-mini",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "reserve_candidates",
+      "candidate_role": "budget_substitute",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 0,
+      "n_failed": 4,
+      "malformed_or_error_rate": 1.0,
+      "mean_elapsed_sec": 0.202,
+      "error_status_codes": [
+        "400"
+      ],
+      "validation_errors": [],
+      "passes_phase1_gate": false
+    }
+  ]
+}

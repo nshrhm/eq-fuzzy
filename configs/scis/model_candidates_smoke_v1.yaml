@@ -1,0 +1,110 @@
+catalog_id: scis2026_model_candidates_smoke_v1
+catalog_date_utc: '2026-04-25'
+purpose: >
+  Candidate catalog for SCIS 2026 Phase 1 model capability smoke tests.
+  A model is not eligible for the SCIS main panel until it accepts all
+  configured API temperatures and returns the expected structured response.
+status: unverified_candidates
+provider: openrouter
+
+smoke_test:
+  temperatures: [0.1, 0.4, 0.7, 0.9]
+  repetitions: 1
+  language: ja
+  story_id: T1
+  persona_id: p2
+  top_p: 1.0
+  max_completion_tokens: 700
+  response_schema: prompts/shared/response_schema.json
+  system_prompt: prompts/scis/smoke_v1_system.md
+  user_template: prompts/scis/smoke_v1_user_template.md
+  texts_dir: data/iceccme2026/raw_private/texts
+  text_registry: configs/shared/texts_from_definitions.yaml
+  persona_registry: configs/shared/personas_from_definitions.yaml
+  prompt_temperature_policy: >
+    Temperature is an API/config parameter only. It must not appear in system
+    or user prompt text.
+
+models:
+  main_panel_candidates:
+    - model_id: openai/gpt-5.4
+      provider: openrouter
+      route: openrouter
+      reasoning: {effort: none, exclude: true}
+      candidate_role: frontier_reference
+      verification_status: pending_smoke_test
+      notes: Verify temperature support under disabled-reasoning or equivalent non-reasoning mode.
+    - model_id: anthropic/claude-sonnet-4.5
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: frontier_reference
+      verification_status: pending_smoke_test
+      notes: Anthropic JSON schema compatibility may require numeric bounds to be omitted from the schema payload.
+    - model_id: google/gemini-2.5-pro
+      provider: openrouter
+      route: openrouter
+      reasoning: {max_tokens: 256, exclude: true}
+      candidate_role: frontier_reference
+      verification_status: pending_smoke_test
+      notes: Verify whether a small thinking budget is required by the OpenRouter route.
+    - model_id: x-ai/grok-4.20
+      provider: openrouter
+      route: openrouter
+      reasoning: {effort: none, exclude: true}
+      candidate_role: flagship_current
+      verification_status: pending_smoke_test
+      notes: Verify whether non-default temperatures are accepted without mandatory reasoning.
+    - model_id: deepseek/deepseek-v3.2
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: efficient_high_end
+      verification_status: pending_smoke_test
+      notes: Cost-effective candidate for repeated factorial runs.
+    - model_id: qwen/qwen3.6-plus
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: efficient_high_end
+      verification_status: pending_smoke_test
+      notes: Ecosystem-diversity candidate; verify structured-output stability.
+
+  reserve_candidates:
+    - model_id: openai/gpt-5-mini
+      provider: openrouter
+      route: openrouter
+      reasoning: {effort: none, exclude: true}
+      candidate_role: budget_substitute
+      verification_status: pending_smoke_test
+      notes: Budget OpenAI substitute if the frontier route fails cost or capability gates.
+    - model_id: anthropic/claude-haiku-4.5
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: budget_substitute
+      verification_status: pending_smoke_test
+      notes: Budget Anthropic substitute if Sonnet fails cost or capability gates.
+
+  bridge_or_appendix_candidates:
+    - model_id: openai/gpt-4o-mini
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: bridge_or_appendix
+      verification_status: pending_smoke_test
+      notes: Older bridge candidate only; not a SCIS main-panel default.
+    - model_id: anthropic/claude-3-5-haiku-20241022
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: bridge_or_appendix
+      verification_status: pending_smoke_test
+      notes: Older bridge candidate only; not a SCIS main-panel default.
+    - model_id: google/gemini-2.0-flash
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: bridge_or_appendix
+      verification_status: pending_smoke_test
+      notes: Older bridge candidate only; not a SCIS main-panel default.

@@ -1,0 +1,51 @@
+panel_id: scis2026_main_panel_v1
+status: phase1_temperature_smoke_passed
+decision_date: '2026-04-25'
+source:
+  phase1_gate_config: configs/scis/main_panel_phase1_passed_v1.yaml
+  smoke_runs:
+    - runs/scis2026/phase1_temperature_smoke_v1/summary.json
+    - runs/scis2026/phase1_temperature_smoke_reserve_v1/summary.json
+temperature_gate:
+  required_temperatures: [0.1, 0.4, 0.7, 0.9]
+  prompt_policy: api_parameter_only_not_prompt_text
+  requirement: >
+    A main-panel model must accept all required temperatures as API parameters
+    and return the expected nested scores/reasons response schema for every
+    Phase 1 smoke-test request.
+models:
+  - model_id: openai/gpt-5.4
+    provider: openrouter
+    route: openrouter
+    reasoning: {effort: none, exclude: true}
+    panel_role: frontier_reference
+  - model_id: anthropic/claude-sonnet-4.5
+    provider: openrouter
+    route: openrouter
+    reasoning: {exclude: true}
+    panel_role: frontier_reference
+  - model_id: google/gemini-2.5-pro
+    provider: openrouter
+    route: openrouter
+    reasoning: {max_tokens: 256, exclude: true}
+    panel_role: frontier_reference
+  - model_id: x-ai/grok-4.20
+    provider: openrouter
+    route: openrouter
+    reasoning: {effort: none, exclude: true}
+    panel_role: flagship_current
+  - model_id: deepseek/deepseek-v3.2
+    provider: openrouter
+    route: openrouter
+    reasoning: {exclude: true}
+    panel_role: efficient_high_end
+  - model_id: anthropic/claude-haiku-4.5
+    provider: openrouter
+    route: openrouter
+    reasoning: {exclude: true}
+    panel_role: budget_substitute
+excluded_phase1_candidates:
+  - model_id: qwen/qwen3.6-plus
+    reason: schema_noncompliance
+  - model_id: openai/gpt-5-mini
+    reason: disabled_reasoning_rejected_by_route

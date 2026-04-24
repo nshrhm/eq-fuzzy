@@ -1,0 +1,202 @@
+{
+  "models": [
+    {
+      "model_id": "anthropic/claude-sonnet-4.5",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "main_panel_candidates",
+      "candidate_role": "frontier_reference",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 4,
+      "n_failed": 0,
+      "malformed_or_error_rate": 0.0,
+      "mean_elapsed_sec": 11.63,
+      "error_status_codes": [],
+      "validation_errors": [],
+      "passes_phase1_gate": true
+    },
+    {
+      "model_id": "deepseek/deepseek-v3.2",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "main_panel_candidates",
+      "candidate_role": "efficient_high_end",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 4,
+      "n_failed": 0,
+      "malformed_or_error_rate": 0.0,
+      "mean_elapsed_sec": 11.745,
+      "error_status_codes": [],
+      "validation_errors": [],
+      "passes_phase1_gate": true
+    },
+    {
+      "model_id": "google/gemini-2.5-pro",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "main_panel_candidates",
+      "candidate_role": "frontier_reference",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 4,
+      "n_failed": 0,
+      "malformed_or_error_rate": 0.0,
+      "mean_elapsed_sec": 9.648,
+      "error_status_codes": [],
+      "validation_errors": [],
+      "passes_phase1_gate": true
+    },
+    {
+      "model_id": "openai/gpt-5.4",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "main_panel_candidates",
+      "candidate_role": "frontier_reference",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 4,
+      "n_failed": 0,
+      "malformed_or_error_rate": 0.0,
+      "mean_elapsed_sec": 4.304,
+      "error_status_codes": [],
+      "validation_errors": [],
+      "passes_phase1_gate": true
+    },
+    {
+      "model_id": "qwen/qwen3.6-plus",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "main_panel_candidates",
+      "candidate_role": "efficient_high_end",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 0,
+      "n_failed": 4,
+      "malformed_or_error_rate": 1.0,
+      "mean_elapsed_sec": 57.866,
+      "error_status_codes": [],
+      "validation_errors": [
+        "missing:reasons",
+        "missing:scores",
+        "reasons_not_object",
+        "scores_not_object"
+      ],
+      "passes_phase1_gate": false
+    },
+    {
+      "model_id": "x-ai/grok-4.20",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "main_panel_candidates",
+      "candidate_role": "flagship_current",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 4,
+      "n_failed": 0,
+      "malformed_or_error_rate": 0.0,
+      "mean_elapsed_sec": 3.246,
+      "error_status_codes": [],
+      "validation_errors": [],
+      "passes_phase1_gate": true
+    }
+  ]
+}
