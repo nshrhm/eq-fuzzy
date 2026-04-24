@@ -5,8 +5,8 @@ from pathlib import Path
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-RESULTS_CSV_DIR = REPO_ROOT / "results" / "csv"
-RESULTS_TABLES_DIR = REPO_ROOT / "results" / "tables"
+RESULTS_CSV_DIR = REPO_ROOT / "results" / "iceccme2026" / "csv"
+RESULTS_TABLES_DIR = REPO_ROOT / "results" / "iceccme2026" / "tables"
 PAPER_FIG_DIR = REPO_ROOT / "paper" / "iceccme2026" / "fig"
 PAPER_TABLES_DIR = REPO_ROOT / "paper" / "iceccme2026" / "tables"
 

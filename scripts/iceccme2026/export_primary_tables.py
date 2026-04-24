@@ -98,8 +98,8 @@ def export_primary_tables(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export robust primary ranking and language-drift tables.")
-    parser.add_argument("--alignment", default="results/csv/model_language_alignment.csv")
-    parser.add_argument("--output-dir", default="results/csv")
+    parser.add_argument("--alignment", default="results/iceccme2026/csv/model_language_alignment.csv")
+    parser.add_argument("--output-dir", default="results/iceccme2026/csv")
     parser.add_argument("--primary-language", default="ja")
     parser.add_argument("--primary-persona", default="p0")
     args = parser.parse_args()

@@ -23,6 +23,10 @@ results/figures/*
 !results/figures/.gitkeep
 results/tables/*
 !results/tables/.gitkeep
+results/iceccme2026/figures/*
+!results/iceccme2026/figures/.gitkeep
+results/iceccme2026/tables/*
+!results/iceccme2026/tables/.gitkeep
 data/raw_private/**
 !data/raw_private/
 !data/raw_private/human/

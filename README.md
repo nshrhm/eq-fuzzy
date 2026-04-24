@@ -68,7 +68,8 @@ The current working pipeline is still the ICECCME 2026 pipeline. This bootstrap 
 - `paper/iceccme2026/` remains the working manuscript path.
 - root-level commands in `main.py`, `run_openrouter_manifest.py`, and `scripts/*.py` remain the current runnable interface.
 - `scripts/iceccme2026/` is the canonical home for ICECCME script implementations; root-level `scripts/*.py` files are compatibility wrappers.
-- root-level `configs/*.yaml`, `prompts/*`, and `results/*` are ICECCME compatibility paths for the current pipeline.
+- root-level `configs/*.yaml`, `prompts/*`, and `results/{csv,json,tables,figures}` are compatibility paths for the current pipeline.
+- `results/iceccme2026/` is the canonical home for ICECCME result CSV/JSON/table/figure outputs.
 - `data/iceccme2026/` is the canonical home for ICECCME data; root-level `data/derived_public`, `data/manifests`, `data/interim`, `data/raw_private`, and `data/results` are compatibility symlinks.
 - SCIS and ICICIC directories are placeholders only until their real configs, prompts, and analysis code are designed.
 
@@ -128,7 +129,7 @@ python scripts/render_prompt_preview.py   --story-id T1   --persona-id p0   --la
 
 ## Paper artifact regeneration
 
-After `results/csv/ja_primary_ranking.csv` and `results/csv/model_language_drift_vs_ja.csv` exist, regenerate Figure 2, Figure 3, and Table 2 with:
+After `results/iceccme2026/csv/ja_primary_ranking.csv` and `results/iceccme2026/csv/model_language_drift_vs_ja.csv` exist, regenerate Figure 2, Figure 3, and Table 2 with:
 
 ```bash
 python scripts/plot_figure2_ja_ranking.py
@@ -153,6 +154,7 @@ The following directories are intentionally empty except for `.gitkeep` or a sma
 - `scripts/scis2026/`
 - `scripts/icicic2026/`
 - `data/iceccme2026/`
+- `results/iceccme2026/`
 - `paper/scis2026/`
 - `paper/icicic2026/`
 - `runs/iceccme/`

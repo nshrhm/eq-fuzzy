@@ -28,7 +28,7 @@ study:
 outputs:
   manifest: data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
   human_reference: data/iceccme2026/derived_public/human_vas_summary.csv
-  alignment_dir: results/csv
+  alignment_dir: results/iceccme2026/csv
 prompts:
   user_template: prompts/iceccme/emotion_eval_user_template_multilingual_json.md
   response_schema: prompts/shared/response_schema.json
