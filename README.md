@@ -66,7 +66,8 @@ The current working pipeline is still the ICECCME 2026 pipeline. This bootstrap 
 
 - `src/iceccme2026/` remains the working package.
 - `paper/iceccme2026/` remains the working manuscript path.
-- root-level commands in `main.py`, `run_openrouter_manifest.py`, and `scripts/` remain the current runnable interface.
+- root-level commands in `main.py`, `run_openrouter_manifest.py`, and `scripts/*.py` remain the current runnable interface.
+- `scripts/iceccme2026/` is the canonical home for ICECCME script implementations; root-level `scripts/*.py` files are compatibility wrappers.
 - root-level `configs/*.yaml`, `prompts/*`, and `results/*` are ICECCME compatibility paths for the current pipeline.
 - SCIS and ICICIC directories are placeholders only until their real configs, prompts, and analysis code are designed.
 
@@ -143,6 +144,9 @@ The following directories are intentionally empty except for `.gitkeep` or a sma
 - `prompts/scis/`
 - `prompts/icicic/`
 - `src/core/`
+- `scripts/iceccme2026/`
+- `scripts/scis2026/`
+- `scripts/icicic2026/`
 - `paper/scis2026/`
 - `paper/icicic2026/`
 - `runs/iceccme/`
