@@ -48,6 +48,7 @@ New work should use these paths once each workstream has a real design.
 | `results/iceccme2026/` | `iceccme` | Canonical ICECCME result CSV/JSON/table/figure outputs. |
 | `runs/iceccme/` | `iceccme` | New ICECCME run outputs and logs. |
 | `artifacts/iceccme2026/` | `iceccme` | New ICECCME generated figures, tables, and manuscript exports. |
+| `snapshots/iceccme2026/` | `iceccme` | Frozen ICECCME run states, repair checkpoints, and generated-output snapshots. |
 | `docs/iceccme2026/` | `iceccme` | ICECCME run guides, output inventories, reproducibility notes, model-selection notes, and paper-planning notes. |
 | `artifacts/figures/`, `artifacts/tables/`, `artifacts/manuscripts/` | deprecated compatibility placeholders | Do not add new workstream outputs here. |
 | `configs/scis/` | `scis` | Real SCIS configs only; no placeholder experiment YAML. |
@@ -56,6 +57,7 @@ New work should use these paths once each workstream has a real design.
 | `scripts/scis2026/` | `scis` | SCIS command-line scripts. Placeholder only for now. |
 | `runs/scis/` | `scis` | SCIS run outputs and logs. |
 | `artifacts/scis2026/` | `scis` | SCIS generated artifacts. Placeholder only for now. |
+| `snapshots/scis2026/` | `scis` | SCIS frozen run states. Placeholder only for now. |
 | `docs/scis2026/` | `scis` | SCIS planning and operational notes. Placeholder only for now. |
 | `configs/icicic/` | `icicic` | Real ICICIC configs only; no placeholder experiment YAML. |
 | `prompts/icicic/` | `icicic` | Real ICICIC prompts only; no fake prompt variants. |
@@ -63,6 +65,7 @@ New work should use these paths once each workstream has a real design.
 | `scripts/icicic2026/` | `icicic` | ICICIC command-line scripts. Placeholder only for now. |
 | `runs/icicic/` | `icicic` | ICICIC run outputs and logs. |
 | `artifacts/icicic2026/` | `icicic` | ICICIC generated artifacts. Placeholder only for now. |
+| `snapshots/icicic2026/` | `icicic` | ICICIC frozen run states. Placeholder only for now. |
 | `docs/icicic2026/` | `icicic` | ICICIC planning and operational notes. Placeholder only for now. |
 
 ## Sharing rule
@@ -89,3 +92,9 @@ The existing `results/` directory remains an ICECCME compatibility output locati
 Repository-level policies, ownership maps, migration notes, and cross-workstream context prompts may live directly under `docs/`.
 
 Workstream-specific run guides, output inventories, model-selection notes, reproducibility notes, and paper-planning notes must live under `docs/<workstream>/...`.
+
+## Snapshot isolation rule
+
+Frozen experiment states must live under `snapshots/<workstream>/...`.
+
+The root of `snapshots/` is only an index and ownership boundary. Do not add new dated snapshot directories directly under `snapshots/`.

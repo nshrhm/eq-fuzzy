@@ -59,6 +59,9 @@ Operating rule: **Share code, not claims.**
    - `artifacts/iceccme2026/`
    - `artifacts/scis2026/`
    - `artifacts/icicic2026/`
+   - `snapshots/iceccme2026/`
+   - `snapshots/scis2026/`
+   - `snapshots/icicic2026/`
 5. keep `src/iceccme2026/` as-is
 6. do not move current raw or processed ICECCME files
 

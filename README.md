@@ -166,6 +166,9 @@ The following directories are intentionally empty except for `.gitkeep` or a sma
 - `artifacts/figures/`
 - `artifacts/tables/`
 - `artifacts/manuscripts/`
+- `snapshots/iceccme2026/`
+- `snapshots/scis2026/`
+- `snapshots/icicic2026/`
 
 Do not add fake SCIS or ICICIC configs just to fill these directories.
 
