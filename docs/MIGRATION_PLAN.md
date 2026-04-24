@@ -13,7 +13,7 @@ The current repository already contains a working ICECCME pipeline with:
 - manuscript files under `paper/iceccme2026/`
 
 This is a good starting point for the broader monorepo.
-The migration goal is **not** to replace the root command interface immediately, but to widen it safely while moving ICECCME-specific implementations behind compatibility wrappers.
+The migration goal is to widen the repository safely while keeping ICECCME runnable through canonical module commands.
 
 ## Phase 0 — keep the paper stable
 
@@ -22,9 +22,9 @@ Before restructuring, confirm that the current ICECCME build still works end to 
 Minimum must-pass commands:
 
 ```bash
-python main.py prepare-human ...
-python main.py build-manifest ...
-python main.py score-alignment ...
+python -m src.iceccme2026.cli prepare-human ...
+python -m src.iceccme2026.cli build-manifest ...
+python -m src.iceccme2026.cli score-alignment ...
 python scripts/iceccme2026/plot_figure2_ja_ranking.py
 python scripts/iceccme2026/plot_figure3_cross_language_drift.py
 python scripts/iceccme2026/export_table2_primary.py
@@ -62,7 +62,7 @@ Operating rule: **Share code, not claims.**
    - `snapshots/iceccme2026/`
    - `snapshots/scis2026/`
    - `snapshots/icicic2026/`
-5. keep root CLI commands runnable as wrappers while implementation code lives in `src/iceccme2026/`
+5. keep ICECCME runnable through `python -m src.iceccme2026...` commands
 6. keep `src/iceccme2026/` as the ICECCME implementation package
 7. do not move current raw or processed ICECCME files
 
@@ -145,7 +145,7 @@ Do **not** extract manuscript-facing code or benchmark-claim logic into that pac
 ## Anti-patterns to avoid
 
 - moving everything at once
-- renaming working ICECCME paths without wrappers
+- renaming working ICECCME paths without tested canonical replacements
 - coupling SPReAD-specific workflow code back into the benchmark repository
 - building abstractions before SCIS / ICICIC actually need them
 

@@ -88,7 +88,7 @@ The current working implementation is still ICECCME 2026:
 
 - keep `src/iceccme2026/` intact
 - keep `paper/iceccme2026/` intact
-- keep current root-level commands and scripts runnable
+- keep current ICECCME canonical module commands and workstream scripts runnable
 
 The SCIS and ICICIC directories are placeholders only until their real configs, prompts, analyses, and manuscripts are designed.
 

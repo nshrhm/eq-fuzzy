@@ -5,7 +5,7 @@
 | Asset | Source | How it is reused |
 |---|---|---|
 | IEEE conference LaTeX class and example | uploaded `ICECCME2026_latex.zip` | copied into `paper/iceccme2026/` as the formatting base |
-| Public reproducibility repo pattern | previous public repository layout | same runnable root wrappers: `main.py`, `verify_results.py`, plus canonical implementation under `src/iceccme2026/` |
+| Public reproducibility repo pattern | previous public repository layout | same reproducibility surface, with canonical implementation and commands under `src/iceccme2026/` |
 | Four emotion design | human survey and prior papers | preserved exactly for comparability: interest, surprise, sadness, anger |
 | Persona framing | prior LLM-only study | preserved as a controllable analysis factor, but human alignment becomes the primary endpoint |
 

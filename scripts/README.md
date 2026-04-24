@@ -2,7 +2,7 @@
 
 Scripts are grouped by workstream.
 
-The root-level `scripts/*.py` files are compatibility wrappers for the current ICECCME 2026 workflow. New workstream-specific scripts should live under:
+There are no root-level script wrappers. Workstream-specific scripts live under:
 
 - `scripts/iceccme2026/`
 - `scripts/scis2026/`

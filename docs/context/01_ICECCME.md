@@ -39,9 +39,9 @@ Keep these paths and commands stable:
 - `paper/iceccme2026/`
 - `configs/iceccme/experiment.yaml`
 - `configs/iceccme/experiment_secondary_persona.yaml`
-- `main.py`
-- `run_openrouter_manifest.py`
-- `verify_results.py`
+- `python -m src.iceccme2026.cli`
+- `python -m src.iceccme2026.openrouter_runner`
+- `python -m src.iceccme2026.verify`
 - `scripts/iceccme2026/plot_figure2_ja_ranking.py`
 - `scripts/iceccme2026/plot_figure3_cross_language_drift.py`
 - `scripts/iceccme2026/export_table2_primary.py`

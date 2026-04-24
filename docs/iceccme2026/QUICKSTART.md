@@ -17,7 +17,7 @@
 ## 2. Create the sanitized human reference
 
 ```bash
-python main.py prepare-human   --input data/raw_private/human/文学短編作品.xlsx   --output-dir data/derived_public
+python -m src.iceccme2026.cli prepare-human   --input data/raw_private/human/文学短編作品.xlsx   --output-dir data/derived_public
 ```
 
 ## 3. Review the model panel
@@ -31,7 +31,7 @@ Fallback if you need a smaller run:
 ## 4. Build the primary neutral manifest
 
 ```bash
-python main.py build-manifest   --config configs/experiment.yaml   --models configs/models_default.yaml   --output data/manifests/iceccme2026_primary_neutral_manifest.csv
+python -m src.iceccme2026.cli build-manifest   --config configs/experiment.yaml   --models configs/models_default.yaml   --output data/manifests/iceccme2026_primary_neutral_manifest.csv
 ```
 
 Expected size: **540 rows** (= 6 models × 3 languages × 3 stories × 1 persona × 10 repeats)
@@ -39,7 +39,7 @@ Expected size: **540 rows** (= 6 models × 3 languages × 3 stories × 1 persona
 ## 5. Build the secondary persona-sensitivity manifest
 
 ```bash
-python main.py build-manifest   --config configs/experiment_secondary_persona.yaml   --models configs/models_default.yaml   --output data/manifests/iceccme2026_secondary_persona_manifest.csv
+python -m src.iceccme2026.cli build-manifest   --config configs/experiment_secondary_persona.yaml   --models configs/models_default.yaml   --output data/manifests/iceccme2026_secondary_persona_manifest.csv
 ```
 
 Expected size: **1080 rows** (= 6 models × 3 languages × 3 stories × 4 personas × 5 repeats)
@@ -47,7 +47,7 @@ Expected size: **1080 rows** (= 6 models × 3 languages × 3 stories × 4 person
 ## 6. Preview a prompt before the run
 
 ```bash
-python scripts/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/raw_private/texts/ja/T1.txt
+python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/raw_private/texts/ja/T1.txt
 ```
 
 ## 7. Run or resume the OpenRouter primary collector
@@ -62,7 +62,7 @@ Expected output schema is documented in:
 Primary run output:
 
 ```bash
-python run_openrouter_manifest.py \
+python -m src.iceccme2026.openrouter_runner \
   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
   --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
   --resume
@@ -71,7 +71,7 @@ python run_openrouter_manifest.py \
 Export a retry-only manifest from the existing raw JSONL. Rows are included only when they have at least one failed record and no `ok == true` record:
 
 ```bash
-python run_openrouter_manifest.py \
+python -m src.iceccme2026.openrouter_runner \
   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
   --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
   --export-failed-manifest data/manifests/iceccme2026_primary_neutral_retry_failed.csv
@@ -80,7 +80,7 @@ python run_openrouter_manifest.py \
 Smoke-test one Claude failed row and one Gemini failed row before a larger retry:
 
 ```bash
-python run_openrouter_manifest.py \
+python -m src.iceccme2026.openrouter_runner \
   --manifest data/manifests/iceccme2026_primary_neutral_retry_failed.csv \
   --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
   --resume \
@@ -88,7 +88,7 @@ python run_openrouter_manifest.py \
   --limit 1 \
   --max-completion-tokens 900
 
-python run_openrouter_manifest.py \
+python -m src.iceccme2026.openrouter_runner \
   --manifest data/manifests/iceccme2026_primary_neutral_retry_failed.csv \
   --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
   --resume \
@@ -100,7 +100,7 @@ python run_openrouter_manifest.py \
 Retry failed rows only, appending retry records to the same raw JSONL:
 
 ```bash
-python run_openrouter_manifest.py \
+python -m src.iceccme2026.openrouter_runner \
   --manifest data/manifests/iceccme2026_primary_neutral_retry_failed.csv \
   --output-jsonl data/raw_private/openrouter_primary_raw.jsonl \
   --resume \
@@ -110,7 +110,7 @@ python run_openrouter_manifest.py \
 If your collector writes JSON/JSONL or a wide CSV, normalize it first. For the OpenRouter primary raw JSONL, do not use `--join-on-order`; each raw record already carries its manifest metadata, and retry appends can make file order differ from manifest order:
 
 ```bash
-python main.py normalize-model-scores \
+python -m src.iceccme2026.cli normalize-model-scores \
   --input data/raw_private/openrouter_primary_raw.jsonl \
   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
   --output data/interim/model_scores.csv
@@ -125,13 +125,13 @@ cp data/interim/model_scores_smoketest.csv data/interim/model_scores.csv
 ## 8. Score human alignment
 
 ```bash
-python main.py score-alignment   --human data/derived_public/human_vas_summary.csv   --model-scores data/interim/model_scores.csv   --output-dir results/csv
+python -m src.iceccme2026.cli score-alignment   --human data/derived_public/human_vas_summary.csv   --model-scores data/interim/model_scores.csv   --output-dir results/csv
 ```
 
 ## 9. Export primary and robustness tables
 
 ```bash
-python scripts/export_primary_tables.py \
+python scripts/iceccme2026/export_primary_tables.py \
   --alignment results/csv/model_language_alignment.csv \
   --output-dir results/csv \
   --primary-language ja \
@@ -147,9 +147,9 @@ Generated outputs:
 These commands use the already exported CSV files and do not rerun model calls:
 
 ```bash
-python scripts/plot_figure2_ja_ranking.py
-python scripts/plot_figure3_cross_language_drift.py
-python scripts/export_table2_primary.py
+python scripts/iceccme2026/plot_figure2_ja_ranking.py
+python scripts/iceccme2026/plot_figure3_cross_language_drift.py
+python scripts/iceccme2026/export_table2_primary.py
 ```
 
 Generated outputs:

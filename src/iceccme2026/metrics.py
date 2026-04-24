@@ -60,7 +60,7 @@ def score_alignment_bundle(
     if not model_scores_path.exists():
         raise FileNotFoundError(
             "Model scores file not found: "
-            f"{model_scores_path}. Generate it first with `python main.py normalize-model-scores ...` "
+            f"{model_scores_path}. Generate it first with `python -m src.iceccme2026.cli normalize-model-scores ...` "
             "or place a long-format CSV at this path. See data/templates/model_scores_template.csv."
         )
 

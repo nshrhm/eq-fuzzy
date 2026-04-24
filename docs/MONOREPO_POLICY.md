@@ -89,12 +89,12 @@ Do not perform a big-bang refactor.
 ### Allowed in the first migration pass
 - add documentation
 - add future directories
-- add compatibility wrappers
+- add temporary compatibility wrappers only with an explicit removal plan
 - extract clearly reusable helpers with tests
 
 ### Not allowed in the first migration pass
-- breaking current ICECCME commands
-- renaming working files without wrappers
+- breaking current ICECCME canonical commands
+- renaming working files without a tested canonical replacement
 - moving raw data locations in a way that invalidates the manuscript build
 
 ## 7. Branching rule

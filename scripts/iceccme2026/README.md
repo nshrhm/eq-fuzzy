@@ -2,4 +2,4 @@
 
 Canonical home for ICECCME 2026 command-line scripts.
 
-The parent `scripts/*.py` files remain compatibility wrappers so existing commands keep working.
+Run these scripts through their canonical paths, for example `python scripts/iceccme2026/render_prompt_preview.py`.

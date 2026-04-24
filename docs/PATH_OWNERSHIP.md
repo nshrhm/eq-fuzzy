@@ -2,7 +2,7 @@
 
 This document fixes the repository boundaries before SCIS 2026 and ICICIC 2026 work starts.
 
-The migration policy is compatibility-first: the current ICECCME 2026 pipeline remains runnable from the existing root-level commands and paths.
+The migration policy is canonical-path-first: the current ICECCME 2026 pipeline remains runnable from workstream-specific module commands and directories.
 
 ## Ownership classes
 
@@ -15,15 +15,11 @@ The migration policy is compatibility-first: the current ICECCME 2026 pipeline r
 
 ## Current compatibility paths
 
-These paths remain valid for the current ICECCME 2026 workflow. Root-level command files are compatibility wrappers; the implementation belongs under `src/iceccme2026/`.
+These paths remain valid for the current ICECCME 2026 workflow. Root-level Python command wrappers have been removed; canonical commands use `python -m src.iceccme2026...`.
 
 | Path | Current owner | Notes |
 |---|---|---|
-| `main.py` | `iceccme` compatibility | Root wrapper for `src/iceccme2026/cli.py`. |
-| `run_openrouter_manifest.py` | `iceccme` compatibility | Root wrapper for `src/iceccme2026/openrouter_runner.py`. |
-| `verify_results.py` | `iceccme` compatibility | Root wrapper for `src/iceccme2026/verify.py`. |
 | `Makefile` | `iceccme` compatibility | Root developer shortcuts with explicit `iceccme-*` target names. |
-| `scripts/*.py` | `iceccme` compatibility | Root-level wrappers for existing figure, table, prompt-preview, and helper commands. |
 | `scripts/iceccme2026/` | `iceccme` | Canonical home for ICECCME script implementations. |
 | `src/iceccme2026/` | `iceccme` | Working implementation package, including CLI, runner, verification, analysis, and export code. |
 | `paper/iceccme2026/` | `iceccme` | Manuscript source and submission-specific assets. |
@@ -45,7 +41,7 @@ New work should use these paths once each workstream has a real design.
 | `data/catalogs/` | `shared` | Text, persona, and model catalogs with provenance. |
 | `configs/iceccme/` | `iceccme` | Canonical ICECCME experiment and paper configs; root configs remain compatibility symlinks. |
 | `prompts/iceccme/` | `iceccme` | Canonical ICECCME prompt text; root prompts remain compatibility symlinks. |
-| `scripts/iceccme2026/` | `iceccme` | Canonical ICECCME script implementations; root scripts remain compatibility wrappers. |
+| `scripts/iceccme2026/` | `iceccme` | Canonical ICECCME script implementations. |
 | `data/iceccme2026/` | `iceccme` | Canonical ICECCME derived data, manifests, interim files, raw-private local data, and data-side summaries. |
 | `results/iceccme2026/` | `iceccme` | Canonical ICECCME result CSV/JSON/table/figure outputs. |
 | `runs/iceccme2026/` | `iceccme` | New ICECCME run outputs and logs. |
@@ -78,7 +74,7 @@ Code may move from `src/iceccme2026/` to `src/core/` only when:
 
 - SCIS or ICICIC actually needs the behavior.
 - The extracted code has tests.
-- ICECCME imports continue to work through compatibility wrappers.
+- ICECCME imports continue to work through stable package modules.
 - The extracted code does not contain manuscript framing, captions, or novelty claims.
 
 Good candidates for later extraction are generic parts of manifest construction, score normalization, alignment metrics, correlation helpers, drift metrics, and table/figure utilities that are independent of ICECCME paper claims.

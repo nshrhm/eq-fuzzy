@@ -23,15 +23,15 @@
 ### 1. 人間データを整形
 
 ```bash
-python scripts/prepare_human_data.py \
+python scripts/iceccme2026/prepare_human_data.py \
   --input data/raw_private/human/文学短編作品.xlsx \
   --output-dir data/derived_public
 ```
 
-同等の `main.py` コマンド:
+同等の canonical module コマンド:
 
 ```bash
-python main.py prepare-human \
+python -m src.iceccme2026.cli prepare-human \
   --input data/raw_private/human/文学短編作品.xlsx \
   --output-dir data/derived_public
 ```
@@ -44,16 +44,16 @@ python main.py prepare-human \
 ### 2. primary manifest を生成
 
 ```bash
-python scripts/build_run_manifest.py \
+python scripts/iceccme2026/build_run_manifest.py \
   --config configs/experiment.yaml \
   --models configs/models_default.yaml \
   --output data/manifests/iceccme2026_primary_neutral_manifest.csv
 ```
 
-同等の `main.py` コマンド:
+同等の canonical module コマンド:
 
 ```bash
-python main.py build-manifest \
+python -m src.iceccme2026.cli build-manifest \
   --config configs/experiment.yaml \
   --models configs/models_default.yaml \
   --output data/manifests/iceccme2026_primary_neutral_manifest.csv
@@ -78,7 +78,7 @@ PY
 ### 3. prompt を1本だけ確認
 
 ```bash
-python scripts/render_prompt_preview.py \
+python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
@@ -89,7 +89,7 @@ python scripts/render_prompt_preview.py \
 画面に直接出すなら:
 
 ```bash
-python scripts/render_prompt_preview.py \
+python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
@@ -107,7 +107,7 @@ export OPENROUTER_API_KEY='YOUR_KEY_HERE'
 6件だけ smoke test:
 
 ```bash
-python run_openrouter_manifest.py \
+python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/raw_private/texts \
@@ -120,7 +120,7 @@ python run_openrouter_manifest.py \
 540件を本実行:
 
 ```bash
-python run_openrouter_manifest.py \
+python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/raw_private/texts \
@@ -132,7 +132,7 @@ python run_openrouter_manifest.py \
 ### 5. raw 出力を model_scores.csv に正規化
 
 ```bash
-python main.py normalize-model-scores \
+python -m src.iceccme2026.cli normalize-model-scores \
   --input data/raw_private/openrouter_primary_raw.jsonl \
   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
@@ -142,17 +142,17 @@ python main.py normalize-model-scores \
 ### 6. human alignment を採点
 
 ```bash
-python scripts/score_human_alignment.py \
+python scripts/iceccme2026/score_human_alignment.py \
   --human data/derived_public/human_vas_summary.csv \
   --model-scores data/interim/model_scores.csv \
   --output-dir results/csv \
   --primary-language ja
 ```
 
-同等の `main.py` コマンド:
+同等の canonical module コマンド:
 
 ```bash
-python main.py score-alignment \
+python -m src.iceccme2026.cli score-alignment \
   --human data/derived_public/human_vas_summary.csv \
   --model-scores data/interim/model_scores.csv \
   --output-dir results/csv \
@@ -166,7 +166,7 @@ python main.py score-alignment \
 ### 7. primary ranking / language drift table を出力
 
 ```bash
-python scripts/export_primary_tables.py \
+python scripts/iceccme2026/export_primary_tables.py \
   --alignment results/csv/model_language_alignment.csv \
   --output-dir results/csv \
   --primary-language ja \
@@ -180,22 +180,22 @@ python scripts/export_primary_tables.py \
 ## いちばん安全な実行順
 
 ```bash
-python scripts/prepare_human_data.py \
+python scripts/iceccme2026/prepare_human_data.py \
   --input data/raw_private/human/文学短編作品.xlsx \
   --output-dir data/derived_public
 
-python scripts/build_run_manifest.py \
+python scripts/iceccme2026/build_run_manifest.py \
   --config configs/experiment.yaml \
   --models configs/models_default.yaml \
   --output data/manifests/iceccme2026_primary_neutral_manifest.csv
 
-python scripts/render_prompt_preview.py \
+python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
   --text-file data/raw_private/texts/ja/T1.txt
 
-python run_openrouter_manifest.py \
+python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/raw_private/texts \
@@ -204,13 +204,13 @@ python run_openrouter_manifest.py \
   --sleep-sec 1.0 \
   --resume
 
-python main.py normalize-model-scores \
+python -m src.iceccme2026.cli normalize-model-scores \
   --input data/raw_private/openrouter_primary_raw.jsonl \
   --manifest data/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
   --output data/interim/model_scores.csv
 
-python scripts/score_human_alignment.py \
+python scripts/iceccme2026/score_human_alignment.py \
   --human data/derived_public/human_vas_summary.csv \
   --model-scores data/interim/model_scores.csv \
   --output-dir results/csv \

@@ -2,12 +2,12 @@ from __future__ import annotations
 
 """Run an OpenRouter-backed experiment manifest for ICECCME 2026.
 
-This module reads a manifest CSV produced by `python main.py build-manifest`, loads the
+This module reads a manifest CSV produced by `python -m src.iceccme2026.cli build-manifest`, loads the
 validated multilingual text files from `data/iceccme2026/raw_private/texts/<lang>/<story>.txt`,
 constructs the system/user prompts, calls OpenRouter's chat completions endpoint with
 JSON-schema structured outputs, and writes one JSONL line per completed request.
 
-The repository-root `run_openrouter_manifest.py` remains a compatibility wrapper.
+Invoke this module with `python -m src.iceccme2026.openrouter_runner`.
 Only standard-library modules are used.
 """
 

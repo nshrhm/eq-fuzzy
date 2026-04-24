@@ -62,15 +62,14 @@ SPReAD1000 may later reuse a small frozen utility package, vendored module, or e
 
 ## Current implementation status
 
-The current working pipeline is still the ICECCME 2026 pipeline. Root-level commands remain available as compatibility wrappers, while ICECCME-specific implementations live under `src/iceccme2026/`:
+The current working pipeline is still the ICECCME 2026 pipeline. ICECCME-specific implementations live under `src/iceccme2026/`, and root-level compatibility wrappers have been removed:
 
 - `src/iceccme2026/` remains the working package.
-- `src/iceccme2026/cli.py` contains the implementation behind `main.py`.
-- `src/iceccme2026/openrouter_runner.py` contains the implementation behind `run_openrouter_manifest.py`.
-- `src/iceccme2026/verify.py` contains the implementation behind `verify_results.py`.
+- `python -m src.iceccme2026.cli ...` is the canonical ICECCME CLI.
+- `python -m src.iceccme2026.openrouter_runner ...` is the canonical OpenRouter runner.
+- `python -m src.iceccme2026.verify` is the canonical verification command.
 - `paper/iceccme2026/` remains the working manuscript path.
-- root-level commands in `main.py`, `run_openrouter_manifest.py`, `verify_results.py`, and `scripts/*.py` remain the current runnable interface.
-- `scripts/iceccme2026/` is the canonical home for ICECCME script implementations; root-level `scripts/*.py` files are compatibility wrappers.
+- `scripts/iceccme2026/` is the canonical home for ICECCME script implementations.
 - root-level `configs/*.yaml`, `prompts/*`, and `results/{csv,json,tables,figures}` are compatibility paths for the current pipeline.
 - `results/iceccme2026/` is the canonical home for ICECCME result CSV/JSON/table/figure outputs.
 - `data/iceccme2026/` is the canonical home for ICECCME data; root-level `data/derived_public`, `data/manifests`, `data/interim`, `data/raw_private`, and `data/results` are compatibility symlinks.
@@ -108,16 +107,16 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-python main.py prepare-human   --input /absolute/path/to/文学短編作品.xlsx   --output-dir data/iceccme2026/derived_public
+python -m src.iceccme2026.cli prepare-human   --input /absolute/path/to/文学短編作品.xlsx   --output-dir data/iceccme2026/derived_public
 
-python main.py build-manifest   --config configs/iceccme/experiment.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
+python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 
-python main.py build-manifest   --config configs/iceccme/experiment_secondary_persona.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_secondary_persona_manifest.csv
+python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment_secondary_persona.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_secondary_persona_manifest.csv
 
-python verify_results.py
+python -m src.iceccme2026.verify
 
 # optional: normalize raw run outputs into the long-format file expected by score-alignment
-python main.py normalize-model-scores   --input path/to/raw_outputs.jsonl   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv   --join-on-order   --output data/iceccme2026/interim/model_scores.csv
+python -m src.iceccme2026.cli normalize-model-scores   --input path/to/raw_outputs.jsonl   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv   --join-on-order   --output data/iceccme2026/interim/model_scores.csv
 ```
 
 Equivalent Make targets use explicit ICECCME names:
