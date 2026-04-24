@@ -48,3 +48,12 @@ python scripts/scis2026/build_temperature_smoke_manifest.py \
 Temperature must remain an API/config parameter only. The runner checks that
 the rendered SCIS prompt text does not contain the forbidden term before
 sending requests.
+
+## Phase 2: design lock validation
+
+Validate the locked factorial design, prompt separation rule, and expected
+trial counts:
+
+```bash
+python scripts/scis2026/validate_phase2_design.py
+```

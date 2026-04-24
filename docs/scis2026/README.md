@@ -10,6 +10,7 @@ Do not add fake experiment guides, placeholder configs, or provisional claims be
 - `model_selection_phase1.md`: Phase 1 model selection and exclusion rationale for methods writing and reviewer response.
 - `phase1b_llama_smoke.md`: optional Meta/Llama smoke-test plan before Phase 2 panel lock.
 - `phase1b_llama_smoke_2026-04-25.md`: Phase 1b Meta/Llama smoke-test result note.
+- `phase2_design_lock.md`: Phase 2 factorial design and prompt-lock record.
 
 ## Phase 1 implementation anchors
 
@@ -24,6 +25,7 @@ The Phase 1 model capability smoke test uses:
 - `scripts/scis2026/build_temperature_smoke_manifest.py`
 - `scripts/scis2026/run_temperature_smoke.py`
 - `scripts/scis2026/summarize_temperature_smoke.py`
+- `scripts/scis2026/validate_phase2_design.py`
 
 This stage is a model-entry gate only. It checks whether candidate models accept
 the configured API temperatures and return the expected structured response. It

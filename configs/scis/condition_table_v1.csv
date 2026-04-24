@@ -1,0 +1,17 @@
+condition_id,persona_id,persona_label,persona_name_ja,temperature,temperature_label
+C01,p1,college_freshman,大学1年生,0.1,t01
+C02,p1,college_freshman,大学1年生,0.4,t04
+C03,p1,college_freshman,大学1年生,0.7,t07
+C04,p1,college_freshman,大学1年生,0.9,t09
+C05,p2,literary_scholar,文学研究者,0.1,t01
+C06,p2,literary_scholar,文学研究者,0.4,t04
+C07,p2,literary_scholar,文学研究者,0.7,t07
+C08,p2,literary_scholar,文学研究者,0.9,t09
+C09,p3,emotive_poet,感情豊かな詩人,0.1,t01
+C10,p3,emotive_poet,感情豊かな詩人,0.4,t04
+C11,p3,emotive_poet,感情豊かな詩人,0.7,t07
+C12,p3,emotive_poet,感情豊かな詩人,0.9,t09
+C13,p4,emotionless_robot,無感情なロボット,0.1,t01
+C14,p4,emotionless_robot,無感情なロボット,0.4,t04
+C15,p4,emotionless_robot,無感情なロボット,0.7,t07
+C16,p4,emotionless_robot,無感情なロボット,0.9,t09

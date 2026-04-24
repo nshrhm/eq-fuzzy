@@ -1,0 +1,74 @@
+study:
+  workstream: scis2026
+  design_id: scis2026_factorial_v1
+  status: phase2_design_locked
+  paper_role: persona_temperature_factorial_deconfounding
+  primary_language: ja
+  story_ids: [T1, T2, T3]
+  emotion_dimensions: [interest, surprise, sadness, anger]
+  personas: [p1, p2, p3, p4]
+  temperatures: [0.1, 0.4, 0.7, 0.9]
+  condition_table: configs/scis/condition_table_v1.csv
+  main_panel: configs/scis/main_panel_v2.yaml
+  text_registry: configs/shared/texts_from_definitions.yaml
+  persona_registry: configs/shared/personas_from_definitions.yaml
+  response_schema: prompts/shared/response_schema.json
+
+prompt:
+  system_prompt: prompts/scis/factorial_v1_system.md
+  user_template: prompts/scis/factorial_v1_user_template.md
+  temperature_policy: api_parameter_only_not_prompt_text
+  persona_policy: prompt_interpretive_stance_only
+  forbidden_prompt_terms:
+    - temperature
+
+api_controls:
+  provider: openrouter
+  top_p: 1.0
+  max_completion_tokens: 700
+  stream: false
+  reasoning_source: configs/scis/main_panel_v2.yaml
+
+run_stages:
+  sanity:
+    models: 2
+    story_ids: [T1]
+    conditions: 16
+    repetitions: 3
+    expected_trials: 96
+    purpose: check parser stability and prompt-level separation
+  pilot:
+    models: 4
+    story_ids: [T1, T2, T3]
+    conditions: 16
+    repetitions: 3
+    expected_trials: 576
+    purpose: check feasibility, precision, and interaction estimability
+  main:
+    models: 6
+    story_ids: [T1, T2, T3]
+    conditions: 16
+    repetitions: 5
+    expected_trials: 1440
+    purpose: minimum conference-paper main experiment
+
+analysis_plan:
+  temperature_treatment: categorical_primary
+  primary_effect_components:
+    - SS_persona
+    - SS_temperature
+    - SS_persona_x_temperature
+  derived_summaries:
+    interaction_burden: SS_persona_x_temperature / (SS_persona + SS_temperature + SS_persona_x_temperature)
+    separability_share: 1 - interaction_burden
+  primary_bootstrap: stratified_within_model_text_persona_temperature_cell
+  notes: >
+    Treat model and text as fixed factors in primary summaries. Random-effect
+    models may be used only as sensitivity analyses because the selected panel
+    has six models and three texts.
+
+output_policy:
+  raw_runs_root: runs/scis2026
+  generated_artifacts_root: artifacts/scis2026
+  scratch_root: artifacts/scratch
+  immutable_raw_outputs: true
