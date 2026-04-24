@@ -86,6 +86,8 @@ No workstream should overwrite another workstream’s derived outputs.
 
 Do not perform a big-bang refactor.
 
+For environment, source extraction, tests, and scratch artifacts, see `docs/DEVELOPMENT_POLICY.md`.
+
 ### Allowed in the first migration pass
 - add documentation
 - add future directories

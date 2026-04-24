@@ -1,7 +1,7 @@
 # Data Dictionary
 
 ICECCME canonical data files live under `data/iceccme2026/`.
-Root-level `data/derived_public`, `data/manifests`, `data/interim`, `data/raw_private`, and `data/results` are compatibility symlinks.
+Use canonical `data/iceccme2026/...` paths directly. Root-level data compatibility symlinks have been removed.
 
 ## `data/iceccme2026/derived_public/human_vas_long.csv`
 

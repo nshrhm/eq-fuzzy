@@ -10,4 +10,4 @@ Layout:
 - `raw_private/`: private source workbooks, text files, and raw model outputs, ignored by default except README files
 - `results/`: data-side JSON summaries generated with ICECCME manifests
 
-The root-level `data/derived_public`, `data/manifests`, `data/interim`, `data/raw_private`, and `data/results` paths are compatibility symlinks.
+Use these canonical paths directly. Root-level data compatibility symlinks have been removed.

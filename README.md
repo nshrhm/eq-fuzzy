@@ -197,9 +197,11 @@ Only extract code after a second workstream actually needs it and the behavior c
 
 ## Monorepo docs
 
+- `AGENTS.md` - first-read instructions for coding agents working in this repository
 - `docs/README.md` - documentation ownership and navigation
 - `docs/WORKSTREAMS.md` - scientific separation of ICECCME, SCIS, and ICICIC
 - `docs/MONOREPO_POLICY.md` - repository rules and SPReAD boundary
+- `docs/DEVELOPMENT_POLICY.md` - environment, core extraction, test, and scratch-artifact policy
 - `docs/MIGRATION_PLAN.md` - non-destructive migration sequence and shared-core targets
 - `docs/PATH_OWNERSHIP.md` - ownership map for shared, ICECCME, SCIS, and ICICIC paths
 - `docs/context/` - canonical context prompts for shared and per-workstream planning

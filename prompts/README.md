@@ -2,12 +2,14 @@
 
 Prompt assets are grouped by ownership.
 
-The root-level prompt files are compatibility symlinks for existing manifests and runner commands. Canonical files live under:
+Canonical prompt files live under:
 
 - `prompts/iceccme/` for ICECCME 2026 prompt text
 - `prompts/shared/` for claim-neutral shared schemas or prompt fragments
 - `prompts/scis/` for future SCIS 2026 prompts
 - `prompts/icicic/` for future ICICIC 2026 prompts
+
+Root-level prompt compatibility symlinks have been removed. Use the canonical prompt paths in configs and manifests.
 
 ## Policy
 

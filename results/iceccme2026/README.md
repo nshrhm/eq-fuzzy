@@ -9,4 +9,4 @@ Layout:
 - `tables/`: generated table exports, ignored by default except placeholders
 - `figures/`: generated figure exports, ignored by default except placeholders
 
-The root-level `results/csv`, `results/json`, `results/tables`, and `results/figures` paths are compatibility symlinks.
+Use these canonical result paths directly. Root-level result compatibility symlinks have been removed.
