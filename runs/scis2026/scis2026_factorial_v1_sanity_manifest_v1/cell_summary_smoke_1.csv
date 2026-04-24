@@ -1,0 +1,2 @@
+model_id,story_id,condition_id,persona_id,temperature,n_attempts,n_ok,n_failed,valid_rate
+openai/gpt-5.4,T1,C01,p1,0.1,1,1,0,1.0

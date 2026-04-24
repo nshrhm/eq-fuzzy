@@ -57,3 +57,27 @@ trial counts:
 ```bash
 python scripts/scis2026/validate_phase2_design.py
 ```
+
+## Phase 3: factorial manifests and runner
+
+Build a stage manifest:
+
+```bash
+python scripts/scis2026/build_factorial_manifest.py --stage sanity
+```
+
+Preview one request without calling the API:
+
+```bash
+python scripts/scis2026/run_factorial.py \
+  --manifest runs/scis2026/scis2026_factorial_v1_sanity_manifest_v1/manifest.csv \
+  --limit 1 \
+  --dry-run
+```
+
+Summarize a completed raw JSONL run:
+
+```bash
+python scripts/scis2026/summarize_factorial_run.py \
+  --input-jsonl runs/scis2026/scis2026_factorial_v1_sanity_manifest_v1/raw.jsonl
+```

@@ -1,0 +1,12 @@
+{
+  "run_id": "scis2026_factorial_v1_sanity_manifest_v1",
+  "design_id": "scis2026_factorial_v1",
+  "stage": "sanity",
+  "n_rows": 96,
+  "n_models": 2,
+  "n_stories": 1,
+  "n_conditions": 16,
+  "n_repetitions": 3,
+  "output_manifest": "runs/scis2026/scis2026_factorial_v1_sanity_manifest_v1/manifest.csv",
+  "git_commit": "2ca24e4f148293aa07bfed528a58a05884f8019f"
+}
