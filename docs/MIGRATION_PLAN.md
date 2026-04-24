@@ -13,7 +13,7 @@ The current repository already contains a working ICECCME pipeline with:
 - manuscript files under `paper/iceccme2026/`
 
 This is a good starting point for the broader monorepo.
-The migration goal is **not** to replace it immediately, but to widen it safely.
+The migration goal is **not** to replace the root command interface immediately, but to widen it safely while moving ICECCME-specific implementations behind compatibility wrappers.
 
 ## Phase 0 — keep the paper stable
 
@@ -62,8 +62,9 @@ Operating rule: **Share code, not claims.**
    - `snapshots/iceccme2026/`
    - `snapshots/scis2026/`
    - `snapshots/icicic2026/`
-5. keep `src/iceccme2026/` as-is
-6. do not move current raw or processed ICECCME files
+5. keep root CLI commands runnable as wrappers while implementation code lives in `src/iceccme2026/`
+6. keep `src/iceccme2026/` as the ICECCME implementation package
+7. do not move current raw or processed ICECCME files
 
 ### Result
 The repository remains operational for ICECCME and becomes ready for SCIS / ICICIC.

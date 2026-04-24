@@ -62,11 +62,14 @@ SPReAD1000 may later reuse a small frozen utility package, vendored module, or e
 
 ## Current implementation status
 
-The current working pipeline is still the ICECCME 2026 pipeline. This bootstrap does not move or rename it:
+The current working pipeline is still the ICECCME 2026 pipeline. Root-level commands remain available as compatibility wrappers, while ICECCME-specific implementations live under `src/iceccme2026/`:
 
 - `src/iceccme2026/` remains the working package.
+- `src/iceccme2026/cli.py` contains the implementation behind `main.py`.
+- `src/iceccme2026/openrouter_runner.py` contains the implementation behind `run_openrouter_manifest.py`.
+- `src/iceccme2026/verify.py` contains the implementation behind `verify_results.py`.
 - `paper/iceccme2026/` remains the working manuscript path.
-- root-level commands in `main.py`, `run_openrouter_manifest.py`, and `scripts/*.py` remain the current runnable interface.
+- root-level commands in `main.py`, `run_openrouter_manifest.py`, `verify_results.py`, and `scripts/*.py` remain the current runnable interface.
 - `scripts/iceccme2026/` is the canonical home for ICECCME script implementations; root-level `scripts/*.py` files are compatibility wrappers.
 - root-level `configs/*.yaml`, `prompts/*`, and `results/{csv,json,tables,figures}` are compatibility paths for the current pipeline.
 - `results/iceccme2026/` is the canonical home for ICECCME result CSV/JSON/table/figure outputs.
@@ -115,6 +118,15 @@ python verify_results.py
 
 # optional: normalize raw run outputs into the long-format file expected by score-alignment
 python main.py normalize-model-scores   --input path/to/raw_outputs.jsonl   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv   --join-on-order   --output data/iceccme2026/interim/model_scores.csv
+```
+
+Equivalent Make targets use explicit ICECCME names:
+
+```bash
+make iceccme-prepare-human
+make iceccme-manifest
+make iceccme-verify
+make iceccme-paper
 ```
 
 ## Prompt tooling

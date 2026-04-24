@@ -63,10 +63,10 @@ Perform a **documentation-first, non-destructive monorepo bootstrap**.
    - `artifacts/scis2026/`
    - `artifacts/icicic2026/`
 
-4. Do **not** move or rename the current ICECCME working files in this pass.
-   - leave `src/iceccme2026/` intact
-   - leave `paper/iceccme2026/` intact
-   - leave current scripts runnable
+4. Preserve current ICECCME commands with compatibility wrappers when implementation code moves.
+   - keep `main.py`, `run_openrouter_manifest.py`, and `verify_results.py` runnable from the repository root
+   - keep `paper/iceccme2026/` intact
+   - keep current scripts runnable
 
 5. Add a short note in the docs describing the next extraction targets for shared core logic, but do not perform a large refactor yet.
 
@@ -84,7 +84,7 @@ Your output is acceptable only if all of the following are true:
 
 1. `README.md` clearly frames the repo as the private EQ-Fuzzy monorepo.
 2. SPReAD is explicitly documented as separate.
-3. ICECCME commands remain unchanged.
+3. ICECCME root commands remain runnable.
 4. New directories for SCIS and ICICIC exist.
 5. The repo becomes easier to extend without implying that the three papers are scientifically the same.
 

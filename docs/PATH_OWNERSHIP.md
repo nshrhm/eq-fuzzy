@@ -15,15 +15,17 @@ The migration policy is compatibility-first: the current ICECCME 2026 pipeline r
 
 ## Current compatibility paths
 
-These paths remain valid for the current ICECCME 2026 workflow. Do not move them until wrappers and tests are in place.
+These paths remain valid for the current ICECCME 2026 workflow. Root-level command files are compatibility wrappers; the implementation belongs under `src/iceccme2026/`.
 
 | Path | Current owner | Notes |
 |---|---|---|
-| `main.py` | `iceccme` compatibility | Root CLI for the current ICECCME pipeline. |
-| `run_openrouter_manifest.py` | `iceccme` compatibility | Current OpenRouter runner. |
+| `main.py` | `iceccme` compatibility | Root wrapper for `src/iceccme2026/cli.py`. |
+| `run_openrouter_manifest.py` | `iceccme` compatibility | Root wrapper for `src/iceccme2026/openrouter_runner.py`. |
+| `verify_results.py` | `iceccme` compatibility | Root wrapper for `src/iceccme2026/verify.py`. |
+| `Makefile` | `iceccme` compatibility | Root developer shortcuts with explicit `iceccme-*` target names. |
 | `scripts/*.py` | `iceccme` compatibility | Root-level wrappers for existing figure, table, prompt-preview, and helper commands. |
 | `scripts/iceccme2026/` | `iceccme` | Canonical home for ICECCME script implementations. |
-| `src/iceccme2026/` | `iceccme` | Working implementation package. |
+| `src/iceccme2026/` | `iceccme` | Working implementation package, including CLI, runner, verification, analysis, and export code. |
 | `paper/iceccme2026/` | `iceccme` | Manuscript source and submission-specific assets. |
 | root-level ICECCME guide docs | deprecated compatibility location | ICECCME guides now belong under `docs/iceccme2026/`; do not add new workstream-specific docs at the repository root. |
 | `configs/*.yaml` | compatibility symlinks | Root-level links preserving current commands while canonical configs live under `configs/iceccme/` and `configs/shared/`. |
