@@ -57,8 +57,8 @@ Perform a **documentation-first, non-destructive monorepo bootstrap**.
    - `prompts/icicic/`
    - `paper/scis2026/`
    - `paper/icicic2026/`
-   - `runs/scis/`
-   - `runs/icicic/`
+   - `runs/scis2026/`
+   - `runs/icicic2026/`
    - `artifacts/iceccme2026/`
    - `artifacts/scis2026/`
    - `artifacts/icicic2026/`

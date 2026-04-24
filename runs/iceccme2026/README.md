@@ -1,4 +1,4 @@
-# ICECCME runs
+# ICECCME 2026 runs
 
 Canonical location for new ICECCME 2026 run logs and raw execution outputs.
 

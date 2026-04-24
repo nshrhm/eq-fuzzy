@@ -54,8 +54,8 @@ Operating rule: **Share code, not claims.**
    - `prompts/icicic/`
    - `paper/scis2026/`
    - `paper/icicic2026/`
-   - `runs/scis/`
-   - `runs/icicic/`
+   - `runs/scis2026/`
+   - `runs/icicic2026/`
    - `artifacts/iceccme2026/`
    - `artifacts/scis2026/`
    - `artifacts/icicic2026/`
@@ -106,7 +106,7 @@ Add:
 - `prompts/scis/`
 - `src/papers/scis/`
 - `paper/scis2026/`
-- `runs/scis/`
+- `runs/scis2026/`
 
 Initial contents:
 - condition table builders
@@ -119,7 +119,7 @@ Add:
 - `prompts/icicic/`
 - `src/papers/icicic/`
 - `paper/icicic2026/`
-- `runs/icicic/`
+- `runs/icicic2026/`
 
 Initial contents:
 - benchmark adapter stubs

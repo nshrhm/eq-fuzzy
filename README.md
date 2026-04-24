@@ -157,9 +157,9 @@ The following directories are intentionally empty except for `.gitkeep` or a sma
 - `results/iceccme2026/`
 - `paper/scis2026/`
 - `paper/icicic2026/`
-- `runs/iceccme/`
-- `runs/scis/`
-- `runs/icicic/`
+- `runs/iceccme2026/`
+- `runs/scis2026/`
+- `runs/icicic2026/`
 - `artifacts/iceccme2026/`
 - `artifacts/scis2026/`
 - `artifacts/icicic2026/`

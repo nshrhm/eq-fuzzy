@@ -46,7 +46,7 @@ New work should use these paths once each workstream has a real design.
 | `scripts/iceccme2026/` | `iceccme` | Canonical ICECCME script implementations; root scripts remain compatibility wrappers. |
 | `data/iceccme2026/` | `iceccme` | Canonical ICECCME derived data, manifests, interim files, raw-private local data, and data-side summaries. |
 | `results/iceccme2026/` | `iceccme` | Canonical ICECCME result CSV/JSON/table/figure outputs. |
-| `runs/iceccme/` | `iceccme` | New ICECCME run outputs and logs. |
+| `runs/iceccme2026/` | `iceccme` | New ICECCME run outputs and logs. |
 | `artifacts/iceccme2026/` | `iceccme` | New ICECCME generated figures, tables, and manuscript exports. |
 | `snapshots/iceccme2026/` | `iceccme` | Frozen ICECCME run states, repair checkpoints, and generated-output snapshots. |
 | `docs/iceccme2026/` | `iceccme` | ICECCME run guides, output inventories, reproducibility notes, model-selection notes, and paper-planning notes. |
@@ -55,7 +55,7 @@ New work should use these paths once each workstream has a real design.
 | `prompts/scis/` | `scis` | Real SCIS prompts only; no fake prompt variants. |
 | `paper/scis2026/` | `scis` | SCIS manuscript source. |
 | `scripts/scis2026/` | `scis` | SCIS command-line scripts. Placeholder only for now. |
-| `runs/scis/` | `scis` | SCIS run outputs and logs. |
+| `runs/scis2026/` | `scis` | SCIS run outputs and logs. |
 | `artifacts/scis2026/` | `scis` | SCIS generated artifacts. Placeholder only for now. |
 | `snapshots/scis2026/` | `scis` | SCIS frozen run states. Placeholder only for now. |
 | `docs/scis2026/` | `scis` | SCIS planning and operational notes. Placeholder only for now. |
@@ -63,7 +63,7 @@ New work should use these paths once each workstream has a real design.
 | `prompts/icicic/` | `icicic` | Real ICICIC prompts only; no fake prompt variants. |
 | `paper/icicic2026/` | `icicic` | ICICIC manuscript source. |
 | `scripts/icicic2026/` | `icicic` | ICICIC command-line scripts. Placeholder only for now. |
-| `runs/icicic/` | `icicic` | ICICIC run outputs and logs. |
+| `runs/icicic2026/` | `icicic` | ICICIC run outputs and logs. |
 | `artifacts/icicic2026/` | `icicic` | ICICIC generated artifacts. Placeholder only for now. |
 | `snapshots/icicic2026/` | `icicic` | ICICIC frozen run states. Placeholder only for now. |
 | `docs/icicic2026/` | `icicic` | ICICIC planning and operational notes. Placeholder only for now. |
