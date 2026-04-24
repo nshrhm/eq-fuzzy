@@ -26,7 +26,7 @@ These paths remain valid for the current ICECCME 2026 workflow. Do not move them
 | `src/iceccme2026/` | `iceccme` | Working implementation package. |
 | `paper/iceccme2026/` | `iceccme` | Manuscript source and submission-specific assets. |
 | `configs/*.yaml` | compatibility symlinks | Root-level links preserving current commands while canonical configs live under `configs/iceccme/` and `configs/shared/`. |
-| `prompts/*.md`, `prompts/*.json` | `iceccme` compatibility | Current prompt contract for the ICECCME runs. |
+| `prompts/*.md`, `prompts/*.json` | compatibility symlinks | Root-level links preserving current manifests and runner commands while canonical prompt assets live under `prompts/iceccme/` and `prompts/shared/`. |
 | `results/` | `iceccme` compatibility | Existing derived CSV/JSON outputs used by ICECCME scripts. |
 | `data/manifests/iceccme2026_*.csv` | `iceccme` | ICECCME run manifests. |
 | `data/results/json/iceccme2026_*.json` | `iceccme` | ICECCME manifest summaries preserved for compatibility. |
@@ -42,7 +42,7 @@ New work should use these paths once each workstream has a real design.
 | `prompts/shared/` | `shared` | Shared schemas or prompt fragments only when they are claim-neutral. |
 | `data/catalogs/` | `shared` | Text, persona, and model catalogs with provenance. |
 | `configs/iceccme/` | `iceccme` | Canonical ICECCME experiment and paper configs; root configs remain compatibility symlinks. |
-| `prompts/iceccme/` | `iceccme` | Future canonical ICECCME prompts; root prompts remain compatibility paths. |
+| `prompts/iceccme/` | `iceccme` | Canonical ICECCME prompt text; root prompts remain compatibility symlinks. |
 | `scripts/iceccme2026/` | `iceccme` | Canonical ICECCME script implementations; root scripts remain compatibility wrappers. |
 | `runs/iceccme/` | `iceccme` | New ICECCME run outputs and logs. |
 | `artifacts/iceccme/` | `iceccme` | New ICECCME generated figures, tables, and manuscript exports. |

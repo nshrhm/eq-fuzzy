@@ -117,6 +117,8 @@ python main.py normalize-model-scores   --input path/to/raw_outputs.jsonl   --ma
 
 ## Prompt tooling
 
+The root-level prompt files are compatibility symlinks. ICECCME prompt text lives in `prompts/iceccme/`, and the shared response schema lives in `prompts/shared/`.
+
 Use the preview script before large runs:
 
 ```bash

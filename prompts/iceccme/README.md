@@ -1,5 +1,7 @@
 # ICECCME prompts
 
-Future canonical home for ICECCME 2026 prompt assets.
+Canonical home for ICECCME 2026 prompt text.
 
-For compatibility, the active ICECCME prompt contract currently remains at `prompts/*.md` and `prompts/*.json`.
+The root-level `prompts/*.md` files remain compatibility symlinks for existing manifests and runner commands.
+
+The shared response schema currently lives at `prompts/shared/response_schema.json`.

@@ -1,14 +1,15 @@
-# Prompting Assets
+# Prompting assets
 
-This folder holds the prompt contract for the ICECCME 2026 paper.
+Prompt assets are grouped by ownership.
 
-## Files
+The root-level prompt files are compatibility symlinks for existing manifests and runner commands. Canonical files live under:
 
-- `emotion_eval_system.md`
-- `emotion_eval_user_template.md`
-- `response_schema.json`
+- `prompts/iceccme/` for ICECCME 2026 prompt text
+- `prompts/shared/` for claim-neutral shared schemas or prompt fragments
+- `prompts/scis/` for future SCIS 2026 prompts
+- `prompts/icicic/` for future ICICIC 2026 prompts
 
 ## Policy
 
-Version these files together with every major experiment run.
-If the prompt changes, bump the prompt version in the run manifest and note the change in the paper methods section.
+Version prompt text and schemas together with every major experiment run.
+If a prompt changes, bump or record the prompt version in the run manifest and note the change in the relevant paper methods section.
