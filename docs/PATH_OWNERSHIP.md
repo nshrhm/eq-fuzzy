@@ -46,17 +46,20 @@ New work should use these paths once each workstream has a real design.
 | `data/iceccme2026/` | `iceccme` | Canonical ICECCME derived data, manifests, interim files, raw-private local data, and data-side summaries. |
 | `results/iceccme2026/` | `iceccme` | Canonical ICECCME result CSV/JSON/table/figure outputs. |
 | `runs/iceccme/` | `iceccme` | New ICECCME run outputs and logs. |
-| `artifacts/iceccme/` | `iceccme` | New ICECCME generated figures, tables, and manuscript exports. |
+| `artifacts/iceccme2026/` | `iceccme` | New ICECCME generated figures, tables, and manuscript exports. |
+| `artifacts/figures/`, `artifacts/tables/`, `artifacts/manuscripts/` | deprecated compatibility placeholders | Do not add new workstream outputs here. |
 | `configs/scis/` | `scis` | Real SCIS configs only; no placeholder experiment YAML. |
 | `prompts/scis/` | `scis` | Real SCIS prompts only; no fake prompt variants. |
 | `paper/scis2026/` | `scis` | SCIS manuscript source. |
 | `scripts/scis2026/` | `scis` | SCIS command-line scripts. Placeholder only for now. |
 | `runs/scis/` | `scis` | SCIS run outputs and logs. |
+| `artifacts/scis2026/` | `scis` | SCIS generated artifacts. Placeholder only for now. |
 | `configs/icicic/` | `icicic` | Real ICICIC configs only; no placeholder experiment YAML. |
 | `prompts/icicic/` | `icicic` | Real ICICIC prompts only; no fake prompt variants. |
 | `paper/icicic2026/` | `icicic` | ICICIC manuscript source. |
 | `scripts/icicic2026/` | `icicic` | ICICIC command-line scripts. Placeholder only for now. |
 | `runs/icicic/` | `icicic` | ICICIC run outputs and logs. |
+| `artifacts/icicic2026/` | `icicic` | ICICIC generated artifacts. Placeholder only for now. |
 
 ## Sharing rule
 

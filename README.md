@@ -160,7 +160,9 @@ The following directories are intentionally empty except for `.gitkeep` or a sma
 - `runs/iceccme/`
 - `runs/scis/`
 - `runs/icicic/`
-- `artifacts/iceccme/`
+- `artifacts/iceccme2026/`
+- `artifacts/scis2026/`
+- `artifacts/icicic2026/`
 - `artifacts/figures/`
 - `artifacts/tables/`
 - `artifacts/manuscripts/`

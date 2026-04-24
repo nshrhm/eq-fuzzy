@@ -52,9 +52,9 @@ Operating rule: **Share code, not claims.**
    - `paper/icicic2026/`
    - `runs/scis/`
    - `runs/icicic/`
-   - `artifacts/figures/`
-   - `artifacts/tables/`
-   - `artifacts/manuscripts/`
+   - `artifacts/iceccme2026/`
+   - `artifacts/scis2026/`
+   - `artifacts/icicic2026/`
 4. keep `src/iceccme2026/` as-is
 5. do not move current raw or processed ICECCME files
 

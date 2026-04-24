@@ -59,9 +59,9 @@ Perform a **documentation-first, non-destructive monorepo bootstrap**.
    - `paper/icicic2026/`
    - `runs/scis/`
    - `runs/icicic/`
-   - `artifacts/figures/`
-   - `artifacts/tables/`
-   - `artifacts/manuscripts/`
+   - `artifacts/iceccme2026/`
+   - `artifacts/scis2026/`
+   - `artifacts/icicic2026/`
 
 4. Do **not** move or rename the current ICECCME working files in this pass.
    - leave `src/iceccme2026/` intact
