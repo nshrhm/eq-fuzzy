@@ -94,6 +94,8 @@ See `docs/model_selection_openrouter_2026-04-17.md` for the rationale and reserv
 - `configs/personas_from_definitions.yaml` - original p1-p4 mapping from `definitions.py`
 - `configs/personas_primary_neutral.yaml` - new p0 neutral persona for the main paper endpoint
 
+These root-level files are compatibility symlinks. The canonical config locations are `configs/iceccme/` for ICECCME-specific experiment and paper settings, and `configs/shared/` for model/text/persona registries that can be reused by later workstreams.
+
 ## First commands to run
 
 ```bash

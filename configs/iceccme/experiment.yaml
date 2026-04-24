@@ -1,0 +1,37 @@
+study:
+  name: iceccme2026_human_grounded_multilingual
+  paper_short_name: iceccme2026_primary_neutral
+  primary_language: ja
+  secondary_languages:
+  - en
+  - zh
+  story_ids:
+  - T1
+  - T2
+  - T3
+  emotions:
+  - interest
+  - surprise
+  - sadness
+  - anger
+  personas:
+  - persona_id: p0
+    persona_label: neutral_reader
+    temperature: 0.4
+    analysis_role: primary
+  repetitions: 10
+  source_catalogs:
+    texts: configs/shared/texts_from_definitions.yaml
+    primary_persona: configs/iceccme/personas_primary_neutral.yaml
+    secondary_personas: configs/shared/personas_from_definitions.yaml
+    definitions_py: external/jaciii_iihmsp2025/definitions.py
+outputs:
+  manifest: data/manifests/iceccme2026_primary_neutral_manifest.csv
+  human_reference: data/derived_public/human_vas_summary.csv
+  alignment_dir: results/csv
+analysis:
+  primary_endpoint: human_alignment_in_japanese
+  secondary_endpoint: cross_language_drift_relative_to_japanese
+  aggregate_over:
+  - repetition
+  paper_role: main_experiment

@@ -25,7 +25,7 @@ These paths remain valid for the current ICECCME 2026 workflow. Do not move them
 | `scripts/iceccme2026/` | `iceccme` | Canonical home for ICECCME script implementations. |
 | `src/iceccme2026/` | `iceccme` | Working implementation package. |
 | `paper/iceccme2026/` | `iceccme` | Manuscript source and submission-specific assets. |
-| `configs/*.yaml` | `iceccme` compatibility | Current experiment, model, persona, text, and paper config files. |
+| `configs/*.yaml` | compatibility symlinks | Root-level links preserving current commands while canonical configs live under `configs/iceccme/` and `configs/shared/`. |
 | `prompts/*.md`, `prompts/*.json` | `iceccme` compatibility | Current prompt contract for the ICECCME runs. |
 | `results/` | `iceccme` compatibility | Existing derived CSV/JSON outputs used by ICECCME scripts. |
 | `data/manifests/iceccme2026_*.csv` | `iceccme` | ICECCME run manifests. |
@@ -38,10 +38,10 @@ New work should use these paths once each workstream has a real design.
 | Path | Owner | Rule |
 |---|---|---|
 | `src/core/` | `shared` | Future shared utilities only after a second workstream needs them. |
-| `configs/shared/` | `shared` | Shared registry/config fragments, not paper-specific experiment plans. |
+| `configs/shared/` | `shared` | Shared model, text, and persona registry/config fragments, not paper-specific experiment plans. |
 | `prompts/shared/` | `shared` | Shared schemas or prompt fragments only when they are claim-neutral. |
 | `data/catalogs/` | `shared` | Text, persona, and model catalogs with provenance. |
-| `configs/iceccme/` | `iceccme` | Future canonical ICECCME configs; root configs remain compatibility paths. |
+| `configs/iceccme/` | `iceccme` | Canonical ICECCME experiment and paper configs; root configs remain compatibility symlinks. |
 | `prompts/iceccme/` | `iceccme` | Future canonical ICECCME prompts; root prompts remain compatibility paths. |
 | `scripts/iceccme2026/` | `iceccme` | Canonical ICECCME script implementations; root scripts remain compatibility wrappers. |
 | `runs/iceccme/` | `iceccme` | New ICECCME run outputs and logs. |

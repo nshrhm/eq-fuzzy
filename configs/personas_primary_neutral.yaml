@@ -1,11 +1,1 @@
-personas:
-- persona_id: p0
-  analysis_role: primary
-  temperature: 0.4
-  name_ja: 中立的な読者
-  name_en: Neutral Reader
-  name_zh: 中立讀者
-  description_ja: 作品全体を落ち着いて読み、読後感情を過不足なく報告する中立的な読者
-  description_en: a neutral reader who calmly reads the whole work and reports post-reading
-    emotions without exaggeration
-  description_zh: 一位冷靜閱讀全文並不誇張地回報讀後情感的中立讀者
+iceccme/personas_primary_neutral.yaml

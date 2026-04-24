@@ -1,5 +1,5 @@
 # ICECCME configs
 
-Future canonical home for ICECCME 2026 config files.
+Canonical home for ICECCME 2026 config files.
 
-For compatibility, the active ICECCME configs currently remain at `configs/*.yaml`. Do not move them until wrappers and tests preserve the current commands.
+The root-level `configs/*.yaml` files remain compatibility symlinks for existing commands. New ICECCME documentation may point here directly.
