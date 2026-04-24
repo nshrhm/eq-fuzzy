@@ -1,4 +1,4 @@
-Table~\ref{tab:design} summarizes the benchmark design, Figure~\ref{fig:ja-ranking} shows the Japanese human-alignment ranking, Figure~\ref{fig:drift} shows cross-language drift relative to Japanese, Table~\ref{tab:primary} reports the core summary statistics, and Figure~\ref{fig:tradeoff} visualizes the two-axis screening view.
+Figure~\ref{fig:workflow} summarizes the system configuration and data flow, Table~\ref{tab:design} summarizes the benchmark design, Figure~\ref{fig:ja-ranking} shows the Japanese human-alignment ranking, Figure~\ref{fig:drift} shows cross-language drift relative to Japanese, Table~\ref{tab:primary} reports the core summary statistics, and Figure~\ref{fig:tradeoff} visualizes the two-axis screening view.
 
 \textbf{Japanese human alignment.} In the primary Japanese condition, Claude Sonnet 4.5 achieved the lowest mean absolute error (MAE) to the human reference (20.026), followed by DeepSeek V3.2 (20.100), Qwen3.6 Plus (20.744), GPT-5.4 (21.113), and Grok 4.20 (21.410), whereas Gemini 2.5 Pro showed the largest error (28.952). The spread between the best and worst models was therefore 8.926 points. At the same time, the top four models were tightly clustered within only 1.087 MAE points, indicating that model screening would be sensitive to relatively small calibration differences within the stronger half of the panel.
 
@@ -9,7 +9,7 @@ Table~\ref{tab:design} summarizes the benchmark design, Figure~\ref{fig:ja-ranki
 \label{fig:ja-ranking}
 \end{figure*}
 
-GPT-5.4 yielded both the highest Pearson correlation with the Japanese human profile ($r = 0.475$) and the highest Spearman rank correlation ($\rho = 0.441$). This pattern is useful because it shows that absolute calibration and rank-order agreement should be distinguished rather than collapsed into a single score. Claude Sonnet 4.5 was the closest in absolute intensity level, whereas GPT-5.4 best preserved relative ordering across the 12 human-reference cells.
+GPT-5.4 yielded both the highest Pearson correlation with the Japanese human profile ($r = 0.475$) and the highest Spearman rank correlation ($\rho = 0.441$). This split is important because absolute calibration and rank-order agreement should be distinguished rather than collapsed into a single score. Claude Sonnet 4.5 was the closest in absolute intensity level, whereas GPT-5.4 best preserved relative ordering across the 12 human-reference cells.
 
 \textbf{Cross-language robustness.} For cross-language robustness, Qwen3.6 Plus exhibited the smallest average drift relative to Japanese ($\bar{D}=3.346$), followed closely by GPT-5.4 ($\bar{D}=3.354$) and Gemini 2.5 Pro ($\bar{D}=4.729$). By contrast, DeepSeek V3.2 showed the largest average drift ($\bar{D}=6.396$), with the largest single-language drift observed in its English condition (7.875). Across all models and secondary languages, drift ranged from 2.983 to 7.875 points.
 
@@ -20,7 +20,7 @@ GPT-5.4 yielded both the highest Pearson correlation with the Japanese human pro
 \label{fig:drift}
 \end{figure*}
 
-The English condition was slightly less stable on average than the Chinese condition in this six-model panel: mean English drift was 5.024, whereas mean Chinese drift was 4.371. That difference is descriptive rather than inferential, but it still suggests that robustness cannot be assumed to be symmetric across translated conditions.
+The English condition was slightly less stable on average than the Chinese condition in this six-model panel: mean English drift was 5.024, whereas mean Chinese drift was 4.371. That difference is descriptive rather than inferential, but it still shows why robustness should not be assumed to be symmetric across translated conditions.
 
 \begin{table*}[t]
 \caption{Primary quantitative summary of Japanese human alignment and cross-language drift for the six selected models.}

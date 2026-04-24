@@ -67,7 +67,10 @@ The current working pipeline is still the ICECCME 2026 pipeline. This bootstrap 
 - `src/iceccme2026/` remains the working package.
 - `paper/iceccme2026/` remains the working manuscript path.
 - root-level commands in `main.py`, `run_openrouter_manifest.py`, and `scripts/` remain the current runnable interface.
+- root-level `configs/*.yaml`, `prompts/*`, and `results/*` are ICECCME compatibility paths for the current pipeline.
 - SCIS and ICICIC directories are placeholders only until their real configs, prompts, and analysis code are designed.
+
+Before SCIS or ICICIC work starts, path ownership is fixed in `docs/PATH_OWNERSHIP.md`. New generated outputs should use `runs/<workstream>/...` or `artifacts/<workstream>/...`; future SCIS and ICICIC code must not overwrite the existing ICECCME-compatible `results/*` outputs.
 
 ## Default current model panel for ICECCME (core 6)
 
@@ -129,16 +132,23 @@ python scripts/export_table2_primary.py
 
 ## Future directory stubs
 
-The following directories are intentionally empty except for `.gitkeep` until the corresponding workstreams are ready:
+The following directories are intentionally empty except for `.gitkeep` or a small README until the corresponding workstreams are ready:
 
+- `configs/shared/`
+- `configs/iceccme/`
 - `configs/scis/`
 - `configs/icicic/`
+- `prompts/shared/`
+- `prompts/iceccme/`
 - `prompts/scis/`
 - `prompts/icicic/`
+- `src/core/`
 - `paper/scis2026/`
 - `paper/icicic2026/`
+- `runs/iceccme/`
 - `runs/scis/`
 - `runs/icicic/`
+- `artifacts/iceccme/`
 - `artifacts/figures/`
 - `artifacts/tables/`
 - `artifacts/manuscripts/`
@@ -161,6 +171,7 @@ Only extract code after a second workstream actually needs it and the behavior c
 - `docs/WORKSTREAMS.md` - scientific separation of ICECCME, SCIS, and ICICIC
 - `docs/MONOREPO_POLICY.md` - repository rules and SPReAD boundary
 - `docs/MIGRATION_PLAN.md` - non-destructive migration sequence and shared-core targets
+- `docs/PATH_OWNERSHIP.md` - ownership map for shared, ICECCME, SCIS, and ICICIC paths
 - `docs/context/` - canonical context prompts for shared and per-workstream planning
 
 ## Archive note
