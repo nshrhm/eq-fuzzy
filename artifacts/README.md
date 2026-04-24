@@ -8,4 +8,6 @@ Canonical workstream directories:
 - `artifacts/scis2026/`
 - `artifacts/icicic2026/`
 
-The legacy `artifacts/figures/`, `artifacts/tables/`, and `artifacts/manuscripts/` directories are deprecated placeholders. Do not add new workstream outputs there.
+Temporary cross-workstream drafts may use `artifacts/scratch/`.
+
+Promote any artifact used in a paper or experiment report into the owning workstream directory. Do not treat scratch outputs as archival or submission-ready artifacts.

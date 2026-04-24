@@ -44,7 +44,8 @@ New work should use these paths once each workstream has a real design.
 | `artifacts/iceccme2026/` | `iceccme` | New ICECCME generated figures, tables, and manuscript exports. |
 | `snapshots/iceccme2026/` | `iceccme` | Frozen ICECCME run states, repair checkpoints, and generated-output snapshots. |
 | `docs/iceccme2026/` | `iceccme` | ICECCME run guides, output inventories, reproducibility notes, model-selection notes, and paper-planning notes. |
-| `artifacts/figures/`, `artifacts/tables/`, `artifacts/manuscripts/` | deprecated compatibility placeholders | Do not add new workstream outputs here. |
+| `artifacts/scratch/` | shared scratch | Temporary cross-workstream artifact drafts only; promote accepted outputs into the owning workstream directory. |
+| `artifacts/manuscripts/` | deprecated compatibility placeholder | Do not add new workstream outputs here. |
 | `configs/scis/` | `scis` | Real SCIS configs only; no placeholder experiment YAML. |
 | `prompts/scis/` | `scis` | Real SCIS prompts only; no fake prompt variants. |
 | `paper/scis2026/` | `scis` | SCIS manuscript source. |
