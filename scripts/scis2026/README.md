@@ -37,6 +37,14 @@ python scripts/scis2026/build_temperature_smoke_manifest.py \
   --include-group bridge_or_appendix_candidates
 ```
 
+Meta/Llama candidates can be tested separately before panel lock:
+
+```bash
+python scripts/scis2026/build_temperature_smoke_manifest.py \
+  --include-group llama_candidates \
+  --output runs/scis2026/phase1b_llama_smoke_v1/manifest.csv
+```
+
 Temperature must remain an API/config parameter only. The runner checks that
 the rendered SCIS prompt text does not contain the forbidden term before
 sending requests.

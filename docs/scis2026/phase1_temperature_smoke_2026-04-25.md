@@ -4,6 +4,9 @@ This note records the first SCIS 2026 Phase 1 model capability smoke test. It
 is a model-entry gate only, not evidence for the SCIS paper's substantive
 factorial claims.
 
+For model-selection rationale and reviewer-facing wording, see
+`docs/scis2026/model_selection_phase1.md`.
+
 ## Run
 
 Main-panel candidate run:
@@ -73,7 +76,7 @@ it should not displace a passing model for the first SCIS main panel.
 
 ## Decision
 
-The Phase 1 passing SCIS main panel is:
+The Phase 1 passing SCIS main panel before Phase 1b was:
 
 - `openai/gpt-5.4`
 - `anthropic/claude-sonnet-4.5`
@@ -89,3 +92,6 @@ The excluded candidates from this gate are:
 
 The next step is Phase 2: lock the factorial condition table and SCIS prompt
 templates for the 4 x 4 persona-temperature design.
+
+Update: Phase 1b subsequently tested Meta/Llama candidates. Llama 4 Maverick
+passed and replaces Claude Haiku 4.5 in `configs/scis/main_panel_v2.yaml`.

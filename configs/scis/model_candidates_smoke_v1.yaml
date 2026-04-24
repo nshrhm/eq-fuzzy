@@ -86,6 +86,27 @@ models:
       verification_status: pending_smoke_test
       notes: Budget Anthropic substitute if Sonnet fails cost or capability gates.
 
+  llama_candidates:
+    - model_id: meta-llama/llama-4-maverick
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: meta_open_available_candidate
+      verification_status: pending_smoke_test
+      notes: >
+        Primary Meta/Llama candidate for improving ecosystem diversity. If it
+        passes the same temperature and schema gate, consider replacing the
+        reserve Anthropic Haiku slot in the SCIS main panel.
+    - model_id: meta-llama/llama-4-scout
+      provider: openrouter
+      route: openrouter
+      reasoning: {exclude: true}
+      candidate_role: meta_open_available_backup
+      verification_status: pending_smoke_test
+      notes: >
+        Backup Meta/Llama candidate if Maverick fails or is operationally
+        unsuitable. Use only after comparing Phase 1b smoke-test behavior.
+
   bridge_or_appendix_candidates:
     - model_id: openai/gpt-4o-mini
       provider: openrouter

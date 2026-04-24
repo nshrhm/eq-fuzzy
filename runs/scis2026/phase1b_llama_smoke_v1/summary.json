@@ -1,0 +1,70 @@
+{
+  "models": [
+    {
+      "model_id": "meta-llama/llama-4-maverick",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "llama_candidates",
+      "candidate_role": "meta_open_available_candidate",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 4,
+      "n_failed": 0,
+      "malformed_or_error_rate": 0.0,
+      "mean_elapsed_sec": 6.279,
+      "error_status_codes": [],
+      "validation_errors": [],
+      "passes_phase1_gate": true
+    },
+    {
+      "model_id": "meta-llama/llama-4-scout",
+      "provider": "openrouter",
+      "route": "openrouter",
+      "model_group": "llama_candidates",
+      "candidate_role": "meta_open_available_backup",
+      "attempted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "accepted_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "required_temperatures": [
+        0.1,
+        0.4,
+        0.7,
+        0.9
+      ],
+      "n_attempts": 4,
+      "n_ok": 4,
+      "n_failed": 0,
+      "malformed_or_error_rate": 0.0,
+      "mean_elapsed_sec": 3.333,
+      "error_status_codes": [],
+      "validation_errors": [],
+      "passes_phase1_gate": true
+    }
+  ]
+}

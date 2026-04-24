@@ -1,0 +1,3 @@
+model_id,provider,route,model_group,candidate_role,attempted_temperatures,accepted_temperatures,required_temperatures,n_attempts,n_ok,n_failed,malformed_or_error_rate,mean_elapsed_sec,error_status_codes,validation_errors,passes_phase1_gate
+meta-llama/llama-4-maverick,openrouter,openrouter,llama_candidates,meta_open_available_candidate,"[0.1, 0.4, 0.7, 0.9]","[0.1, 0.4, 0.7, 0.9]","[0.1, 0.4, 0.7, 0.9]",4,4,0,0.0,6.279,[],[],True
+meta-llama/llama-4-scout,openrouter,openrouter,llama_candidates,meta_open_available_backup,"[0.1, 0.4, 0.7, 0.9]","[0.1, 0.4, 0.7, 0.9]","[0.1, 0.4, 0.7, 0.9]",4,4,0,0.0,3.333,[],[],True
