@@ -14,7 +14,6 @@ text:
 - `effect_summary_bootstrap_ci`: primary decomposition with uncertainty.
 - `figure2a_entropy_heatmap`: representative entropy grid.
 - `figure2b_score_heatmap`: representative score grid.
-- `table3_model_metric_summary`: model-level score versus entropy summary.
 - `figure3_model_metric_interaction_heatmap`: compact model x metric view.
 - `table4_entropy_sensitivity`: membership-family sensitivity summary.
 
@@ -32,6 +31,9 @@ included directly in `paper/scis2026/main.tex`:
 - `figure2_representative_heatmaps`: useful as a full-width overview, but split
   heatmaps keep labels, cell values, and colorbars readable in one-column
   placement.
+- `table3_model_metric_summary`: useful for exact model-level shares, but
+  redundant with Fig. 3 for the main-paper claim that entropy has higher
+  model-level interaction burden than score.
 
 ## Rationale
 
@@ -45,6 +47,11 @@ The original paired Fig. 1 and Fig. 2 layouts were also replaced in the main
 text by split one-column panels. This keeps labels and heatmap values readable
 under the two-column IEEE layout while preserving the paired versions as
 tracked artifacts for slides or alternate formatting.
+
+The model-level table was also moved out of the main flow in Phase 15. Fig. 3 is
+the better main-text artifact because the claim is visual and comparative:
+score versus entropy interaction burden by model. Exact shares remain available
+in the generated table artifact.
 
 ## Next Steps
 
