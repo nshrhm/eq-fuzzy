@@ -405,6 +405,7 @@ Six-page manuscript expansion records:
 - `docs/scis2026/phase17_chatgpt_pro_review_synthesis.md`
 - `docs/scis2026/phase17_bibliography_plan.md`
 - `docs/scis2026/phase18_design_rationale_completion.md`
+- `docs/scis2026/phase19_submission_qa.md`
 
 Priority:
 

@@ -201,6 +201,8 @@ deterministically estimated for each membership family on a dense score grid.
 Absolute entropy magnitudes are therefore interpreted only within a fixed
 membership specification; the legacy family is retained as a sensitivity
 baseline.
+Fig.~\ref{fig:scis-prior-diagonal} and Fig.~\ref{fig:scis-factorial-design}
+contrast the prior diagonal coverage with the fully crossed SCIS design.
 \input{../../artifacts/scis2026/main_figures_v1/figure1a_prior_diagonal_design}
 \input{../../artifacts/scis2026/main_figures_v1/figure1b_factorial_design}
 
@@ -214,6 +216,7 @@ fixed response schema. The model panel consisted of GPT-5.4, Claude Sonnet 4.5,
 Gemini 2.5 Pro, Grok 4.20, DeepSeek V3.2, and Llama 4 Maverick. Temperature was
 never mentioned in the prompt text; persona was expressed only as the
 interpretive stance.
+Table~\ref{tab:scis-design-panel} summarizes the resulting experimental panel.
 
 \begin{table}[t]
 \caption{SCIS main-run experimental panel.}
@@ -281,6 +284,8 @@ shows where that separability weakens: the same score table can remain nearly
 additive while the fuzziness of score placement retains a larger interaction
 component. A diagonal design that observes only one temperature per persona
 would not expose this metric-specific difference.
+Fig.~\ref{fig:scis-entropy-heatmap} and Fig.~\ref{fig:scis-score-heatmap}
+show representative persona-temperature heatmaps for the two metrics.
 \input{../../artifacts/scis2026/main_figures_v1/figure2a_entropy_heatmap}
 \input{../../artifacts/scis2026/main_figures_v1/figure2b_score_heatmap}
 
