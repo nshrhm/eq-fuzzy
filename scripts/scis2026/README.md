@@ -134,6 +134,18 @@ After the main analysis artifacts are generated, inspect score and entropy
 persona-temperature decomposition with:
 
 ```bash
+python scripts/scis2026/analyze_factorial_scores.py \
+  --input-jsonl runs/scis2026/scis2026_factorial_v1_main_manifest_v1/raw_repaired.jsonl \
+  --output-dir artifacts/scis2026/main_analysis_v1 \
+  --expected-responses 1440 \
+  --expected-emotion-rows 5760 \
+  --expected-decomposition-units 72
+```
+
+The explicit expected counts are required because the analysis script defaults
+to the pilot analysis paths and counts.
+
+```bash
 python scripts/scis2026/inspect_main_results.py
 ```
 

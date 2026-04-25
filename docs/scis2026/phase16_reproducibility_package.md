@@ -70,6 +70,23 @@ Hmax settings:
 - `sigmoid_s_v1`: 1.018502773018
 - `legacy_linear_v1`: 1.057697511124
 
+Manifest and prompt inputs:
+
+- factorial config: `configs/scis/factorial_v1.yaml`
+- condition table: `configs/scis/condition_table_v1.csv`
+- main model panel: `configs/scis/main_panel_v2.yaml`
+- text registry: `configs/shared/texts_from_definitions.yaml`
+- text source directory: `data/iceccme2026/raw_private/texts`
+- persona registry: `configs/shared/personas_from_definitions.yaml`
+- response schema: `prompts/shared/response_schema.json`
+- system prompt: `prompts/scis/factorial_v1_system.md`
+- user prompt template: `prompts/scis/factorial_v1_user_template.md`
+
+The manifest and raw JSONL records store SHA-256 hashes for the prompt,
+response schema, condition table, model panel, and factorial config. The raw
+JSONL also stores the rendered request payload, so the exact sent prompt is
+auditable even if a template is later edited.
+
 ## Reproduction Chain
 
 The main table/figure chain is:
@@ -114,8 +131,15 @@ The main table/figure chain is:
    ```bash
    python scripts/scis2026/analyze_factorial_scores.py \
      --input-jsonl runs/scis2026/scis2026_factorial_v1_main_manifest_v1/raw_repaired.jsonl \
-     --output-dir artifacts/scis2026/main_analysis_v1
+     --output-dir artifacts/scis2026/main_analysis_v1 \
+     --expected-responses 1440 \
+     --expected-emotion-rows 5760 \
+     --expected-decomposition-units 72
    ```
+
+   Note: `analyze_factorial_scores.py` defaults to the pilot run. The main-run
+   expected counts must be supplied explicitly when regenerating
+   `main_analysis_v1`.
 
 7. Inspect main results:
    ```bash
@@ -219,3 +243,12 @@ Tracked but currently excluded from the main text:
 - Reviewer-risk diagnostics did not indicate a need to redesign the `r = 5`
   main run.
 
+## Phase 16 Audit Notes
+
+The reproducibility-chain audit found one important correction: the analysis
+script defaults to pilot expected counts, so the main-run regeneration command
+must pass the expected main-run counts explicitly. This document now includes
+those flags.
+
+No additional missing generated-artifact link was found for the current
+main-text tables and figures.
