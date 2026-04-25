@@ -1,0 +1,24 @@
+{
+  "analysis_dir": "artifacts/scis2026/main_analysis_v1",
+  "output_dir": "artifacts/scis2026/main_inspection_v1",
+  "primary_membership_family": "sigmoid_s_v1",
+  "valid_output": {
+    "n_response_rows": 1440,
+    "n_response_ok": 1440,
+    "valid_output_rate": 1.0,
+    "n_emotion_rows": 5760,
+    "n_missing_score_rows": 0,
+    "n_missing_structural_cells": 0,
+    "n_non_estimable_decomposition_units": 0,
+    "readiness_passed": true
+  },
+  "n_score_decomposition_units": 72,
+  "n_entropy_decomposition_units": 72,
+  "n_metric_decomposition_units": 144,
+  "n_decomposition_summary_rows": 8,
+  "top_n": 20,
+  "max_interaction_burden": 0.654771,
+  "max_interaction_metric": "H_norm_sigmoid_s_v1",
+  "max_absolute_interaction": 380.0625,
+  "max_absolute_interaction_metric": "score"
+}

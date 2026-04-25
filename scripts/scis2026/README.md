@@ -130,6 +130,26 @@ After running and summarizing the full main run:
 python scripts/scis2026/check_main_run.py
 ```
 
+After the main analysis artifacts are generated, inspect score and entropy
+persona-temperature decomposition with:
+
+```bash
+python scripts/scis2026/inspect_main_results.py
+```
+
+This writes `artifacts/scis2026/main_inspection_v1/` and updates
+`docs/scis2026/phase6_main_result_inspection.md`.
+
+Build primary paper-table candidates from the inspection artifacts with:
+
+```bash
+python scripts/scis2026/build_primary_tables.py
+```
+
+This writes CSV and LaTeX table outputs to
+`artifacts/scis2026/main_tables_v1/` and updates
+`docs/scis2026/phase7_primary_tables.md`.
+
 If the main run has a small number of failed rows, build and run a retry
 manifest instead of rerunning the full 1440-request manifest:
 

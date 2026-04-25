@@ -1,0 +1,18 @@
+{
+  "analysis_dir": "artifacts/scis2026/main_analysis_v1",
+  "inspection_dir": "artifacts/scis2026/main_inspection_v1",
+  "output_dir": "artifacts/scis2026/main_tables_v1",
+  "primary_family": "sigmoid_s_v1",
+  "n_run_validity_rows": 1,
+  "n_effect_summary_rows": 8,
+  "n_model_metric_rows": 12,
+  "n_entropy_sensitivity_rows": 1,
+  "n_top_case_rows": 16,
+  "latex_tables": [
+    "table1_run_validity.tex",
+    "table2_effect_summary.tex",
+    "table3_model_metric_summary.tex",
+    "table4_entropy_sensitivity.tex",
+    "table5_top_interaction_cases.tex"
+  ]
+}

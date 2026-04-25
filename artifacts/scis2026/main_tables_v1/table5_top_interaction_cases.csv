@@ -1,0 +1,17 @@
+rank_type,rank,metric,model_id,model_label,story_id,emotion,SS_persona,SS_temperature,SS_persona_x_temperature,total_SS,interaction_burden,separability_share
+relative,1,H_norm_sigmoid_s_v1,anthropic/claude-sonnet-4.5,Claude Sonnet 4.5,T3,anger,0.051893,0.038175,0.170826,0.260894,0.654771,0.345229
+relative,2,H_norm_sigmoid_s_v1,deepseek/deepseek-v3.2,DeepSeek V3.2,T3,anger,0.06248,0.056133,0.218355,0.336968,0.647999,0.352001
+relative,3,score,google/gemini-2.5-pro,Gemini 2.5 Pro,T1,anger,0.75,0.75,2.25,3.75,0.6,0.4
+relative,4,H_norm_sigmoid_s_v1,google/gemini-2.5-pro,Gemini 2.5 Pro,T1,anger,0.000315,0.000315,0.000944,0.001574,0.6,0.4
+relative,5,H_norm_sigmoid_s_v1,x-ai/grok-4.20,Grok 4.20,T3,interest,0.061204,0.040656,0.142675,0.244535,0.583454,0.416546
+relative,6,H_norm_sigmoid_s_v1,google/gemini-2.5-pro,Gemini 2.5 Pro,T3,surprise,0.213178,0.03581,0.224718,0.473706,0.474383,0.525617
+relative,7,score,meta-llama/llama-4-maverick,Llama 4 Maverick,T2,surprise,33.0,17.0,45.0,95.0,0.473684,0.526316
+relative,8,H_norm_sigmoid_s_v1,deepseek/deepseek-v3.2,DeepSeek V3.2,T3,surprise,0.10859,0.079415,0.154584,0.342589,0.451223,0.548777
+absolute,1,score,deepseek/deepseek-v3.2,DeepSeek V3.2,T3,sadness,9244.6875,13.6875,380.0625,9638.4375,0.039432,0.960568
+absolute,2,score,deepseek/deepseek-v3.2,DeepSeek V3.2,T3,anger,1838.75,82.25,362.75,2283.75,0.15884,0.84116
+absolute,3,score,google/gemini-2.5-pro,Gemini 2.5 Pro,T3,surprise,5652.0,57.5,292.5,6002.0,0.048734,0.951266
+absolute,4,score,google/gemini-2.5-pro,Gemini 2.5 Pro,T1,interest,2992.1875,96.6875,282.5625,3371.4375,0.083811,0.916189
+absolute,5,score,x-ai/grok-4.20,Grok 4.20,T3,sadness,11576.1875,19.1875,278.5625,11873.9375,0.02346,0.97654
+absolute,6,score,deepseek/deepseek-v3.2,DeepSeek V3.2,T3,surprise,4887.5,216.5,218.0,5322.0,0.040962,0.959038
+absolute,7,score,meta-llama/llama-4-maverick,Llama 4 Maverick,T3,anger,297.0,51.0,195.0,543.0,0.359116,0.640884
+absolute,8,score,x-ai/grok-4.20,Grok 4.20,T3,anger,3684.58,80.78,194.24,3959.6,0.049055,0.950945

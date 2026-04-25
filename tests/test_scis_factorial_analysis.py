@@ -23,6 +23,8 @@ from fuzzy_entropy import (  # noqa: E402
     membership_legacy_linear_v1,
     membership_sigmoid_s_v1,
 )
+from build_primary_tables import build_primary_tables  # noqa: E402
+from inspect_main_results import run_inspection  # noqa: E402
 
 
 MEMBERSHIP_CONFIG = REPO_ROOT / "configs" / "scis" / "fuzzy_membership_v1.yaml"
@@ -273,6 +275,213 @@ class ScisRetryWorkflowTest(unittest.TestCase):
                 json.loads(line) for line in repaired.read_text(encoding="utf-8").splitlines()
             ]
             self.assertEqual([record["value"] for record in repaired_records], ["base0", "retry1", "base2"])
+
+
+class ScisMainInspectionTest(unittest.TestCase):
+    def test_run_inspection_writes_score_and_entropy_summaries(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            analysis_dir = tmp_path / "analysis"
+            analysis_dir.mkdir()
+            output_dir = tmp_path / "inspection"
+            doc_path = tmp_path / "phase6.md"
+            (analysis_dir / "analysis_summary.json").write_text(
+                json.dumps(
+                    {
+                        "run_id": "fixture",
+                        "primary_membership_family": "sigmoid_s_v1",
+                        "n_response_rows": 4,
+                        "n_response_ok": 4,
+                        "n_emotion_rows": 16,
+                        "n_missing_score_rows": 0,
+                        "n_missing_structural_cells": 0,
+                        "n_non_estimable_decomposition_units": 0,
+                        "readiness_passed": True,
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            score_rows = []
+            entropy_rows = []
+            values = {
+                ("p1", 0.1): 1.0,
+                ("p1", 0.4): 2.0,
+                ("p2", 0.1): 3.0,
+                ("p2", 0.4): 5.0,
+            }
+            for (persona_id, temperature), value in values.items():
+                score_rows.append(
+                    {
+                        "model_id": "m1",
+                        "story_id": "T1",
+                        "condition_id": "",
+                        "persona_id": persona_id,
+                        "temperature": temperature,
+                        "temperature_label": "",
+                        "emotion": "interest",
+                        "n_attempts": 1,
+                        "n_valid_scores": 1,
+                        "mean_score": value,
+                        "median_score": value,
+                        "sd_score": 0.0,
+                        "var_score": 0.0,
+                        "min_score": value,
+                        "max_score": value,
+                        "mean_abs_dev_from_median": 0.0,
+                        "n_missing_scores": 0,
+                    }
+                )
+                entropy_rows.append(
+                    {
+                        "model_id": "m1",
+                        "story_id": "T1",
+                        "condition_id": "",
+                        "persona_id": persona_id,
+                        "temperature": temperature,
+                        "temperature_label": "",
+                        "emotion": "interest",
+                        "membership_family": "sigmoid_s_v1",
+                        "membership_hmax": 1.0,
+                        "n_attempts": 1,
+                        "n_valid_entropy": 1,
+                        "n_missing_entropy": 0,
+                        "n_valid_H_raw": 1,
+                        "mean_H_raw": value / 10.0,
+                        "median_H_raw": value / 10.0,
+                        "sd_H_raw": 0.0,
+                        "min_H_raw": value / 10.0,
+                        "max_H_raw": value / 10.0,
+                        "n_valid_H_norm": 1,
+                        "mean_H_norm": value / 10.0,
+                        "median_H_norm": value / 10.0,
+                        "sd_H_norm": 0.0,
+                        "min_H_norm": value / 10.0,
+                        "max_H_norm": value / 10.0,
+                    }
+                )
+
+            for path, rows in (
+                (analysis_dir / "cell_score_summary.csv", score_rows),
+                (analysis_dir / "entropy_cell_summary.csv", entropy_rows),
+            ):
+                with path.open("w", encoding="utf-8", newline="") as f:
+                    writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+                    writer.writeheader()
+                    writer.writerows(rows)
+
+            summary = run_inspection(
+                analysis_dir=analysis_dir,
+                output_dir=output_dir,
+                doc_path=doc_path,
+                primary_family="sigmoid_s_v1",
+                top_n=5,
+            )
+
+            self.assertEqual(summary["n_score_decomposition_units"], 1)
+            self.assertEqual(summary["n_entropy_decomposition_units"], 1)
+            self.assertTrue((output_dir / "metric_decomposition.csv").exists())
+            self.assertTrue((output_dir / "top_absolute_interactions.csv").exists())
+            self.assertTrue(doc_path.exists())
+
+
+class ScisPrimaryTablesTest(unittest.TestCase):
+    def test_build_primary_tables_writes_csv_and_latex_outputs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            analysis_dir = tmp_path / "analysis"
+            inspection_dir = tmp_path / "inspection"
+            output_dir = tmp_path / "tables"
+            doc_path = tmp_path / "phase7.md"
+            analysis_dir.mkdir()
+            inspection_dir.mkdir()
+
+            (analysis_dir / "analysis_summary.json").write_text(
+                json.dumps(
+                    {
+                        "run_id": "fixture",
+                        "stage": "main",
+                        "membership_hmax": {
+                            "sigmoid_s_v1": 1.0,
+                            "legacy_linear_v1": 1.1,
+                        },
+                        "n_response_rows": 4,
+                        "n_response_ok": 4,
+                        "n_emotion_rows": 16,
+                        "n_missing_score_rows": 0,
+                        "n_missing_structural_cells": 0,
+                        "n_non_estimable_decomposition_units": 0,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (analysis_dir / "entropy_family_comparison.csv").write_text(
+                "\n".join(
+                    [
+                        "primary_family,baseline_family,n_cell_pairs,pearson_H_norm_cell_mean,mean_abs_H_norm_diff,max_abs_H_norm_diff",
+                        "sigmoid_s_v1,legacy_linear_v1,16,0.9,0.1,0.2",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            metric_rows = [
+                {
+                    "metric": "score",
+                    "model_id": "m1",
+                    "story_id": "T1",
+                    "emotion": "interest",
+                    "is_estimable": "True",
+                    "missing_cells": "0",
+                    "SS_persona": "4.0",
+                    "SS_temperature": "1.0",
+                    "SS_persona_x_temperature": "1.0",
+                    "interaction_burden": "0.166667",
+                    "separability_share": "0.833333",
+                    "total_SS": "6.0",
+                },
+                {
+                    "metric": "H_norm_sigmoid_s_v1",
+                    "model_id": "m1",
+                    "story_id": "T1",
+                    "emotion": "interest",
+                    "is_estimable": "True",
+                    "missing_cells": "0",
+                    "SS_persona": "0.4",
+                    "SS_temperature": "0.1",
+                    "SS_persona_x_temperature": "0.1",
+                    "interaction_burden": "0.166667",
+                    "separability_share": "0.833333",
+                    "total_SS": "0.6",
+                },
+            ]
+            for name in (
+                "metric_decomposition.csv",
+                "top_interaction_burdens.csv",
+                "top_absolute_interactions.csv",
+            ):
+                with (inspection_dir / name).open("w", encoding="utf-8", newline="") as f:
+                    writer = csv.DictWriter(f, fieldnames=list(metric_rows[0].keys()))
+                    writer.writeheader()
+                    writer.writerows(metric_rows)
+            (inspection_dir / "inspection_summary.json").write_text("{}", encoding="utf-8")
+
+            summary = build_primary_tables(
+                analysis_dir=analysis_dir,
+                inspection_dir=inspection_dir,
+                output_dir=output_dir,
+                doc_path=doc_path,
+                primary_family="sigmoid_s_v1",
+                top_case_limit_each=1,
+            )
+
+            self.assertEqual(summary["n_effect_summary_rows"], 2)
+            self.assertEqual(summary["n_model_metric_rows"], 2)
+            self.assertTrue((output_dir / "table2_effect_summary.csv").exists())
+            self.assertTrue((output_dir / "table2_effect_summary.tex").exists())
+            self.assertTrue((output_dir / "primary_table_summary.json").exists())
+            self.assertTrue(doc_path.exists())
 
 
 if __name__ == "__main__":

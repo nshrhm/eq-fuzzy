@@ -1,0 +1,2 @@
+run_id,stage,response_rows,response_ok,valid_output_rate,emotion_rows,missing_score_rows,missing_structural_cells,non_estimable_decomposition_units
+scis2026_factorial_v1_main_manifest_v1,main,1440,1440,1.0,5760,0,0,0
