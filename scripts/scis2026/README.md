@@ -129,3 +129,27 @@ After running and summarizing the full main run:
 ```bash
 python scripts/scis2026/check_main_run.py
 ```
+
+If the main run has a small number of failed rows, build and run a retry
+manifest instead of rerunning the full 1440-request manifest:
+
+```bash
+python scripts/scis2026/build_factorial_retry_manifest.py
+
+python scripts/scis2026/run_factorial.py \
+  --manifest runs/scis2026/scis2026_factorial_v1_main_manifest_v1/retry_failed_v1_manifest.csv \
+  --output-jsonl runs/scis2026/scis2026_factorial_v1_main_manifest_v1/raw_retry_failed_v1.jsonl
+
+python scripts/scis2026/merge_factorial_retry.py
+```
+
+Then summarize and gate-check the repaired raw file:
+
+```bash
+python scripts/scis2026/summarize_factorial_run.py \
+  --input-jsonl runs/scis2026/scis2026_factorial_v1_main_manifest_v1/raw_repaired.jsonl \
+  --summary-json runs/scis2026/scis2026_factorial_v1_main_manifest_v1/summary.json \
+  --cell-csv runs/scis2026/scis2026_factorial_v1_main_manifest_v1/cell_summary.csv
+
+python scripts/scis2026/check_main_run.py
+```

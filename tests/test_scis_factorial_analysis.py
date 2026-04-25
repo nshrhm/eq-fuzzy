@@ -1,4 +1,6 @@
 import json
+import csv
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -172,6 +174,105 @@ class ScisFuzzyEntropyTest(unittest.TestCase):
         h2 = estimate_hmax("sigmoid_s_v1", grid_step=0.01)
         self.assertAlmostEqual(h1, h2)
         self.assertGreater(h1, 0.0)
+
+
+class ScisRetryWorkflowTest(unittest.TestCase):
+    def test_build_factorial_retry_manifest_keeps_only_failed_rows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            manifest = tmp_path / "manifest.csv"
+            raw = tmp_path / "raw.jsonl"
+            retry = tmp_path / "retry.csv"
+
+            with manifest.open("w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=["manifest_row", "model_id"])
+                writer.writeheader()
+                writer.writerows(
+                    [
+                        {"manifest_row": "0", "model_id": "m0"},
+                        {"manifest_row": "1", "model_id": "m1"},
+                        {"manifest_row": "2", "model_id": "m2"},
+                    ]
+                )
+            raw.write_text(
+                "\n".join(
+                    [
+                        json.dumps({"manifest_row": 0, "ok": True}),
+                        json.dumps({"manifest_row": 1, "ok": False}),
+                        json.dumps({"manifest_row": 2, "ok": True}),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(SCIS_SCRIPTS / "build_factorial_retry_manifest.py"),
+                    "--repo-root",
+                    str(tmp_path),
+                    "--source-manifest",
+                    "manifest.csv",
+                    "--raw-jsonl",
+                    "raw.jsonl",
+                    "--output",
+                    "retry.csv",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertIn("Wrote 1 retry rows", result.stdout)
+            with retry.open("r", encoding="utf-8", newline="") as f:
+                rows = list(csv.DictReader(f))
+            self.assertEqual(rows, [{"manifest_row": "1", "model_id": "m1"}])
+
+    def test_merge_factorial_retry_replaces_only_retry_rows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            base = tmp_path / "raw.jsonl"
+            retry = tmp_path / "retry.jsonl"
+            repaired = tmp_path / "repaired.jsonl"
+            base_records = [
+                {"manifest_row": 0, "ok": True, "value": "base0"},
+                {"manifest_row": 1, "ok": False, "value": "base1"},
+                {"manifest_row": 2, "ok": True, "value": "base2"},
+            ]
+            retry_records = [{"manifest_row": 1, "ok": True, "value": "retry1"}]
+            base.write_text(
+                "\n".join(json.dumps(record) for record in base_records) + "\n",
+                encoding="utf-8",
+            )
+            retry.write_text(
+                "\n".join(json.dumps(record) for record in retry_records) + "\n",
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(SCIS_SCRIPTS / "merge_factorial_retry.py"),
+                    "--repo-root",
+                    str(tmp_path),
+                    "--base-jsonl",
+                    "raw.jsonl",
+                    "--retry-jsonl",
+                    "retry.jsonl",
+                    "--output-jsonl",
+                    "repaired.jsonl",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertIn("Replaced manifest rows: 1", result.stdout)
+            repaired_records = [
+                json.loads(line) for line in repaired.read_text(encoding="utf-8").splitlines()
+            ]
+            self.assertEqual([record["value"] for record in repaired_records], ["base0", "retry1", "base2"])
 
 
 if __name__ == "__main__":

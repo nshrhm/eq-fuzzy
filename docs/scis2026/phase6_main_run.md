@@ -64,6 +64,22 @@ Check the main gate:
 python scripts/scis2026/check_main_run.py
 ```
 
+If the main run contains only a small number of invalid rows, retry only those
+rows:
+
+```bash
+python scripts/scis2026/build_factorial_retry_manifest.py
+
+python scripts/scis2026/run_factorial.py \
+  --manifest runs/scis2026/scis2026_factorial_v1_main_manifest_v1/retry_failed_v1_manifest.csv \
+  --output-jsonl runs/scis2026/scis2026_factorial_v1_main_manifest_v1/raw_retry_failed_v1.jsonl
+
+python scripts/scis2026/merge_factorial_retry.py
+```
+
+The merge step writes `raw_repaired.jsonl` and leaves the original `raw.jsonl`
+unchanged.
+
 After the main gate passes, create analysis-ready outputs with:
 
 ```bash

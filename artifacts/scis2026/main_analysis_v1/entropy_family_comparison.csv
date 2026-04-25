@@ -1,0 +1,2 @@
+primary_family,baseline_family,n_cell_pairs,pearson_H_norm_cell_mean,mean_abs_H_norm_diff,max_abs_H_norm_diff
+sigmoid_s_v1,legacy_linear_v1,1152,0.932668023,0.129519388,0.47861575
