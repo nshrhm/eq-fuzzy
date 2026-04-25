@@ -394,6 +394,21 @@ Shared-code policy:
   aliasing, not as a claim that the previous paper was wrong.
 - Keep journal-extension notes separate from the SCIS submission material.
 
+### Phase 12 and Later: Writing and Reviewer-Risk Reduction
+
+The post-main-run writing and experiment-improvement roadmap is recorded in
+`docs/scis2026/phase12_writing_experiment_roadmap.md`.
+
+Priority:
+
+- lock the manuscript figure/table set before heavy prose editing;
+- keep the split Fig. 1 and Fig. 2 versions as the main-text figures for
+  two-column readability;
+- add lightweight diagnostics for membership sensitivity, model/story/emotion
+  robustness, and retry handling;
+- avoid expanding the main experiment unless a concrete diagnostic reveals a
+  submission-blocking failure.
+
 ## Do Not Do
 
 - Do not reintroduce root compatibility wrappers.

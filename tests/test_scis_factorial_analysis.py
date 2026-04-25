@@ -599,12 +599,28 @@ class ScisPrimaryFiguresTest(unittest.TestCase):
                 primary_family="sigmoid_s_v1",
             )
 
-            self.assertEqual(summary["n_figures"], 3)
+            self.assertEqual(summary["n_figures"], 7)
+            self.assertEqual(
+                summary["main_text_figures"],
+                [
+                    "figure1a_prior_diagonal_design",
+                    "figure1b_factorial_design",
+                    "figure2a_entropy_heatmap",
+                    "figure2b_score_heatmap",
+                    "figure3_model_metric_interaction_heatmap",
+                ],
+            )
             self.assertTrue((output_dir / "figure1_design_comparison.png").exists())
+            self.assertTrue((output_dir / "figure1a_prior_diagonal_design.png").exists())
+            self.assertTrue((output_dir / "figure1b_factorial_design.png").exists())
             self.assertTrue((output_dir / "figure2_representative_heatmaps.png").exists())
+            self.assertTrue((output_dir / "figure2a_entropy_heatmap.png").exists())
+            self.assertTrue((output_dir / "figure2b_score_heatmap.png").exists())
             self.assertTrue((output_dir / "figure3_model_metric_interaction_heatmap.png").exists())
             self.assertTrue((output_dir / "figure_manifest.csv").exists())
             self.assertTrue((output_dir / "figure1_design_comparison.tex").exists())
+            self.assertTrue((output_dir / "figure1a_prior_diagonal_design.tex").exists())
+            self.assertTrue((output_dir / "figure2a_entropy_heatmap.tex").exists())
             self.assertTrue(doc_path.exists())
 
 

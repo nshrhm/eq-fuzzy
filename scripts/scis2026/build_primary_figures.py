@@ -80,6 +80,27 @@ def draw_design_grid(
         spine.set_visible(False)
 
 
+def plot_single_design(
+    output_dir: Path,
+    *,
+    figure: str,
+    title: str,
+    diagonal_only: bool,
+    caption_seed: str,
+) -> dict[str, Any]:
+    fig, ax = plt.subplots(figsize=(3.35, 3.25), constrained_layout=True)
+    draw_design_grid(ax, title=title, diagonal_only=diagonal_only)
+    path = output_dir / f"{figure}.png"
+    save_figure(fig, path)
+    return {
+        "figure": figure,
+        "path": str(path),
+        "source": "design specification",
+        "caption_seed": caption_seed,
+        "main_text": True,
+    }
+
+
 def plot_design_comparison(output_dir: Path) -> dict[str, Any]:
     fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.35), constrained_layout=True)
     draw_design_grid(axes[0], title="Prior bundled diagonal design", diagonal_only=True)
@@ -92,6 +113,7 @@ def plot_design_comparison(output_dir: Path) -> dict[str, Any]:
         "path": str(path),
         "source": "design specification",
         "caption_seed": "Prior diagonal persona-temperature bundles are contrasted with the SCIS fully crossed persona x temperature design.",
+        "main_text": False,
     }
 
 
@@ -193,6 +215,48 @@ def plot_representative_heatmaps(
         "path": str(path),
         "source": "cell_score_summary.csv and entropy_cell_summary.csv",
         "caption_seed": "; ".join(captions),
+        "main_text": False,
+    }
+
+
+def plot_single_representative_heatmap(
+    *,
+    output_dir: Path,
+    case: dict[str, str],
+    score_cells: list[dict[str, str]],
+    entropy_cells: list[dict[str, str]],
+    primary_family: str,
+    figure: str,
+) -> dict[str, Any]:
+    values = grid_values_for_case(
+        case=case,
+        score_cells=score_cells,
+        entropy_cells=entropy_cells,
+        primary_family=primary_family,
+    )
+    is_entropy = case["metric"].startswith("H_norm_")
+    metric_name = "$H^*$" if is_entropy else "Score"
+    fig, ax = plt.subplots(figsize=(3.45, 3.15), constrained_layout=True)
+    image = plot_heatmap(
+        ax,
+        values,
+        title=f"{metric_name}: {compact_model_label(case['model_id'])}, {case['story_id']}, {case['emotion'].title()}",
+        value_format="{:.2f}" if is_entropy else "{:.1f}",
+        vmin=0.0,
+        vmax=1.0 if is_entropy else 100.0,
+    )
+    fig.colorbar(image, ax=ax, fraction=0.046, pad=0.03)
+    path = output_dir / f"{figure}.png"
+    save_figure(fig, path)
+    return {
+        "figure": figure,
+        "path": str(path),
+        "source": "cell_score_summary.csv and entropy_cell_summary.csv",
+        "caption_seed": (
+            f"{case['metric']} heatmap for {case['model_id']} {case['story_id']} "
+            f"{case['emotion']} (interaction burden={case['interaction_burden']})."
+        ),
+        "main_text": True,
     }
 
 
@@ -224,6 +288,7 @@ def plot_model_metric_heatmap(
         "path": str(path),
         "source": "table3_model_metric_summary.csv",
         "caption_seed": "Mean interaction burden is summarized for score and normalized fuzzy entropy by model.",
+        "main_text": True,
     }
 
 
@@ -249,7 +314,11 @@ def latex_figure_snippet(*, figure: dict[str, Any], label: str, width: str = r"\
 def write_latex_snippets(figures: list[dict[str, Any]], output_dir: Path) -> None:
     labels = {
         "figure1_design_comparison": "fig:scis-design",
+        "figure1a_prior_diagonal_design": "fig:scis-prior-diagonal",
+        "figure1b_factorial_design": "fig:scis-factorial-design",
         "figure2_representative_heatmaps": "fig:scis-representative-heatmaps",
+        "figure2a_entropy_heatmap": "fig:scis-entropy-heatmap",
+        "figure2b_score_heatmap": "fig:scis-score-heatmap",
         "figure3_model_metric_interaction_heatmap": "fig:scis-model-metric-heatmap",
     }
     for figure in figures:
@@ -305,12 +374,42 @@ def build_primary_figures(
     cases = select_representative_cases(top_relative=top_relative, top_absolute=top_absolute)
     figures = [
         plot_design_comparison(output_dir),
+        plot_single_design(
+            output_dir,
+            figure="figure1a_prior_diagonal_design",
+            title="Prior diagonal design",
+            diagonal_only=True,
+            caption_seed="Prior work bundled each persona with one temperature, producing diagonal-only coverage.",
+        ),
+        plot_single_design(
+            output_dir,
+            figure="figure1b_factorial_design",
+            title="SCIS fully crossed design",
+            diagonal_only=False,
+            caption_seed="SCIS independently crosses persona and temperature to estimate main effects and interaction.",
+        ),
         plot_representative_heatmaps(
             output_dir=output_dir,
             cases=cases,
             score_cells=score_cells,
             entropy_cells=entropy_cells,
             primary_family=primary_family,
+        ),
+        plot_single_representative_heatmap(
+            output_dir=output_dir,
+            case=cases[0],
+            score_cells=score_cells,
+            entropy_cells=entropy_cells,
+            primary_family=primary_family,
+            figure="figure2a_entropy_heatmap",
+        ),
+        plot_single_representative_heatmap(
+            output_dir=output_dir,
+            case=cases[1],
+            score_cells=score_cells,
+            entropy_cells=entropy_cells,
+            primary_family=primary_family,
+            figure="figure2b_score_heatmap",
         ),
         plot_model_metric_heatmap(output_dir=output_dir, model_metric_rows=model_metric_rows),
     ]
@@ -320,6 +419,7 @@ def build_primary_figures(
             "path": figure["path"],
             "source": figure["source"],
             "caption_seed": figure["caption_seed"],
+            "main_text": figure["main_text"],
         }
         for figure in figures
     ]
@@ -333,6 +433,7 @@ def build_primary_figures(
         "primary_family": primary_family,
         "n_figures": len(figures),
         "figures": [figure["figure"] for figure in figures],
+        "main_text_figures": [figure["figure"] for figure in figures if figure["main_text"]],
         "representative_cases": [
             {
                 "metric": case["metric"],

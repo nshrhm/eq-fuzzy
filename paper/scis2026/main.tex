@@ -135,7 +135,8 @@ breakpoints while smoothing the transition shape. We compute raw fuzzy entropy
 $H_{\mathrm{raw}} = -\sum_k \mu_k \log_2 \mu_k$ with $0\log 0=0$, and report
 the normalized value $H^* = H_{\mathrm{raw}}/H_{\max}$, where $H_{\max}$ is
 deterministically estimated for each membership family on a dense score grid.
-\input{../../artifacts/scis2026/main_figures_v1/figure1_design_comparison}
+\input{../../artifacts/scis2026/main_figures_v1/figure1a_prior_diagonal_design}
+\input{../../artifacts/scis2026/main_figures_v1/figure1b_factorial_design}
 
 \section{Experiments}
 The main experiment used six contemporary LLMs, three Japanese literary texts,
@@ -153,19 +154,14 @@ Table~\ref{tab:scis-validity}.
 \input{../../artifacts/scis2026/main_tables_v1/table1_run_validity}
 
 \section{Results and Discussion}
-Table~\ref{tab:scis-effect-summary} summarizes the primary decomposition. For
-mean score, persona accounts for most of the decomposed variation across all
-four emotions. The mean persona share is above 90\% for interest, sadness, and
+Table~\ref{tab:scis-bootstrap-ci} summarizes the primary decomposition with
+within-cell bootstrap intervals. The resampling keeps model, text, persona, and
+temperature cells fixed and resamples the five repeats within each cell,
+preserving the four emotion scores from the same response as a block. For mean
+score, persona accounts for most of the decomposed variation across all four
+emotions. The mean persona share is above 90\% for interest, sadness, and
 surprise, and remains above 80\% for anger. Temperature shares are comparatively
-small, while interaction burdens are largest for anger.
-\input{../../artifacts/scis2026/main_tables_v1/table2_effect_summary}
-
-Table~\ref{tab:scis-bootstrap-ci} gives within-cell bootstrap intervals. The
-resampling keeps model, text, persona, and temperature cells fixed and resamples
-the five repeats within each cell, preserving the four emotion scores from the
-same response as a block. The intervals support the descriptive pattern that
-score-level effects are primarily persona-driven, with lower interaction
-burden than entropy-based summaries.
+small, while score-level interaction burdens are largest for anger.
 \input{../../artifacts/scis2026/main_bootstrap_v1/effect_summary_bootstrap_ci}
 
 The entropy results show a different pattern. Although persona remains the
@@ -174,7 +170,8 @@ higher than for score, especially for anger and surprise. This indicates that
 the ambiguity induced by membership placement can vary with the joint
 persona-temperature setting even when mean score variation is more cleanly
 persona dominated.
-\input{../../artifacts/scis2026/main_figures_v1/figure2_representative_heatmaps}
+\input{../../artifacts/scis2026/main_figures_v1/figure2a_entropy_heatmap}
+\input{../../artifacts/scis2026/main_figures_v1/figure2b_score_heatmap}
 
 Model-level summaries in Table~\ref{tab:scis-model-summary} and
 Fig.~\ref{fig:scis-model-metric-heatmap} show that the same qualitative
@@ -194,11 +191,10 @@ entropy magnitude, so claims should focus on patterns under a fixed membership
 specification rather than on absolute entropy as a universal quantity.
 \input{../../artifacts/scis2026/main_tables_v1/table4_entropy_sensitivity}
 
-Finally, Table~\ref{tab:scis-top-interactions} lists cases selected by relative
-and absolute interaction size. These cases are not used as standalone claims;
-they identify where detailed qualitative inspection or appendix figures may be
-most useful.
-\input{../../artifacts/scis2026/main_tables_v1/table5_top_interaction_cases}
+Detailed point-estimate tables and top-interaction case lists are retained in
+the reproducibility artifacts for appendix selection. The main paper instead
+uses the CI table and representative heatmaps to avoid duplicating the same
+decomposition in multiple large tables.
 
 \section{Conclusion}
 We presented a fully crossed persona-temperature design for LLM-based fuzzy

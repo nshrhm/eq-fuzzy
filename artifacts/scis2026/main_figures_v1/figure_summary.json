@@ -4,10 +4,21 @@
   "tables_dir": "artifacts/scis2026/main_tables_v1",
   "output_dir": "artifacts/scis2026/main_figures_v1",
   "primary_family": "sigmoid_s_v1",
-  "n_figures": 3,
+  "n_figures": 7,
   "figures": [
     "figure1_design_comparison",
+    "figure1a_prior_diagonal_design",
+    "figure1b_factorial_design",
     "figure2_representative_heatmaps",
+    "figure2a_entropy_heatmap",
+    "figure2b_score_heatmap",
+    "figure3_model_metric_interaction_heatmap"
+  ],
+  "main_text_figures": [
+    "figure1a_prior_diagonal_design",
+    "figure1b_factorial_design",
+    "figure2a_entropy_heatmap",
+    "figure2b_score_heatmap",
     "figure3_model_metric_interaction_heatmap"
   ],
   "representative_cases": [
