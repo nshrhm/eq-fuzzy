@@ -171,6 +171,17 @@ This writes machine-readable bootstrap intervals and a manuscript-facing LaTeX
 table to `artifacts/scis2026/main_bootstrap_v1/`, and updates
 `docs/scis2026/phase9_bootstrap_ci.md`.
 
+Build reviewer-risk diagnostics for retry handling, leave-one-model-out
+stability, story stratification, and emotion stratification:
+
+```bash
+python scripts/scis2026/build_reviewer_diagnostics.py
+```
+
+This writes diagnostics to
+`artifacts/scis2026/main_reviewer_diagnostics_v1/` and updates
+`docs/scis2026/phase14_reviewer_risk_diagnostics.md`.
+
 If the main run has a small number of failed rows, build and run a retry
 manifest instead of rerunning the full 1440-request manifest:
 
@@ -194,3 +205,15 @@ python scripts/scis2026/summarize_factorial_run.py \
 
 python scripts/scis2026/check_main_run.py
 ```
+
+## Phase 16: reproducibility map
+
+The current main-run reproducibility chain is recorded in:
+
+```text
+docs/scis2026/phase16_reproducibility_package.md
+```
+
+It maps the immutable original raw run, retry raw file, repaired raw file,
+analysis artifacts, paper tables, figures, reviewer diagnostics, and manuscript
+includes.
