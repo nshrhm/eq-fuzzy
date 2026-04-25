@@ -13,7 +13,7 @@
 
 \begin{document}
 
-\title{Paper Title}
+\title{Separating Persona and Temperature Effects in LLM-Based Fuzzy Emotion Scoring}
 
 \author{
 \IEEEauthorblockN{Naruki Shirahama}
@@ -45,38 +45,191 @@ satoshi\_watanabe@ieee.org}
 \maketitle
 
 \begin{abstract}
-Write the abstract here.
+Large language models are increasingly used as scalable judges of literary
+emotion, but persona prompts and decoding temperature are often varied together.
+This coupling makes it difficult to distinguish interpretive stance effects from
+stochastic decoding effects. We introduce a fully crossed persona-temperature
+design for Japanese literary emotion scoring and analyze score, validity, and
+normalized fuzzy entropy under the same factorial structure. The main run uses
+six contemporary models, three literary texts, four persona stances, four
+temperature levels, and five repeats per cell, yielding 1440 structured
+responses and 5760 emotion-level scores. All responses passed the structured
+output gate after targeted retry repair. Balanced decomposition summaries show
+that mean score variation is dominated by persona effects, while normalized
+fuzzy entropy exhibits larger persona-temperature interaction burdens,
+especially for anger and surprise. These results suggest that independent
+crossing is necessary not only for cleaner effect attribution, but also for
+identifying when ambiguity-related metrics remain entangled across prompting and
+sampling controls.
 \end{abstract}
 
 \begin{IEEEkeywords}
-keyword1, keyword2, keyword3
+large language models, persona prompting, temperature, fuzzy entropy, emotion
+scoring, factorial design
 \end{IEEEkeywords}
 
 \section{Introduction}
+LLM-based emotion scoring offers a practical way to compare affective
+interpretations across models and prompt settings. In prior work on emotional
+individuality, persona prompting and decoding temperature were used to induce
+diversity in model responses. However, when a specific persona is paired with a
+specific temperature, the resulting score variation cannot be cleanly assigned
+to either interpretive stance or decoding stochasticity. This is a design
+limitation rather than only a statistical limitation: no downstream model can
+separate two factors that were not independently varied.
+
+This paper addresses that limitation with a fully crossed persona-temperature
+design. We hold the text set and response schema fixed, express persona only as
+an interpretive stance in the prompt, and pass temperature only as an API
+configuration parameter. The central question is whether persona effects,
+temperature effects, and their interaction can be described separately for
+score-level emotion ratings and fuzzy entropy derived from those ratings.
+
+Our contribution is methodological and empirical. First, we define a
+conference-scale factorial protocol for LLM-based literary emotion scoring.
+Second, we compute balanced effect components for persona, temperature, and
+persona-temperature interaction. Third, we update the fuzzy entropy pipeline to
+use a smooth sigmoid-composed membership family as the primary specification,
+while retaining the prior piecewise-linear family as a sensitivity baseline.
 
 \section{Related Work}
+LLM emotion benchmarks have evaluated affective understanding, empathy, and
+emotion recognition from several perspectives. These efforts establish that LLMs
+can be compared on emotion-related tasks, but they do not by themselves resolve
+how prompt persona and sampling parameters affect score formation. Our setting
+is narrower: we focus on repeated literary emotion scoring under a controlled
+factorial design.
+
+Fuzzy-set theory provides a natural language for representing degrees of
+membership rather than crisp class labels \cite{zadeh1965fuzzy}. Following the
+Shannon-type entropy tradition \cite{shannon1948}, prior EQ-Fuzzy work used
+Low, Medium, and High membership values over 0--100 emotion intensity scores to
+summarize ambiguity in LLM scoring \cite{shirahama2026mdpi}. In this paper, we
+keep the semantic breakpoints comparable to the prior implementation, but use a
+smooth sigmoid-composed S-function membership family as the primary entropy
+specification.
 
 \section{Method}
+Let $x_{m,t,p,\tau,r,e}$ denote a 0--100 score produced by model $m$ for text
+$t$, persona $p$, temperature $\tau$, repeat $r$, and emotion $e$. The primary
+factorial cell is $(m,t,p,\tau)$, with four emotion dimensions recorded for each
+response. For each model-text-emotion unit, we summarize the $4 \times 4$
+persona-temperature mean table with three balanced components:
+\begin{equation}
+SS_{\mathrm{persona}}, \quad SS_{\mathrm{temp}}, \quad
+SS_{\mathrm{persona}\times\mathrm{temp}}.
+\end{equation}
+We report the relative interaction burden
+\begin{equation}
+B =
+\frac{SS_{\mathrm{persona}\times\mathrm{temp}}}
+{SS_{\mathrm{persona}} + SS_{\mathrm{temp}} +
+SS_{\mathrm{persona}\times\mathrm{temp}}},
+\end{equation}
+and separability share $1-B$. Low interaction burden indicates that persona and
+temperature are practically separable for the outcome under analysis.
+
+For fuzzy entropy, each score is mapped to Low, Medium, and High membership
+values. The primary family, denoted `sigmoid\_s\_v1', preserves the prior
+breakpoints while smoothing the transition shape. We compute raw fuzzy entropy
+$H_{\mathrm{raw}} = -\sum_k \mu_k \log_2 \mu_k$ with $0\log 0=0$, and report
+the normalized value $H^* = H_{\mathrm{raw}}/H_{\max}$, where $H_{\max}$ is
+deterministically estimated for each membership family on a dense score grid.
 \input{../../artifacts/scis2026/main_figures_v1/figure1_design_comparison}
 
 \section{Experiments}
+The main experiment used six contemporary LLMs, three Japanese literary texts,
+four persona stances, four temperature levels ($0.1$, $0.4$, $0.7$, and $0.9$),
+and five repeats per condition. This gives
+$6 \times 3 \times 4 \times 4 \times 5 = 1440$ response trials. Each response
+was required to return four emotion scores and corresponding reasons in the
+fixed response schema. Temperature was never mentioned in the prompt text.
+
+The initial main run contained four invalid rows. We repaired these by retrying
+only the failed manifest rows and merging the successful retry records into a
+separate repaired raw file, leaving the original raw output unchanged. The
+repaired run reached complete structured-output validity, as shown in
+Table~\ref{tab:scis-validity}.
 \input{../../artifacts/scis2026/main_tables_v1/table1_run_validity}
 
 \section{Results and Discussion}
+Table~\ref{tab:scis-effect-summary} summarizes the primary decomposition. For
+mean score, persona accounts for most of the decomposed variation across all
+four emotions. The mean persona share is above 90\% for interest, sadness, and
+surprise, and remains above 80\% for anger. Temperature shares are comparatively
+small, while interaction burdens are largest for anger.
 \input{../../artifacts/scis2026/main_tables_v1/table2_effect_summary}
+
+Table~\ref{tab:scis-bootstrap-ci} gives within-cell bootstrap intervals. The
+resampling keeps model, text, persona, and temperature cells fixed and resamples
+the five repeats within each cell, preserving the four emotion scores from the
+same response as a block. The intervals support the descriptive pattern that
+score-level effects are primarily persona-driven, with lower interaction
+burden than entropy-based summaries.
+\input{../../artifacts/scis2026/main_bootstrap_v1/effect_summary_bootstrap_ci}
+
+The entropy results show a different pattern. Although persona remains the
+largest average component for $H^*$, interaction burdens are substantially
+higher than for score, especially for anger and surprise. This indicates that
+the ambiguity induced by membership placement can vary with the joint
+persona-temperature setting even when mean score variation is more cleanly
+persona dominated.
 \input{../../artifacts/scis2026/main_figures_v1/figure2_representative_heatmaps}
+
+Model-level summaries in Table~\ref{tab:scis-model-summary} and
+Fig.~\ref{fig:scis-model-metric-heatmap} show that the same qualitative
+difference between score and entropy appears across the panel, but with model
+variation. DeepSeek V3.2 and Gemini 2.5 Pro show comparatively high mean
+interaction burden for normalized fuzzy entropy, while Claude Sonnet 4.5 and
+Grok 4.20 show low interaction burden for score.
 \input{../../artifacts/scis2026/main_tables_v1/table3_model_metric_summary}
 \input{../../artifacts/scis2026/main_figures_v1/figure3_model_metric_interaction_heatmap}
+
+The entropy sensitivity check in Table~\ref{tab:scis-entropy-sensitivity}
+compares the primary smooth membership family with the prior piecewise-linear
+baseline. The cell-mean correlation is high, indicating that the updated
+membership family does not create an unrelated entropy signal. At the same
+time, the nonzero absolute differences confirm that the family choice affects
+entropy magnitude, so claims should focus on patterns under a fixed membership
+specification rather than on absolute entropy as a universal quantity.
 \input{../../artifacts/scis2026/main_tables_v1/table4_entropy_sensitivity}
+
+Finally, Table~\ref{tab:scis-top-interactions} lists cases selected by relative
+and absolute interaction size. These cases are not used as standalone claims;
+they identify where detailed qualitative inspection or appendix figures may be
+most useful.
 \input{../../artifacts/scis2026/main_tables_v1/table5_top_interaction_cases}
 
 \section{Conclusion}
+We presented a fully crossed persona-temperature design for LLM-based fuzzy
+emotion scoring and applied it to a six-model Japanese literary emotion
+experiment. The main result is that score variation is largely separable and
+persona dominated, whereas normalized fuzzy entropy retains stronger
+persona-temperature interaction, particularly for anger and surprise. This
+distinction would be obscured in a diagonal design that bundles persona and
+temperature together. Future work should extend the bootstrap analysis to
+larger repeat counts, add model-text robustness checks, and refine manuscript
+figures for submission.
 
 \section*{Acknowledgment}
+This work was supported in part by the EQ-Fuzzy research line under KAKENHI.
 
-% Add references when needed, for example:
-% \begin{thebibliography}{00}
-% \bibitem{ref1} Author, ``Title,'' Journal or Conference, year.
-% \end{thebibliography}
+\begin{thebibliography}{00}
+
+\bibitem{zadeh1965fuzzy}
+L. A. Zadeh, ``Fuzzy sets,'' \emph{Information and Control}, vol. 8, no. 3,
+pp. 338--353, 1965.
+
+\bibitem{shannon1948}
+C. E. Shannon, ``A mathematical theory of communication,'' \emph{Bell System
+Technical Journal}, vol. 27, no. 3, pp. 379--423, 1948.
+
+\bibitem{shirahama2026mdpi}
+N. Shirahama, Y. Yoshimoto, N. Nakaya, and S. Watanabe, ``Mathematical
+Framework for Characterizing Emotional Individuality in Large Language Models:
+Temperature Control, Fuzzy Entropy, and Persona-Based Diversity Analysis,''
+\emph{Mathematics}, vol. 14, no. 7, Art. no. 1224, 2026.
+
+\end{thebibliography}
 
 \end{document}

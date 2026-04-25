@@ -299,7 +299,7 @@ def write_latex_outputs(
         path=output_dir / "table1_run_validity.tex",
         caption="SCIS main-run validity and completeness.",
         label="tab:scis-validity",
-        headers=["Responses", "Valid", "Rate", "Emotion rows", "Missing scores", "Missing cells"],
+        headers=["Resp.", "Valid", "Rate", "Emo. rows", "Miss. scores", "Miss. cells"],
         rows=[
             [
                 str(validity["response_rows"]),
