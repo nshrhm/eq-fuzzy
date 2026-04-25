@@ -1,0 +1,50 @@
+config_id: scis2026_fuzzy_membership_v1
+status: phase5_5_locked_before_main_run
+score_range: [0.0, 100.0]
+primary_family: sigmoid_s_v1
+baseline_families:
+  - legacy_linear_v1
+
+families:
+  legacy_linear_v1:
+    description: >
+      Piecewise-linear Low/Medium/High membership functions used for
+      compatibility with the prior Mathematics implementation.
+    low:
+      type: z_linear
+      transition: [0.0, 30.0]
+    medium:
+      type: trapezoid_linear
+      rise: [10.0, 30.0]
+      plateau: [30.0, 50.0]
+      fall: [50.0, 70.0]
+    high:
+      type: s_linear
+      transition: [50.0, 100.0]
+
+  sigmoid_s_v1:
+    description: >
+      Sigmoid-composed S-function family. Semantic breakpoints match
+      legacy_linear_v1, but transition ramps are C1 piecewise-smooth.
+    s_domain: [0.1, 0.9]
+    sigmoid_gain_rule: 2*log(9)/(hi-lo)
+    low:
+      type: z_sigmoid_s
+      transition: [0.0, 30.0]
+    medium:
+      type: pi_sigmoid_s
+      rise: [10.0, 30.0]
+      plateau: [30.0, 50.0]
+      fall: [50.0, 70.0]
+    high:
+      type: s_sigmoid_s
+      transition: [50.0, 100.0]
+
+entropy:
+  raw:
+    formula: -sum(mu_i * log2(mu_i))
+    zero_rule: 0*log2(0)=0
+  normalized:
+    enabled: true
+    hmax_method: dense_grid
+    grid_step: 0.001

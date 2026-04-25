@@ -361,6 +361,16 @@ Shared-code policy:
 - Decide whether the main run can remain at `r = 5`.
 - Replace failing models before the main run.
 
+### Phase 5.5: Pilot Analysis Readiness
+
+- Lock the SCIS fuzzy entropy membership design before the main run.
+- Expand pilot raw JSONL into emotion-level long tables.
+- Generate cell-level score summaries and persona-temperature mean grids.
+- Generate primary `sigmoid_s_v1` normalized fuzzy entropy and
+  `legacy_linear_v1` sensitivity outputs.
+- Compute descriptive two-way persona-temperature decomposition.
+- Use this stage only to decide whether the Phase 6 main run can proceed.
+
 ### Phase 6: Main Run
 
 - Run 6 models x 3 texts x 16 conditions x 5 repeats.

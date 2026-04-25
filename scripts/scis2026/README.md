@@ -103,3 +103,29 @@ After running and summarizing the full pilot run:
 ```bash
 python scripts/scis2026/check_pilot_run.py
 ```
+
+## Phase 5.5: pilot analysis readiness
+
+Generate pilot analysis-readiness artifacts:
+
+```bash
+python scripts/scis2026/analyze_factorial_scores.py
+```
+
+The default analysis uses `configs/scis/fuzzy_membership_v1.yaml`, with
+`sigmoid_s_v1` as the primary fuzzy entropy membership family and
+`legacy_linear_v1` as the sensitivity baseline.
+
+## Phase 6: main run gate
+
+Build the 1440-request main manifest:
+
+```bash
+python scripts/scis2026/build_factorial_manifest.py --stage main
+```
+
+After running and summarizing the full main run:
+
+```bash
+python scripts/scis2026/check_main_run.py
+```

@@ -1,5 +1,10 @@
 # SCIS 2026 artifacts
 
-Placeholder for SCIS 2026 generated artifacts.
+Generated artifacts for the SCIS 2026 workstream.
 
-Do not add generated files here until the SCIS experiment design and artifact policy are fixed.
+Current artifact sets:
+
+- `pilot_analysis_v1/`: Phase 5.5 pilot analysis-readiness outputs.
+
+These artifacts are SCIS-owned and should not be mixed with ICECCME or ICICIC
+outputs.

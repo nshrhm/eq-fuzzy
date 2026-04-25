@@ -1,0 +1,12 @@
+{
+  "run_id": "scis2026_factorial_v1_main_manifest_v1",
+  "design_id": "scis2026_factorial_v1",
+  "stage": "main",
+  "n_rows": 1440,
+  "n_models": 6,
+  "n_stories": 3,
+  "n_conditions": 16,
+  "n_repetitions": 5,
+  "output_manifest": "runs/scis2026/scis2026_factorial_v1_main_manifest_v1/manifest.csv",
+  "git_commit": "761b6352e0b7e87dc710bdc0d723ad3316f0a643"
+}

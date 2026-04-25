@@ -34,16 +34,17 @@ def check_summary(
     config_path: Path,
     min_valid_rate: float,
     min_cell_valid_repeats: int,
+    stage_name: str = "pilot",
 ) -> tuple[bool, list[str]]:
     summary = load_json(summary_path)
     config = load_yaml(config_path)
-    stage = config["run_stages"]["pilot"]
+    stage = config["run_stages"][stage_name]
     errors: list[str] = []
     n_expected_cells = expected_cells(stage)
 
-    require(summary.get("stage") == "pilot", "summary stage is not pilot", errors)
+    require(summary.get("stage") == stage_name, f"summary stage is not {stage_name}", errors)
     require(summary.get("design_id") == config["study"]["design_id"], "design_id mismatch", errors)
-    require(int(summary.get("n_records", -1)) == int(stage["expected_trials"]), "n_records does not match pilot expected_trials", errors)
+    require(int(summary.get("n_records", -1)) == int(stage["expected_trials"]), f"n_records does not match {stage_name} expected_trials", errors)
     require(int(summary.get("n_models", -1)) == int(stage["models"]), "n_models mismatch", errors)
     require(int(summary.get("n_cells", -1)) == n_expected_cells, "n_cells mismatch", errors)
     require(float(summary.get("valid_rate", 0.0)) >= min_valid_rate, "valid_rate below threshold", errors)

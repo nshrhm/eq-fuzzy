@@ -1,0 +1,35 @@
+{
+  "run_id": "scis2026_factorial_v1_pilot_manifest_v1",
+  "stage": "pilot",
+  "design_id": "scis2026_factorial_v1",
+  "membership_config": "configs/scis/fuzzy_membership_v1.yaml",
+  "membership_config_sha256": "4abff0637807770a8275cb46785a082cee80cbec36ba9ff83557f25edbd689ef",
+  "primary_membership_family": "sigmoid_s_v1",
+  "baseline_membership_families": [
+    "legacy_linear_v1"
+  ],
+  "membership_hmax": {
+    "legacy_linear_v1": 1.057697511124,
+    "sigmoid_s_v1": 1.018502773018
+  },
+  "membership_hmax_method": "dense_grid",
+  "membership_hmax_grid_step": 0.001,
+  "n_response_rows": 576,
+  "n_response_ok": 576,
+  "n_emotion_rows": 2304,
+  "n_valid_score_rows": 2304,
+  "n_missing_score_rows": 0,
+  "n_entropy_rows": 4608,
+  "n_primary_entropy_missing_rows": 0,
+  "n_cell_summary_rows": 768,
+  "n_entropy_cell_summary_rows": 1536,
+  "n_missing_structural_cells": 0,
+  "n_zero_valid_score_cells": 0,
+  "n_decomposition_units": 48,
+  "n_non_estimable_decomposition_units": 0,
+  "expected_responses": 576,
+  "expected_emotion_rows": 2304,
+  "expected_decomposition_units": 48,
+  "readiness_passed": true,
+  "failure_reasons": []
+}

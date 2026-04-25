@@ -14,6 +14,9 @@ Do not add fake experiment guides, placeholder configs, or provisional claims be
 - `phase3_manifest_runner.md`: Phase 3 manifest, runner, and summary script usage.
 - `phase4_sanity_run.md`: Phase 4 sanity-run procedure and gate.
 - `phase5_pilot_run.md`: Phase 5 pilot-run procedure and gate.
+- `phase5_entropy_design.md`: Phase 5.5 fuzzy entropy membership-function design lock.
+- `phase5_pilot_analysis.md`: Phase 5.5 pilot analysis-readiness record.
+- `phase6_main_run.md`: Phase 6 main-run procedure and gate.
 
 ## Phase 1 implementation anchors
 
@@ -23,6 +26,7 @@ The Phase 1 model capability smoke test uses:
 - `configs/scis/main_panel_phase1_passed_v1.yaml`
 - `configs/scis/main_panel_v1.yaml`
 - `configs/scis/main_panel_v2.yaml`
+- `configs/scis/fuzzy_membership_v1.yaml`
 - `prompts/scis/smoke_v1_system.md`
 - `prompts/scis/smoke_v1_user_template.md`
 - `scripts/scis2026/build_temperature_smoke_manifest.py`
@@ -34,6 +38,9 @@ The Phase 1 model capability smoke test uses:
 - `scripts/scis2026/summarize_factorial_run.py`
 - `scripts/scis2026/check_sanity_run.py`
 - `scripts/scis2026/check_pilot_run.py`
+- `scripts/scis2026/check_main_run.py`
+- `scripts/scis2026/analyze_factorial_scores.py`
+- `scripts/scis2026/fuzzy_entropy.py`
 
 This stage is a model-entry gate only. It checks whether candidate models accept
 the configured API temperatures and return the expected structured response. It
