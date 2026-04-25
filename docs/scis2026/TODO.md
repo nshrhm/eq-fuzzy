@@ -399,6 +399,13 @@ Shared-code policy:
 The post-main-run writing and experiment-improvement roadmap is recorded in
 `docs/scis2026/phase12_writing_experiment_roadmap.md`.
 
+Six-page manuscript expansion records:
+
+- `docs/scis2026/phase17_six_page_expansion_hypothesis.md`
+- `docs/scis2026/phase17_chatgpt_pro_review_synthesis.md`
+- `docs/scis2026/phase17_bibliography_plan.md`
+- `docs/scis2026/phase18_design_rationale_completion.md`
+
 Priority:
 
 - lock the manuscript figure/table set before heavy prose editing;

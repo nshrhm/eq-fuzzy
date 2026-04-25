@@ -78,6 +78,14 @@ to either interpretive stance or decoding stochasticity. This is a design
 limitation rather than only a statistical limitation: no downstream model can
 separate two factors that were not independently varied.
 
+This aliasing problem is not specific to literary emotion scoring. Many LLM
+evaluation protocols combine role prompts, response-style instructions,
+sampling parameters, and repeated generations. If these controls are changed
+together, later analysis may attribute an observed score difference to the
+wrong control. The methodological issue is therefore to separate prompt-side
+interpretive controls from decoding-side stochastic controls before fitting or
+summarizing downstream outcomes.
+
 This paper addresses that limitation with a fully crossed persona-temperature
 design, following the standard logic of factorial designs and interactions
 \cite{montgomery2019design}. We hold the text set and response schema fixed,
@@ -164,6 +172,19 @@ temperature are practically separable for the outcome under analysis. The
 decomposition is descriptive: it quantifies balanced factorial variation in the
 observed panel, not causal effects of API temperature across providers.
 
+\subsection{Design Rationale}
+The model and text panels are treated as selected fixed panels. This choice
+matches the conference-paper goal: to test whether a deconfounded protocol can
+estimate separability within a concrete contemporary model panel, rather than
+to infer population-level effects over all possible models or literary texts.
+Temperature is treated as a categorical factor because API temperature scales
+are provider-mediated and need not have identical behavioral meaning across
+routes. The five repeats per cell provide a conference-scale stability check;
+larger repeat depths are reserved for journal extension. Finally, the response
+schema and manifest rows are immutable analysis units. Failed rows are repaired
+only by targeted retry of the same manifest rows, so the repair policy does not
+change valid observations or alter the factorial design.
+
 For fuzzy entropy, each score is mapped to Low, Medium, and High membership
 values. The primary family, denoted \texttt{sigmoid\_s\_v1}, preserves the
 prior semantic breakpoints: Low decreases over 0--30, Medium rises over 10--30,
@@ -194,6 +215,25 @@ Gemini 2.5 Pro, Grok 4.20, DeepSeek V3.2, and Llama 4 Maverick. Temperature was
 never mentioned in the prompt text; persona was expressed only as the
 interpretive stance.
 
+\begin{table}[t]
+\caption{SCIS main-run experimental panel.}
+\label{tab:scis-design-panel}
+\centering
+\begin{tabular}{ll}
+\hline
+Component & Levels \\
+\hline
+Models & 6 provider-accessed LLMs \\
+Texts & 3 Japanese literary texts \\
+Personas & freshman, scholar, poet, robot \\
+Temperatures & 0.1, 0.4, 0.7, 0.9 \\
+Repeats & 5 per cell \\
+Emotions & interest, surprise, sadness, anger \\
+Trials & 1440 responses / 5760 scores \\
+\hline
+\end{tabular}
+\end{table}
+
 The three texts were ``The Pocket Watch'' and ``The Money and the Pistol'' by
 Kyusaku Yumeno, and ``The Tattered Ostrich'' by Kotaro Takamura. The four
 persona stances were a college freshman, a literary scholar, an emotive poet,
@@ -210,7 +250,7 @@ selectively filtered. The repaired run reached complete structured-output
 validity, as shown in Table~\ref{tab:scis-validity}.
 \input{../../artifacts/scis2026/main_tables_v1/table1_run_validity}
 
-\section{Results and Discussion}
+\section{Results}
 Table~\ref{tab:scis-bootstrap-ci} summarizes the primary decomposition with
 within-cell bootstrap intervals. The resampling keeps model, text, persona, and
 temperature cells fixed and resamples the five repeats within each cell,
@@ -233,6 +273,14 @@ means that score means and entropy descriptors answer different questions:
 scores identify the dominant interpretive stance effect, while entropy reveals
 where the placement of scores relative to Low, Medium, and High remains jointly
 sensitive to persona and temperature.
+
+This score-entropy contrast is the main empirical value of the factorial
+design. If only mean scores were reported, the conclusion would be that persona
+and temperature are mostly separable in the selected panel. The entropy analysis
+shows where that separability weakens: the same score table can remain nearly
+additive while the fuzziness of score placement retains a larger interaction
+component. A diagonal design that observes only one temperature per persona
+would not expose this metric-specific difference.
 \input{../../artifacts/scis2026/main_figures_v1/figure2a_entropy_heatmap}
 \input{../../artifacts/scis2026/main_figures_v1/figure2b_score_heatmap}
 
@@ -268,6 +316,54 @@ the reproducibility artifacts for appendix selection. The main paper instead
 uses the CI table and representative heatmaps to avoid duplicating the same
 decomposition in multiple large tables.
 
+\section{Discussion}
+The experiment is best understood as a design diagnostic rather than a model
+leaderboard. The six models are not compared to decide which model is most
+emotionally accurate; they form a contemporary panel for testing whether prompt
+stance and decoding temperature can be separated in a structured scoring
+pipeline. This framing matters because the same model can look stable under one
+metric and interaction-sensitive under another. The factorial protocol exposes
+that distinction by forcing every persona to be observed at every temperature.
+
+The main substantive implication is metric-specific separability. Mean scores
+are mostly additive in persona and temperature within the selected
+model-text-emotion subtables. This supports the practical use of persona as a
+strong prompt-side control for score-level interpretation. Normalized fuzzy
+entropy, however, retains larger interaction burdens. Thus entropy should not
+be treated as a redundant transform of the score mean. It captures how scores
+move relative to Low, Medium, and High membership regions, and that placement
+can remain jointly sensitive to prompt framing and sampling even when score
+means are nearly separable.
+
+This distinction also explains why the membership specification is part of the
+method rather than an incidental implementation detail. The paper does not claim
+that the sigmoid-S family is the uniquely correct representation of emotion
+intensity. Instead, it fixes a smooth and reproducible Low/Medium/High
+specification, reports normalized entropy within that family, and checks the
+legacy linear family as a sensitivity baseline. Under this interpretation,
+fuzzy entropy is a controlled descriptor of membership overlap in the scoring
+pipeline, not a direct measurement of human emotional uncertainty.
+
+\section{Limitations and Extension}
+The results are design-conditional. They describe the selected six-model panel,
+three Japanese literary texts, four persona stances, four temperature levels,
+parser, response schema, and primary membership family. They do not establish
+human validity, cross-lingual generality, or provider-independent causal effects
+of temperature. The selected texts are meaningful literary emotion stimuli, but
+they are not a random sample of Japanese literature. Likewise, display model
+names should not be read as stable scientific objects independent of provider
+updates.
+
+The repeat depth is intentionally modest. With $r=5$, the bootstrap intervals
+summarize repeat-level stability within the realized panel; they do not
+quantify uncertainty over future model versions or broader text collections.
+The fuzzy entropy analysis is also specification-dependent. We address this by
+normalizing entropy within the chosen membership family and retaining the
+legacy linear family as a sensitivity baseline, but no membership family should
+be interpreted as uniquely correct. A journal extension should increase repeat
+depth, broaden the model and text panels, add human-reference validation, and
+test robustness under additional membership and model-update conditions.
+
 \section{Conclusion}
 We presented a fully crossed persona-temperature design for LLM-based fuzzy
 emotion scoring and applied it to a six-model Japanese literary emotion
@@ -276,13 +372,11 @@ persona-driven within the selected model-text-emotion subtables, whereas
 normalized fuzzy entropy retains stronger
 persona-temperature interaction, particularly for anger and surprise. This
 distinction would be obscured in a diagonal design that bundles persona and
-temperature together. The study is limited to selected models, selected
-Japanese literary texts, four persona stances, provider-specific temperature
-semantics, $r=5$ repeat depth, and a fixed fuzzy-membership specification; it
-should not be read as a universal claim about emotional ambiguity. Future work
-should increase repeat depth, add external human-reference validation, broaden
-the text and model panels, and test whether the same separability pattern holds
-across membership families and model updates.
+temperature together. The practical lesson is that prompt-side interpretive
+controls and decoding-side stochastic controls should be independently varied
+when they are both used in LLM-based affective scoring. Under such a design,
+mean scores and membership-overlap entropy can reveal different separability
+profiles even when they are computed from the same structured responses.
 
 \section*{Acknowledgment}
 This work was supported in part by the EQ-Fuzzy research line under KAKENHI.
