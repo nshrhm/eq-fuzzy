@@ -12,6 +12,7 @@ Do not add fake experiment guides, placeholder configs, or provisional claims be
 - `phase1b_llama_smoke_2026-04-25.md`: Phase 1b Meta/Llama smoke-test result note.
 - `phase2_design_lock.md`: Phase 2 factorial design and prompt-lock record.
 - `phase3_manifest_runner.md`: Phase 3 manifest, runner, and summary script usage.
+- `phase4_sanity_run.md`: Phase 4 sanity-run procedure and gate.
 
 ## Phase 1 implementation anchors
 
@@ -30,6 +31,7 @@ The Phase 1 model capability smoke test uses:
 - `scripts/scis2026/build_factorial_manifest.py`
 - `scripts/scis2026/run_factorial.py`
 - `scripts/scis2026/summarize_factorial_run.py`
+- `scripts/scis2026/check_sanity_run.py`
 
 This stage is a model-entry gate only. It checks whether candidate models accept
 the configured API temperatures and return the expected structured response. It

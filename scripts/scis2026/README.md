@@ -81,3 +81,11 @@ Summarize a completed raw JSONL run:
 python scripts/scis2026/summarize_factorial_run.py \
   --input-jsonl runs/scis2026/scis2026_factorial_v1_sanity_manifest_v1/raw.jsonl
 ```
+
+## Phase 4: sanity run gate
+
+After running and summarizing the full 96-request sanity run:
+
+```bash
+python scripts/scis2026/check_sanity_run.py
+```

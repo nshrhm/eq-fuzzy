@@ -8,5 +8,5 @@
   "n_conditions": 16,
   "n_repetitions": 3,
   "output_manifest": "runs/scis2026/scis2026_factorial_v1_sanity_manifest_v1/manifest.csv",
-  "git_commit": "2ca24e4f148293aa07bfed528a58a05884f8019f"
+  "git_commit": "8268791a25303269d0df1e9f6125948481e3fb31"
 }
