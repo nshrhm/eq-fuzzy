@@ -1,0 +1,17 @@
+{
+  "input_jsonl": "runs/scis2026/scis2026_factorial_v1_main_manifest_v1/raw_repaired.jsonl",
+  "membership_config": "configs/scis/fuzzy_membership_v1.yaml",
+  "primary_table": "artifacts/scis2026/main_tables_v1/table2_effect_summary.csv",
+  "output_dir": "artifacts/scis2026/main_bootstrap_v1",
+  "primary_family": "sigmoid_s_v1",
+  "n_records": 1440,
+  "n_cells": 288,
+  "cell_sizes": [
+    5
+  ],
+  "n_bootstrap": 500,
+  "seed": 20260425,
+  "ci_level": 0.95,
+  "latex_ci_method": "point_centered_normal_bootstrap",
+  "n_ci_rows": 8
+}

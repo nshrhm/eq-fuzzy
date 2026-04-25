@@ -25,6 +25,7 @@ from fuzzy_entropy import (  # noqa: E402
 )
 from build_primary_tables import build_primary_tables  # noqa: E402
 from build_primary_figures import build_primary_figures  # noqa: E402
+from bootstrap_main_effects import run_bootstrap  # noqa: E402
 from inspect_main_results import run_inspection  # noqa: E402
 
 
@@ -604,6 +605,93 @@ class ScisPrimaryFiguresTest(unittest.TestCase):
             self.assertTrue((output_dir / "figure3_model_metric_interaction_heatmap.png").exists())
             self.assertTrue((output_dir / "figure_manifest.csv").exists())
             self.assertTrue((output_dir / "figure1_design_comparison.tex").exists())
+            self.assertTrue(doc_path.exists())
+
+
+class ScisBootstrapEffectsTest(unittest.TestCase):
+    def test_run_bootstrap_writes_ci_outputs(self):
+        personas = ("p1", "p2")
+        temperatures = (0.1, 0.4)
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            raw = tmp_path / "raw.jsonl"
+            primary_table = tmp_path / "primary.csv"
+            output_dir = tmp_path / "bootstrap"
+            doc_path = tmp_path / "phase9.md"
+
+            records = []
+            row_id = 0
+            for persona_idx, persona_id in enumerate(personas):
+                for temp_idx, temperature in enumerate(temperatures):
+                    for repetition in range(1, 4):
+                        record = make_record(
+                            persona_id=persona_id,
+                            temperature=temperature,
+                            repetition=repetition,
+                        )
+                        record["manifest_row"] = row_id
+                        record["model_id"] = "m1"
+                        record["story_id"] = "T1"
+                        for emotion_idx, emotion in enumerate(EMOTIONS):
+                            record["parsed"]["scores"][emotion] = (
+                                10 + persona_idx * 20 + temp_idx * 5 + repetition + emotion_idx
+                            )
+                        records.append(record)
+                        row_id += 1
+            raw.write_text(
+                "\n".join(json.dumps(record, ensure_ascii=False) for record in records) + "\n",
+                encoding="utf-8",
+            )
+            primary_rows = [
+                {
+                    "metric": "score",
+                    "emotion": emotion,
+                    "n_units": 1,
+                    "mean_persona_share": 0.8,
+                    "mean_temperature_share": 0.1,
+                    "mean_interaction_burden": 0.1,
+                    "median_interaction_burden": 0.1,
+                    "mean_separability_share": 0.9,
+                    "median_total_SS": 1.0,
+                }
+                for emotion in EMOTIONS
+            ]
+            primary_rows.extend(
+                {
+                    "metric": "H_norm_sigmoid_s_v1",
+                    "emotion": emotion,
+                    "n_units": 1,
+                    "mean_persona_share": 0.7,
+                    "mean_temperature_share": 0.1,
+                    "mean_interaction_burden": 0.2,
+                    "median_interaction_burden": 0.2,
+                    "mean_separability_share": 0.8,
+                    "median_total_SS": 1.0,
+                }
+                for emotion in EMOTIONS
+            )
+            with primary_table.open("w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=list(primary_rows[0].keys()))
+                writer.writeheader()
+                writer.writerows(primary_rows)
+
+            summary = run_bootstrap(
+                input_jsonl=raw,
+                membership_config=MEMBERSHIP_CONFIG,
+                primary_table=primary_table,
+                output_dir=output_dir,
+                doc_path=doc_path,
+                primary_family="sigmoid_s_v1",
+                n_bootstrap=5,
+                seed=1,
+            )
+
+            self.assertEqual(summary["n_records"], 12)
+            self.assertEqual(summary["cell_sizes"], [3])
+            self.assertEqual(summary["n_ci_rows"], 8)
+            self.assertTrue((output_dir / "effect_summary_bootstrap_ci.csv").exists())
+            self.assertTrue((output_dir / "effect_summary_bootstrap_ci.tex").exists())
+            self.assertTrue((output_dir / "bootstrap_summary.json").exists())
             self.assertTrue(doc_path.exists())
 
 

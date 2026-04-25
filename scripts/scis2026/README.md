@@ -160,6 +160,17 @@ This writes PNG figures, LaTeX include snippets, and a figure manifest to
 `artifacts/scis2026/main_figures_v1/`, and updates
 `docs/scis2026/phase8_primary_figures.md`.
 
+Build within-cell bootstrap confidence intervals for the primary effect table
+with:
+
+```bash
+python scripts/scis2026/bootstrap_main_effects.py
+```
+
+This writes machine-readable bootstrap intervals and a manuscript-facing LaTeX
+table to `artifacts/scis2026/main_bootstrap_v1/`, and updates
+`docs/scis2026/phase9_bootstrap_ci.md`.
+
 If the main run has a small number of failed rows, build and run a retry
 manifest instead of rerunning the full 1440-request manifest:
 
