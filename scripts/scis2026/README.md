@@ -89,3 +89,17 @@ After running and summarizing the full 96-request sanity run:
 ```bash
 python scripts/scis2026/check_sanity_run.py
 ```
+
+## Phase 5: pilot run gate
+
+Build the 576-request pilot manifest:
+
+```bash
+python scripts/scis2026/build_factorial_manifest.py --stage pilot
+```
+
+After running and summarizing the full pilot run:
+
+```bash
+python scripts/scis2026/check_pilot_run.py
+```
