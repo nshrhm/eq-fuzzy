@@ -183,11 +183,22 @@ def format_ci_rows(
 
 
 def write_effect_ci_latex(rows: list[dict[str, Any]], path: Path) -> None:
+    def metric_label(metric: str) -> str:
+        if metric == "score":
+            return "Score"
+        if metric == "H_norm_sigmoid_s_v1":
+            return r"Entropy $H^*$"
+        return str(metric).replace("_", r"\_")
+
+    def row_sort_key(row: dict[str, Any]) -> tuple[int, str]:
+        metric_rank = 0 if row["metric"] == "score" else 1
+        return (metric_rank, str(row["emotion"]))
+
     table_rows = []
-    for row in rows:
+    for row in sorted(rows, key=row_sort_key):
         table_rows.append(
             [
-                str(row["metric"]).replace("_", r"\_"),
+                metric_label(str(row["metric"])),
                 str(row["emotion"]).title(),
                 str(row["n_units"]),
                 (
@@ -214,7 +225,12 @@ def write_effect_ci_latex(rows: list[dict[str, Any]], path: Path) -> None:
         )
     write_latex_table(
         path=path,
-        caption="Bootstrap confidence intervals for primary persona-temperature decomposition shares.",
+        caption=(
+            "Bootstrap confidence intervals for primary persona-temperature "
+            "decomposition shares. Entropy rows use the primary sigmoid-S "
+            "membership family; $n=18$ denotes six models crossed with three "
+            "texts for each emotion."
+        ),
         label="tab:scis-bootstrap-ci",
         headers=["Metric", "Emotion", "$n$", "Persona", "Temp.", "Interaction", "Separability"],
         rows=table_rows,

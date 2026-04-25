@@ -46,8 +46,9 @@ satoshi\_watanabe@ieee.org}
 \maketitle
 
 \begin{abstract}
-Large language models are increasingly used as scalable judges of literary
-emotion, but persona prompts and decoding temperature are often varied together.
+Large language models are increasingly used as scalable scoring instruments for
+literary emotion tasks, but persona prompts and decoding temperature are often
+varied together.
 This coupling aliases interpretive stance with stochastic decoding control. We
 introduce a fully crossed persona-temperature design for Japanese literary
 emotion scoring and evaluate score, validity, and normalized fuzzy entropy
@@ -60,8 +61,9 @@ balanced decomposition summaries show that mean scores are largely
 persona-driven and nearly additive, whereas normalized fuzzy entropy carries
 larger persona-temperature interaction burdens, especially for anger and
 surprise. The results show that independent crossing is needed not only for
-cleaner score attribution, but also for detecting when membership-overlap
-entropy remains jointly sensitive to prompting and sampling controls.
+cleaner descriptive separation of score components, but also for detecting when
+membership-overlap entropy remains jointly sensitive to prompting and sampling
+controls.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -171,6 +173,18 @@ and separability share $1-B$. Low interaction burden indicates that persona and
 temperature are practically separable for the outcome under analysis. The
 decomposition is descriptive: it quantifies balanced factorial variation in the
 observed panel, not causal effects of API temperature across providers.
+The same decomposition is applied to two outcomes under identical factorial
+geometry. For score analysis, $y$ is the repeat-mean emotion score in the
+persona-temperature cell. For entropy analysis, $y$ is the repeat-mean
+normalized membership-overlap entropy $H^*$ in the same cell. Thus differences
+between the score and entropy decompositions arise from the outcome definition
+rather than from a change in design. Repeat-level variation is not treated as an
+additional sum-of-squares component; instead, repeat stability is summarized by
+the within-cell bootstrap intervals in Table~\ref{tab:scis-bootstrap-ci}.
+Because $B$ is normalized only over the persona, temperature, and interaction
+components of a fixed $4\times4$ cell-mean table, it should not be interpreted
+as a global variance share over models, texts, emotions, or future model
+versions.
 
 \subsection{Design Rationale}
 The model and text panels are treated as selected fixed panels. This choice
@@ -240,11 +254,19 @@ Trials & 1440 responses / 5760 scores \\
 The three texts were ``The Pocket Watch'' and ``The Money and the Pistol'' by
 Kyusaku Yumeno, and ``The Tattered Ostrich'' by Kotaro Takamura. The four
 persona stances were a college freshman, a literary scholar, an emotive poet,
-and an emotionless robot. Models were accessed through provider routes recorded
-in the manifest; display names are used here for readability, while exact model
-identifiers, prompt versions, parser versions, and manifest hashes are retained
-in the reproducibility artifacts.
+and an emotionless robot. Models were accessed through provider routes between
+03:12 and 05:54 UTC on April 25, 2026. Display names are used here for
+readability and refer only to that collection window, while exact model
+identifiers, access timestamps, prompt versions, parser versions, and manifest
+hashes are retained in the reproducibility artifacts. We use Text 1--Text 3 only
+as stimulus identifiers; these labels are unrelated to temperature.
+The reproducibility artifacts also retain the manifest rows, prompt and schema
+versions, original and repaired raw files, derived cell-mean tables, and
+regeneration scripts for the reported tables and figures.
 
+Response validity was defined structurally. A response was counted as valid
+only when all four emotion scores were parseable numeric values in $[0,100]$
+and the required reason fields were present under the fixed response schema.
 The initial main run contained four invalid rows, corresponding to an initial
 failure rate of $4/1440=0.28\%$. We repaired these by retrying only the failed
 manifest rows and merging the successful retry records into a separate repaired
@@ -266,6 +288,18 @@ four emotions. The mean persona share is above 90\% for interest, sadness, and
 surprise, and remains above 80\% for anger. Temperature shares are comparatively
 small. Score-level interaction burdens range from 3.4\% for sadness to 13.2\%
 for anger, so score variation is largely separable within the crossed subtables.
+In Table~\ref{tab:scis-bootstrap-ci}, $n=18$ corresponds to the six models
+crossed with three texts for a fixed emotion. Each row summarizes decomposition
+shares across these model-text units, while the confidence intervals come from
+resampling repeats within fixed model, text, persona, and temperature cells. The
+table therefore answers a design-conditional question: within the selected
+panel, how much of the persona-temperature cell-mean structure is described by
+persona, temperature, and their interaction?
+Because model, text, and emotion are fixed conditioning units in this
+decomposition, the large persona shares in Table~\ref{tab:scis-bootstrap-ci}
+should not be read as global variance shares over the whole experiment. They
+describe the internal persona-temperature structure after those factors have
+already been fixed.
 \input{../../artifacts/scis2026/main_bootstrap_v1/effect_summary_bootstrap_ci}
 
 The entropy results show a different pattern. Although persona remains the
@@ -273,9 +307,9 @@ largest average component for $H^*$, interaction burdens are higher than for
 score in every emotion. They reach 28.3\% for anger and 19.8\% for surprise,
 compared with 13.2\% and 7.0\% for the corresponding score summaries. This
 means that score means and entropy descriptors answer different questions:
-scores identify the dominant interpretive stance effect, while entropy reveals
-where the placement of scores relative to Low, Medium, and High remains jointly
-sensitive to persona and temperature.
+scores identify the dominant interpretive stance effect, while entropy
+summarizes where score placement relative to Low, Medium, and High remains
+jointly sensitive to persona and temperature.
 
 This score-entropy contrast is the main empirical value of the factorial
 design. If only mean scores were reported, the conclusion would be that persona
@@ -330,15 +364,34 @@ pipeline. This framing matters because the same model can look stable under one
 metric and interaction-sensitive under another. The factorial protocol exposes
 that distinction by forcing every persona to be observed at every temperature.
 
+The key point is not that the crossed design gives a better estimate of a
+quantity already available from a diagonal design. It makes a different quantity
+observable. When each persona is observed at only one temperature, persona and
+temperature are structurally aliased and the persona-temperature interaction
+component is not identifiable from the design. The fully crossed table is
+therefore a prerequisite for asking whether score and entropy outcomes have the
+same separability profile.
+
 The main substantive implication is metric-specific separability. Mean scores
 are mostly additive in persona and temperature within the selected
-model-text-emotion subtables. This supports the practical use of persona as a
-strong prompt-side control for score-level interpretation. Normalized fuzzy
-entropy, however, retains larger interaction burdens. Thus entropy should not
-be treated as a redundant transform of the score mean. It captures how scores
-move relative to Low, Medium, and High membership regions, and that placement
-can remain jointly sensitive to prompt framing and sampling even when score
-means are nearly separable.
+model-text-emotion subtables. This supports treating persona as a dominant
+prompt-side component in the present decomposition. Normalized fuzzy entropy,
+however, retains larger interaction burdens. Thus entropy should not be treated
+as a redundant transform of the score mean. It captures how scores move relative
+to Low, Medium, and High membership regions, and that placement can remain
+jointly sensitive to prompt framing and sampling even when score means are
+nearly separable.
+
+This distinction is methodological rather than leaderboard-oriented. A protocol
+that reports only mean scores would suggest that persona and temperature are
+mostly separable in the present panel. Adding $H^*$ shows that a derived
+membership-overlap descriptor can retain a larger interaction component even
+when score means are nearly additive. The factorial design therefore serves as a
+diagnostic for whether evaluation metrics remain entangled across prompt-side
+and decoding-side controls.
+Thus the main methodological object is not a model ranking, but a diagnostic of
+whether an evaluation metric remains separable under independently varied
+prompt-side and decoding-side controls.
 
 This distinction also explains why the membership specification is part of the
 method rather than an incidental implementation detail. The paper does not claim
@@ -380,7 +433,7 @@ distinction would be obscured in a diagonal design that bundles persona and
 temperature together. The practical lesson is that prompt-side interpretive
 controls and decoding-side stochastic controls should be independently varied
 when they are both used in LLM-based affective scoring. Under such a design,
-mean scores and membership-overlap entropy can reveal different separability
+mean scores and membership-overlap entropy can summarize different separability
 profiles even when they are computed from the same structured responses.
 
 \section*{Acknowledgment}

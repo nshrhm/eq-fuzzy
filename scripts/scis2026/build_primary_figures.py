@@ -127,6 +127,12 @@ def select_representative_cases(
     return [relative_entropy, absolute_score]
 
 
+def story_display_label(story_id: str) -> str:
+    if story_id.startswith("T") and story_id[1:].isdigit():
+        return f"Text {story_id[1:]}"
+    return story_id
+
+
 def grid_values_for_case(
     *,
     case: dict[str, str],
@@ -236,11 +242,12 @@ def plot_single_representative_heatmap(
     )
     is_entropy = case["metric"].startswith("H_norm_")
     metric_name = "$H^*$" if is_entropy else "Score"
+    story_label = story_display_label(case["story_id"])
     fig, ax = plt.subplots(figsize=(3.45, 3.15), constrained_layout=True)
     image = plot_heatmap(
         ax,
         values,
-        title=f"{metric_name}: {compact_model_label(case['model_id'])}, {case['story_id']}, {case['emotion'].title()}",
+        title=f"{metric_name}: {compact_model_label(case['model_id'])}, {story_label}, {case['emotion'].title()}",
         value_format="{:.2f}" if is_entropy else "{:.1f}",
         vmin=0.0,
         vmax=1.0 if is_entropy else 100.0,
@@ -248,14 +255,27 @@ def plot_single_representative_heatmap(
     fig.colorbar(image, ax=ax, fraction=0.046, pad=0.03)
     path = output_dir / f"{figure}.png"
     save_figure(fig, path)
+    burden = float(case["interaction_burden"])
+    if is_entropy:
+        caption = (
+            "Representative high-interaction entropy case. Normalized fuzzy entropy "
+            f"H-star for {compact_model_label(case['model_id'])} on {story_label}, "
+            f"{case['emotion']}. Axes show four personas and four temperatures; "
+            f"cell values are repeat means. This example has B={burden:.3f} "
+            "and should not be read as the panel average."
+        )
+    else:
+        caption = (
+            "Representative low-interaction score case. Mean score for "
+            f"{compact_model_label(case['model_id'])} on {story_label}, "
+            f"{case['emotion']}. Axes show four personas and four temperatures; "
+            f"cell values are repeat means. This example has B={burden:.3f}."
+        )
     return {
         "figure": figure,
         "path": str(path),
         "source": "cell_score_summary.csv and entropy_cell_summary.csv",
-        "caption_seed": (
-            f"{case['metric']} heatmap for {case['model_id']} {case['story_id']} "
-            f"{case['emotion']} (interaction burden={case['interaction_burden']})."
-        ),
+        "caption_seed": caption,
         "main_text": True,
     }
 
@@ -287,7 +307,11 @@ def plot_model_metric_heatmap(
         "figure": "figure3_model_metric_interaction_heatmap",
         "path": str(path),
         "source": "table3_model_metric_summary.csv",
-        "caption_seed": "Mean interaction burden is summarized for score and normalized fuzzy entropy by model.",
+        "caption_seed": (
+            "Mean persona-temperature interaction burden by model, averaged over "
+            "texts and emotions. Score and normalized fuzzy entropy H-star are summarized "
+            "under the same crossed cell structure."
+        ),
         "main_text": True,
     }
 

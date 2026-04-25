@@ -58,8 +58,7 @@ def metric_label(metric: str) -> str:
     if metric == "score":
         return "Score"
     if metric.startswith("H_norm_"):
-        family = metric.removeprefix("H_norm_")
-        return rf"$H^*$ ({latex_escape(family)})"
+        return r"Entropy $H^*$"
     return latex_escape(metric)
 
 
@@ -327,7 +326,10 @@ def write_latex_outputs(
     ]
     write_latex_table(
         path=output_dir / "table2_effect_summary.tex",
-        caption="Balanced persona-temperature effect decomposition by metric and emotion.",
+        caption=(
+            "Balanced persona-temperature effect decomposition by metric and emotion. "
+            "Entropy rows use the primary sigmoid-S membership family."
+        ),
         label="tab:scis-effect-summary",
         headers=["Metric", "Emotion", "$n$", "Persona", "Temp.", "Interaction", "Separability"],
         rows=effect_rows,
@@ -372,9 +374,15 @@ def write_latex_outputs(
     ]
     write_latex_table(
         path=output_dir / "table4_entropy_sensitivity.tex",
-        caption="Normalized fuzzy entropy sensitivity to membership-family choice.",
+        caption=(
+            "Normalized fuzzy entropy sensitivity to membership-family choice. "
+            "$n=1152$ denotes model-text-persona-temperature-emotion cell means; "
+            "$H_{\\max,P}$ and $H_{\\max,B}$ are the family-specific normalization "
+            "constants for the primary and baseline families, respectively; "
+            "$r$ is the cell-mean correlation."
+        ),
         label="tab:scis-entropy-sensitivity",
-        headers=["Primary", "Baseline", "$n$", "$H_{\\max}$ P", "$H_{\\max}$ B", "$r$", "Mean $|\\Delta|$", "Max $|\\Delta|$"],
+        headers=["Primary", "Baseline", "$n$", "$H_{\\max,P}$", "$H_{\\max,B}$", "$r$", "Mean $|\\Delta|$", "Max $|\\Delta|$"],
         rows=sensitivity_rows,
         alignment="llrrrrrr",
         table_star=True,
