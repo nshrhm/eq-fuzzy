@@ -27,6 +27,7 @@ from build_primary_tables import build_primary_tables  # noqa: E402
 from build_primary_figures import build_primary_figures  # noqa: E402
 from bootstrap_main_effects import run_bootstrap  # noqa: E402
 from inspect_main_results import run_inspection  # noqa: E402
+from build_reviewer_diagnostics import run_diagnostics  # noqa: E402
 
 
 MEMBERSHIP_CONFIG = REPO_ROOT / "configs" / "scis" / "fuzzy_membership_v1.yaml"
@@ -277,6 +278,111 @@ class ScisRetryWorkflowTest(unittest.TestCase):
                 json.loads(line) for line in repaired.read_text(encoding="utf-8").splitlines()
             ]
             self.assertEqual([record["value"] for record in repaired_records], ["base0", "retry1", "base2"])
+
+    def test_run_reviewer_diagnostics_writes_retry_and_stratified_outputs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            run_dir = tmp_path / "run"
+            inspection_dir = tmp_path / "inspection"
+            tables_dir = tmp_path / "tables"
+            output_dir = tmp_path / "diagnostics"
+            doc_path = tmp_path / "phase14.md"
+            run_dir.mkdir()
+            inspection_dir.mkdir()
+            tables_dir.mkdir()
+
+            base_records = [
+                {
+                    "manifest_row": 0,
+                    "model_id": "m1",
+                    "story_id": "T1",
+                    "condition_id": "C01",
+                    "persona_id": "p1",
+                    "temperature": 0.1,
+                    "repetition": 1,
+                    "ok": True,
+                },
+                {
+                    "manifest_row": 1,
+                    "model_id": "m2",
+                    "story_id": "T1",
+                    "condition_id": "C02",
+                    "persona_id": "p2",
+                    "temperature": 0.4,
+                    "repetition": 1,
+                    "ok": False,
+                    "validation_errors": ["fixture_error"],
+                },
+            ]
+            retry_records = [{**base_records[1], "ok": True, "validation_errors": []}]
+            repaired_records = [base_records[0], retry_records[0]]
+            for path, records in (
+                (run_dir / "raw.jsonl", base_records),
+                (run_dir / "raw_retry_failed_v1.jsonl", retry_records),
+                (run_dir / "raw_repaired.jsonl", repaired_records),
+            ):
+                path.write_text(
+                    "\n".join(json.dumps(record) for record in records) + "\n",
+                    encoding="utf-8",
+                )
+
+            metric_rows = []
+            for metric in ("score", "H_norm_sigmoid_s_v1"):
+                for model_id, burden in (("m1", 0.1), ("m2", 0.2)):
+                    metric_rows.append(
+                        {
+                            "metric": metric,
+                            "model_id": model_id,
+                            "story_id": "T1",
+                            "emotion": "interest",
+                            "is_estimable": "True",
+                            "missing_cells": "0",
+                            "SS_persona": "8.0",
+                            "SS_temperature": "1.0",
+                            "SS_persona_x_temperature": str(burden),
+                            "interaction_burden": str(burden),
+                            "separability_share": str(1.0 - burden),
+                            "total_SS": "10.0",
+                        }
+                    )
+            with (inspection_dir / "metric_decomposition.csv").open("w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=list(metric_rows[0].keys()))
+                writer.writeheader()
+                writer.writerows(metric_rows)
+
+            sensitivity_rows = [
+                {
+                    "primary_family": "sigmoid_s_v1",
+                    "baseline_family": "legacy_linear_v1",
+                    "primary_Hmax": "1.0",
+                    "baseline_Hmax": "1.1",
+                    "n_cell_pairs": "2",
+                    "pearson_H_norm_cell_mean": "0.95",
+                    "mean_abs_H_norm_diff": "0.05",
+                    "max_abs_H_norm_diff": "0.1",
+                }
+            ]
+            with (tables_dir / "table4_entropy_sensitivity.csv").open("w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=list(sensitivity_rows[0].keys()))
+                writer.writeheader()
+                writer.writerows(sensitivity_rows)
+
+            summary = run_diagnostics(
+                run_dir=run_dir,
+                inspection_dir=inspection_dir,
+                tables_dir=tables_dir,
+                output_dir=output_dir,
+                doc_path=doc_path,
+            )
+
+            self.assertTrue(summary["retry_gate_passed"])
+            self.assertEqual(summary["base_failed_rows"], 1)
+            self.assertEqual(summary["repaired_failed_rows"], 0)
+            self.assertEqual(summary["entropy_sensitivity_cell_mean_correlation"], "0.95")
+            self.assertTrue((output_dir / "retry_diagnostics.csv").exists())
+            self.assertTrue((output_dir / "leave_one_model_out_interaction.csv").exists())
+            self.assertTrue((output_dir / "story_stratified_interaction.csv").exists())
+            self.assertTrue(doc_path.exists())
 
 
 class ScisMainInspectionTest(unittest.TestCase):

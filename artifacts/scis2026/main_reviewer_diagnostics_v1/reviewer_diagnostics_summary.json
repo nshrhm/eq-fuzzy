@@ -1,0 +1,18 @@
+{
+  "retry_gate_passed": true,
+  "base_failed_rows": 4,
+  "repaired_failed_rows": 0,
+  "max_abs_leave_one_model_out_delta_interaction_burden": 0.0342526,
+  "max_story_stratified_mean_interaction_burden": 0.3510455,
+  "score_mean_interaction_burden_range": [
+    0.034137611,
+    0.131655278
+  ],
+  "entropy_mean_interaction_burden_range": [
+    0.095581,
+    0.282550667
+  ],
+  "entropy_sensitivity_cell_mean_correlation": "0.932668023",
+  "entropy_sensitivity_mean_abs_delta": "0.129519388",
+  "requires_main_run_redesign": false
+}
