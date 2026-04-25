@@ -24,6 +24,7 @@ from fuzzy_entropy import (  # noqa: E402
     membership_sigmoid_s_v1,
 )
 from build_primary_tables import build_primary_tables  # noqa: E402
+from build_primary_figures import build_primary_figures  # noqa: E402
 from inspect_main_results import run_inspection  # noqa: E402
 
 
@@ -481,6 +482,128 @@ class ScisPrimaryTablesTest(unittest.TestCase):
             self.assertTrue((output_dir / "table2_effect_summary.csv").exists())
             self.assertTrue((output_dir / "table2_effect_summary.tex").exists())
             self.assertTrue((output_dir / "primary_table_summary.json").exists())
+            self.assertTrue(doc_path.exists())
+
+
+class ScisPrimaryFiguresTest(unittest.TestCase):
+    def test_build_primary_figures_writes_png_and_latex_outputs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            analysis_dir = tmp_path / "analysis"
+            inspection_dir = tmp_path / "inspection"
+            tables_dir = tmp_path / "tables"
+            output_dir = tmp_path / "figures"
+            doc_path = tmp_path / "phase8.md"
+            for directory in (analysis_dir, inspection_dir, tables_dir):
+                directory.mkdir()
+
+            top_rows = [
+                {
+                    "metric": "H_norm_sigmoid_s_v1",
+                    "model_id": "m1",
+                    "model_label": "M1",
+                    "story_id": "T1",
+                    "emotion": "interest",
+                    "SS_persona": "0.4",
+                    "SS_temperature": "0.1",
+                    "SS_persona_x_temperature": "0.2",
+                    "total_SS": "0.7",
+                    "interaction_burden": "0.285714",
+                    "separability_share": "0.714286",
+                },
+                {
+                    "metric": "score",
+                    "model_id": "m1",
+                    "model_label": "M1",
+                    "story_id": "T1",
+                    "emotion": "interest",
+                    "SS_persona": "4.0",
+                    "SS_temperature": "1.0",
+                    "SS_persona_x_temperature": "2.0",
+                    "total_SS": "7.0",
+                    "interaction_burden": "0.285714",
+                    "separability_share": "0.714286",
+                },
+            ]
+            for name in ("top_interaction_burdens.csv", "top_absolute_interactions.csv"):
+                with (inspection_dir / name).open("w", encoding="utf-8", newline="") as f:
+                    writer = csv.DictWriter(f, fieldnames=list(top_rows[0].keys()))
+                    writer.writeheader()
+                    writer.writerows(top_rows)
+
+            score_rows = []
+            entropy_rows = []
+            for persona_idx, persona_id in enumerate(("p1", "p2", "p3", "p4")):
+                for temp_idx, temperature in enumerate((0.1, 0.4, 0.7, 0.9)):
+                    score = 10.0 + persona_idx * 10.0 + temp_idx
+                    score_rows.append(
+                        {
+                            "model_id": "m1",
+                            "story_id": "T1",
+                            "condition_id": "",
+                            "persona_id": persona_id,
+                            "temperature": temperature,
+                            "temperature_label": "",
+                            "emotion": "interest",
+                            "mean_score": score,
+                        }
+                    )
+                    entropy_rows.append(
+                        {
+                            "model_id": "m1",
+                            "story_id": "T1",
+                            "condition_id": "",
+                            "persona_id": persona_id,
+                            "temperature": temperature,
+                            "temperature_label": "",
+                            "emotion": "interest",
+                            "membership_family": "sigmoid_s_v1",
+                            "mean_H_norm": score / 100.0,
+                        }
+                    )
+            for path, rows in (
+                (analysis_dir / "cell_score_summary.csv", score_rows),
+                (analysis_dir / "entropy_cell_summary.csv", entropy_rows),
+            ):
+                with path.open("w", encoding="utf-8", newline="") as f:
+                    writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+                    writer.writeheader()
+                    writer.writerows(rows)
+
+            model_metric_rows = [
+                {
+                    "model_id": "m1",
+                    "model_label": "M1",
+                    "metric": "score",
+                    "mean_interaction_burden": "0.2",
+                },
+                {
+                    "model_id": "m1",
+                    "model_label": "M1",
+                    "metric": "H_norm_sigmoid_s_v1",
+                    "mean_interaction_burden": "0.3",
+                },
+            ]
+            with (tables_dir / "table3_model_metric_summary.csv").open("w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=list(model_metric_rows[0].keys()))
+                writer.writeheader()
+                writer.writerows(model_metric_rows)
+
+            summary = build_primary_figures(
+                analysis_dir=analysis_dir,
+                inspection_dir=inspection_dir,
+                tables_dir=tables_dir,
+                output_dir=output_dir,
+                doc_path=doc_path,
+                primary_family="sigmoid_s_v1",
+            )
+
+            self.assertEqual(summary["n_figures"], 3)
+            self.assertTrue((output_dir / "figure1_design_comparison.png").exists())
+            self.assertTrue((output_dir / "figure2_representative_heatmaps.png").exists())
+            self.assertTrue((output_dir / "figure3_model_metric_interaction_heatmap.png").exists())
+            self.assertTrue((output_dir / "figure_manifest.csv").exists())
+            self.assertTrue((output_dir / "figure1_design_comparison.tex").exists())
             self.assertTrue(doc_path.exists())
 
 

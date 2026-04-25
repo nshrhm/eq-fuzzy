@@ -1,0 +1,4 @@
+figure,path,source,caption_seed
+figure1_design_comparison,artifacts/scis2026/main_figures_v1/figure1_design_comparison.png,design specification,Prior diagonal persona-temperature bundles are contrasted with the SCIS fully crossed persona x temperature design.
+figure2_representative_heatmaps,artifacts/scis2026/main_figures_v1/figure2_representative_heatmaps.png,cell_score_summary.csv and entropy_cell_summary.csv,H_norm_sigmoid_s_v1 anthropic/claude-sonnet-4.5 T3 anger burden=0.654771; score deepseek/deepseek-v3.2 T3 sadness burden=0.039432
+figure3_model_metric_interaction_heatmap,artifacts/scis2026/main_figures_v1/figure3_model_metric_interaction_heatmap.png,table3_model_metric_summary.csv,Mean interaction burden is summarized for score and normalized fuzzy entropy by model.

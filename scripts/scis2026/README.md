@@ -150,6 +150,16 @@ This writes CSV and LaTeX table outputs to
 `artifacts/scis2026/main_tables_v1/` and updates
 `docs/scis2026/phase7_primary_tables.md`.
 
+Build primary figure candidates with:
+
+```bash
+python scripts/scis2026/build_primary_figures.py
+```
+
+This writes PNG figures, LaTeX include snippets, and a figure manifest to
+`artifacts/scis2026/main_figures_v1/`, and updates
+`docs/scis2026/phase8_primary_figures.md`.
+
 If the main run has a small number of failed rows, build and run a retry
 manifest instead of rerunning the full 1440-request manifest:
 
