@@ -36,6 +36,11 @@ the experiment:
   not global variance over the full experiment;
 - clarify Table IV notation for `Hmax` and `r`.
 
+The final copy-edit pass then froze the scientific content and changed only
+presentation-level details: it merged a repeated diagnostic-framing sentence,
+made figure-caption notation consistent with `H*`, and wrapped DOI strings with
+underscores in monospace text.
+
 ## Changed Artifacts
 
 The pass updates the manuscript, table-generation scripts, and figure-generation

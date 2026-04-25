@@ -259,7 +259,7 @@ def plot_single_representative_heatmap(
     if is_entropy:
         caption = (
             "Representative high-interaction entropy case. Normalized fuzzy entropy "
-            f"H-star for {compact_model_label(case['model_id'])} on {story_label}, "
+            f"\\(H^*\\) for {compact_model_label(case['model_id'])} on {story_label}, "
             f"{case['emotion']}. Axes show four personas and four temperatures; "
             f"cell values are repeat means. This example has B={burden:.3f} "
             "and should not be read as the panel average."
@@ -276,6 +276,7 @@ def plot_single_representative_heatmap(
         "path": str(path),
         "source": "cell_score_summary.csv and entropy_cell_summary.csv",
         "caption_seed": caption,
+        "caption_raw": is_entropy,
         "main_text": True,
     }
 
@@ -309,9 +310,10 @@ def plot_model_metric_heatmap(
         "source": "table3_model_metric_summary.csv",
         "caption_seed": (
             "Mean persona-temperature interaction burden by model, averaged over "
-            "texts and emotions. Score and normalized fuzzy entropy H-star are summarized "
+            "texts and emotions. Score and normalized fuzzy entropy \\(H^*\\) are summarized "
             "under the same crossed cell structure."
         ),
+        "caption_raw": True,
         "main_text": True,
     }
 
@@ -322,12 +324,13 @@ def latex_figure_snippet(*, figure: dict[str, Any], label: str, width: str = r"\
         latex_path = path.relative_to(Path("paper/scis2026"))
     except ValueError:
         latex_path = Path("../..") / path
+    caption = str(figure["caption_seed"]) if figure.get("caption_raw") else latex_escape(figure["caption_seed"])
     return "\n".join(
         [
             r"\begin{figure}[t]",
             r"\centering",
             rf"\includegraphics[width={width}]{{{latex_path.as_posix()}}}",
-            rf"\caption{{{latex_escape(figure['caption_seed'])}}}",
+            rf"\caption{{{caption}}}",
             rf"\label{{{label}}}",
             r"\end{figure}",
             "",
