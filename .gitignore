@@ -9,6 +9,7 @@ __pycache__/
 .env.*
 .envrc
 .codex
+local_archive/
 *.log
 *.aux
 *.bbl
