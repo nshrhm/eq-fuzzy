@@ -10,8 +10,9 @@ submission-ready claim document.
 - External mini-comparison config: `configs/icicic/external_mini_comparison_v1.yaml`
 - Matched-subset prompts: `prompts/icicic/eq_fuzzy_matched_subset_*.md`
 - Shared response schema: `prompts/shared/response_schema.json`
-- Model panel: `configs/shared/models_budget4.yaml`
+- Model panel: `configs/icicic/models_stable6_from_scis.yaml`
 - Text registry: `configs/shared/texts_from_definitions.yaml`
+- Text bodies: `data/catalogs/texts_private`
 
 ## Matched-subset chain
 
@@ -29,7 +30,7 @@ submission-ready claim document.
    `python scripts/icicic2026/build_matched_subset_retry_manifest.py`
 
 After sanity passes, repeat the same chain for the main manifest:
-`runs/icicic2026/icicic2026_benchmark_positioning_v1_main/manifest.csv`.
+`runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/manifest.csv`.
 
 ## Paper artifact chain
 

@@ -1,0 +1,12 @@
+{
+  "run_id": "icicic2026_benchmark_positioning_v1_stable6_main",
+  "design_id": "icicic2026_benchmark_positioning_v1",
+  "stage": "main",
+  "n_rows": 360,
+  "n_models": 6,
+  "n_stories": 3,
+  "n_target_modes": 2,
+  "n_repetitions": 10,
+  "output_manifest": "/home/naruki/GitHub/eq-fuzzy/runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/manifest.csv",
+  "git_commit": "898c64da6d23f1d7187ff2928b666d83d4fc3300"
+}

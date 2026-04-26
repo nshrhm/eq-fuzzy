@@ -76,7 +76,7 @@ Manifest and prompt inputs:
 - condition table: `configs/scis/condition_table_v1.csv`
 - main model panel: `configs/scis/main_panel_v2.yaml`
 - text registry: `configs/shared/texts_from_definitions.yaml`
-- text source directory: `data/iceccme2026/raw_private/texts`
+- text source directory: `data/catalogs/texts_private`
 - persona registry: `configs/shared/personas_from_definitions.yaml`
 - response schema: `prompts/shared/response_schema.json`
 - system prompt: `prompts/scis/factorial_v1_system.md`

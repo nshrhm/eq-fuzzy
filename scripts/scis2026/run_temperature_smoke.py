@@ -11,12 +11,19 @@ import json
 import os
 import re
 import subprocess
+import sys
 import time
 from pathlib import Path
 from typing import Any
 from urllib import error, request
 
 import yaml
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from src.core.text_inputs import read_text_file as read_shared_text_file
 
 
 DEFAULT_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
@@ -113,10 +120,7 @@ def redact_sensitive_provider_fields(value: Any) -> Any:
 
 
 def read_text_file(texts_dir: Path, language: str, story_id: str) -> str:
-    path = texts_dir / language / f"{story_id}.txt"
-    if not path.exists():
-        raise FileNotFoundError(f"Missing text file: {path}")
-    return path.read_text(encoding="utf-8")
+    return read_shared_text_file(texts_dir, language, story_id)
 
 
 def lookup_text_meta(text_registry: dict[str, Any], story_id: str, language: str) -> dict[str, str]:

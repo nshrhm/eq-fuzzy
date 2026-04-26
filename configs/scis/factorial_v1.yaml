@@ -11,7 +11,7 @@ study:
   condition_table: configs/scis/condition_table_v1.csv
   main_panel: configs/scis/main_panel_v2.yaml
   text_registry: configs/shared/texts_from_definitions.yaml
-  texts_dir: data/iceccme2026/raw_private/texts
+  texts_dir: data/catalogs/texts_private
   persona_registry: configs/shared/personas_from_definitions.yaml
   response_schema: prompts/shared/response_schema.json
 

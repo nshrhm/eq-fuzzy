@@ -106,7 +106,7 @@ class IcicicPositioningTest(unittest.TestCase):
                 output_path=output,
             )
 
-            self.assertEqual(len(rows), 240)
+            self.assertEqual(len(rows), 360)
             self.assertEqual({row["language"] for row in rows}, {"en"})
             self.assertEqual({row["target_mode"] for row in rows}, {"reader_side", "character_side"})
 
@@ -200,6 +200,49 @@ class IcicicPositioningTest(unittest.TestCase):
 
             self.assertFalse(result["passed"])
             self.assertIn("unexpected_response_count", result["errors"])
+
+    def test_check_matched_subset_run_main_allows_reported_invalid_outputs(self):
+        records = []
+        manifest_row = 0
+        for model_id in ["m1", "m2", "m3", "m4", "m5", "m6"]:
+            for story_id in ["T1", "T2", "T3"]:
+                for target_mode in ["reader_side", "character_side"]:
+                    for repetition in range(1, 11):
+                        record = make_record(
+                            target_mode,
+                            repetition,
+                            {"interest": 20, "surprise": 30, "sadness": 40, "anger": 50},
+                        )
+                        record.update(
+                            {
+                                "manifest_row": manifest_row,
+                                "stage": "main",
+                                "model_id": model_id,
+                                "story_id": story_id,
+                            }
+                        )
+                        record["parsed"]["story_id"] = story_id
+                        if model_id == "m6":
+                            record.update({"ok": False, "validation_errors": ["scores_not_object"], "parsed": {}})
+                        records.append(record)
+                        manifest_row += 1
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            raw = tmp_path / "raw.jsonl"
+            raw.write_text(
+                "\n".join(json.dumps(record, ensure_ascii=False) for record in records) + "\n",
+                encoding="utf-8",
+            )
+            run_analysis(
+                input_jsonl=raw,
+                output_dir=tmp_path / "out",
+                membership_config_path=MEMBERSHIP_CONFIG,
+            )
+            result = check_outputs(analysis_dir=tmp_path / "out", stage="main")
+
+            self.assertTrue(result["passed"])
+            self.assertEqual(result["observed_target_shift_rows"], 60)
+            self.assertIn("model_valid_output_rate_below_1", result["warnings"])
 
     def test_retry_manifest_keeps_only_failed_rows(self):
         with tempfile.TemporaryDirectory() as tmp:

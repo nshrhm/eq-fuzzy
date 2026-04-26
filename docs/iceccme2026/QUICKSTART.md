@@ -4,15 +4,15 @@
 
 - Human workbook: `data/iceccme2026/raw_private/human/文学短編作品.xlsx`
 - Validated story texts:
-  - `data/iceccme2026/raw_private/texts/ja/T1.txt`
-  - `data/iceccme2026/raw_private/texts/ja/T2.txt`
-  - `data/iceccme2026/raw_private/texts/ja/T3.txt`
-  - `data/iceccme2026/raw_private/texts/en/T1.txt`
-  - `data/iceccme2026/raw_private/texts/en/T2.txt`
-  - `data/iceccme2026/raw_private/texts/en/T3.txt`
-  - `data/iceccme2026/raw_private/texts/zh/T1.txt`
-  - `data/iceccme2026/raw_private/texts/zh/T2.txt`
-  - `data/iceccme2026/raw_private/texts/zh/T3.txt`
+  - `data/catalogs/texts_private/ja/T1.txt`
+  - `data/catalogs/texts_private/ja/T2.txt`
+  - `data/catalogs/texts_private/ja/T3.txt`
+  - `data/catalogs/texts_private/en/T1.txt`
+  - `data/catalogs/texts_private/en/T2.txt`
+  - `data/catalogs/texts_private/en/T3.txt`
+  - `data/catalogs/texts_private/zh/T1.txt`
+  - `data/catalogs/texts_private/zh/T2.txt`
+  - `data/catalogs/texts_private/zh/T3.txt`
 
 ## 2. Create the sanitized human reference
 
@@ -47,7 +47,7 @@ Expected size: **1080 rows** (= 6 models × 3 languages × 3 stories × 4 person
 ## 6. Preview a prompt before the run
 
 ```bash
-python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/iceccme2026/raw_private/texts/ja/T1.txt
+python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/catalogs/texts_private/ja/T1.txt
 ```
 
 ## 7. Run or resume the OpenRouter primary collector

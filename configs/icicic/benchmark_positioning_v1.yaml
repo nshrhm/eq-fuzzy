@@ -22,9 +22,9 @@ study:
   repetitions:
     sanity: 2
     main: 10
-  model_panel: configs/shared/models_budget4.yaml
+  model_panel: configs/icicic/models_stable6_from_scis.yaml
   text_registry: configs/shared/texts_from_definitions.yaml
-  texts_dir: data/iceccme2026/raw_private/texts
+  texts_dir: data/catalogs/texts_private
   membership_config: configs/scis/fuzzy_membership_v1.yaml
   response_schema: prompts/shared/response_schema.json
 prompts:
@@ -36,10 +36,10 @@ api_controls:
   provider: openrouter
   temperature: 0.4
   top_p: 1.0
-  max_completion_tokens: 700
+  max_completion_tokens: 1600
 outputs:
-  sanity_manifest: runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/manifest.csv
-  main_manifest: runs/icicic2026/icicic2026_benchmark_positioning_v1_main/manifest.csv
+  sanity_manifest: runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/manifest.csv
+  main_manifest: runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/manifest.csv
   analysis_dir: artifacts/icicic2026/matched_subset_analysis_v1
 paper_role:
   primary_question: What does EQ-Fuzzy capture beyond existing emotion benchmarks?

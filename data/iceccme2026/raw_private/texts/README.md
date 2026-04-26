@@ -1,16 +1,14 @@
-# Private Text Inputs
+# ICECCME Private Text Inputs
 
-Place the validated source texts here.
+Deprecated compatibility directory.
 
-Expected layout:
-- `ja/T1.txt`
-- `ja/T2.txt`
-- `ja/T3.txt`
-- `en/T1.txt`
-- `en/T2.txt`
-- `en/T3.txt`
-- `zh/T1.txt`
-- `zh/T2.txt`
-- `zh/T3.txt`
+Do not place new text bodies here. The canonical local text-body directory for
+ICECCME, SCIS, and ICICIC is:
+
+- `data/catalogs/texts_private`
+
+The ICECCME runner preserves `data/iceccme2026/raw_private/texts` as a legacy
+alias so historical commands and manifests can still resolve text bodies after
+the files have moved.
 
 Lock the T1 to T3 mapping before writing the final paper.

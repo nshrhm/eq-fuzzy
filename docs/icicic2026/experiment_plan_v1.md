@@ -8,7 +8,7 @@ intelligence benchmarks, not whether EQ-Fuzzy replaces them.
 
 - Comparison targets: EQ-Bench, EmoBench, and SECEU / Emotion Understanding.
 - Main ICICIC language: English.
-- Model panel: `configs/shared/models_budget4.yaml`.
+- Model panel: `configs/icicic/models_stable6_from_scis.yaml`.
 - EQ-Fuzzy subset: `T1`, `T2`, `T3`; four emotions; 10 repetitions.
 - Target modes: `reader_side` and `character_side`.
 - Primary descriptors: valid-output rate, cell mean, within-cell SD/IQR,

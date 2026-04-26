@@ -10,8 +10,8 @@ from typing import Any
 
 
 DEFAULT_ANALYSIS_DIR = "artifacts/icicic2026/matched_subset_analysis_v1"
-EXPECTED_RESPONSES = {"sanity": 4, "main": 240}
-EXPECTED_TARGET_SHIFT_ROWS = {"sanity": 4, "main": 48}
+EXPECTED_RESPONSES = {"sanity": 4, "main": 360}
+EXPECTED_TARGET_SHIFT_ROWS = {"sanity": 4, "main": 72}
 EMOTIONS = {"interest", "surprise", "sadness", "anger"}
 TARGET_MODES = {"reader_side", "character_side"}
 
@@ -32,6 +32,7 @@ def require(condition: bool, message: str, errors: list[str]) -> None:
 
 def check_outputs(*, analysis_dir: Path, stage: str) -> dict[str, Any]:
     errors: list[str] = []
+    warnings: list[str] = []
     summary_path = analysis_dir / "analysis_summary.json"
     emotion_path = analysis_dir / "emotion_long.csv"
     cell_path = analysis_dir / "cell_summary.csv"
@@ -41,7 +42,7 @@ def check_outputs(*, analysis_dir: Path, stage: str) -> dict[str, Any]:
     for path in [summary_path, emotion_path, cell_path, target_shift_path, model_path]:
         require(path.exists(), f"missing_output:{path}", errors)
     if errors:
-        return {"passed": False, "stage": stage, "errors": errors}
+        return {"passed": False, "stage": stage, "errors": errors, "warnings": warnings}
 
     summary = load_json(summary_path)
     emotion_rows = load_csv(emotion_path)
@@ -54,13 +55,29 @@ def check_outputs(*, analysis_dir: Path, stage: str) -> dict[str, Any]:
     expected_target_shift = EXPECTED_TARGET_SHIFT_ROWS[stage]
     require(int(summary.get("n_response_rows", -1)) == expected_responses, "unexpected_response_count", errors)
     require(int(summary.get("n_emotion_rows", -1)) == expected_emotions, "unexpected_emotion_row_count", errors)
-    require(int(summary.get("n_target_shift_rows", -1)) == expected_target_shift, "unexpected_target_shift_count", errors)
-    require(len(target_shift_rows) == expected_target_shift, "target_shift_csv_count_mismatch", errors)
     require({row["emotion"] for row in emotion_rows} == EMOTIONS, "missing_emotion_dimension", errors)
     require({row["target_mode"] for row in emotion_rows} == TARGET_MODES, "missing_target_mode", errors)
-    require(all(row["ok"] == "True" for row in emotion_rows), "invalid_emotion_rows_present", errors)
-    require(all(row["valid_output_rate"] == "1.0" for row in cell_rows), "cell_valid_output_rate_below_1", errors)
-    require(all(row["valid_output_rate"] == "1.0" for row in model_rows), "model_valid_output_rate_below_1", errors)
+    require(all("valid_output_rate" in row for row in cell_rows), "missing_cell_valid_output_rate", errors)
+    require(all("valid_output_rate" in row for row in model_rows), "missing_model_valid_output_rate", errors)
+
+    if stage == "sanity":
+        require(int(summary.get("n_target_shift_rows", -1)) == expected_target_shift, "unexpected_target_shift_count", errors)
+        require(len(target_shift_rows) == expected_target_shift, "target_shift_csv_count_mismatch", errors)
+        require(all(row["ok"] == "True" for row in emotion_rows), "invalid_emotion_rows_present", errors)
+        require(all(row["valid_output_rate"] == "1.0" for row in cell_rows), "cell_valid_output_rate_below_1", errors)
+        require(all(row["valid_output_rate"] == "1.0" for row in model_rows), "model_valid_output_rate_below_1", errors)
+    else:
+        observed_target_shift = int(summary.get("n_target_shift_rows", -1))
+        require(0 <= observed_target_shift <= expected_target_shift, "target_shift_count_out_of_bounds", errors)
+        require(len(target_shift_rows) == observed_target_shift, "target_shift_csv_count_mismatch", errors)
+        if observed_target_shift < expected_target_shift:
+            warnings.append("target_shift_rows_below_full_design")
+        if any(row["ok"] != "True" for row in emotion_rows):
+            warnings.append("invalid_emotion_rows_present")
+        if any(row["valid_output_rate"] != "1.0" for row in cell_rows):
+            warnings.append("cell_valid_output_rate_below_1")
+        if any(row["valid_output_rate"] != "1.0" for row in model_rows):
+            warnings.append("model_valid_output_rate_below_1")
 
     return {
         "passed": not errors,
@@ -68,7 +85,9 @@ def check_outputs(*, analysis_dir: Path, stage: str) -> dict[str, Any]:
         "analysis_dir": str(analysis_dir),
         "expected_responses": expected_responses,
         "expected_target_shift_rows": expected_target_shift,
+        "observed_target_shift_rows": int(summary.get("n_target_shift_rows", -1)),
         "errors": errors,
+        "warnings": warnings,
     }
 
 

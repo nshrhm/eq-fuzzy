@@ -8,5 +8,5 @@
   "n_target_modes": 2,
   "n_repetitions": 10,
   "output_manifest": "/home/naruki/GitHub/eq-fuzzy/runs/icicic2026/icicic2026_benchmark_positioning_v1_main/manifest.csv",
-  "git_commit": "2905c756b9c150bb4003b629ef80947268a88355"
+  "git_commit": "898c64da6d23f1d7187ff2928b666d83d4fc3300"
 }

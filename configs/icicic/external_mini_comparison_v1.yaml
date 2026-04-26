@@ -1,7 +1,7 @@
 study:
   design_id: icicic2026_external_mini_comparison_v1
   role: descriptive_external_benchmark_mini_comparison
-  model_panel: configs/shared/models_budget4.yaml
+  model_panel: configs/icicic/models_stable6_from_scis.yaml
   curated_items_csv: configs/icicic/external_benchmark_items_v1.csv
   prompt_version: icicic_external_mini_comparison_v1
   schema_version: icicic_external_mini_response_v1

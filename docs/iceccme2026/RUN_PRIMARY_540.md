@@ -7,15 +7,15 @@ This note assumes you already fixed:
 ## 1. Confirm the expected private inputs
 
 ```text
-data/iceccme2026/raw_private/texts/ja/T1.txt
-data/iceccme2026/raw_private/texts/ja/T2.txt
-data/iceccme2026/raw_private/texts/ja/T3.txt
-data/iceccme2026/raw_private/texts/en/T1.txt
-data/iceccme2026/raw_private/texts/en/T2.txt
-data/iceccme2026/raw_private/texts/en/T3.txt
-data/iceccme2026/raw_private/texts/zh/T1.txt
-data/iceccme2026/raw_private/texts/zh/T2.txt
-data/iceccme2026/raw_private/texts/zh/T3.txt
+data/catalogs/texts_private/ja/T1.txt
+data/catalogs/texts_private/ja/T2.txt
+data/catalogs/texts_private/ja/T3.txt
+data/catalogs/texts_private/en/T1.txt
+data/catalogs/texts_private/en/T2.txt
+data/catalogs/texts_private/en/T3.txt
+data/catalogs/texts_private/zh/T1.txt
+data/catalogs/texts_private/zh/T2.txt
+data/catalogs/texts_private/zh/T3.txt
 ```
 
 If needed, also place the SurveyMonkey workbook at:
@@ -50,7 +50,7 @@ python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
-  --text-file data/iceccme2026/raw_private/texts/ja/T1.txt
+  --text-file data/catalogs/texts_private/ja/T1.txt
 ```
 
 ## 5. Export your OpenRouter API key
@@ -65,7 +65,7 @@ export OPENROUTER_API_KEY='YOUR_KEY_HERE'
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/iceccme2026/raw_private/texts \
+  --texts-dir data/catalogs/texts_private \
   --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --limit 1 \
   --dry-run
@@ -77,7 +77,7 @@ python -m src.iceccme2026.openrouter_runner \
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/iceccme2026/raw_private/texts \
+  --texts-dir data/catalogs/texts_private \
   --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --limit 6 \
   --sleep-sec 1.0 \
@@ -110,7 +110,7 @@ python -m src.iceccme2026.cli score-alignment \
 python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
-  --texts-dir data/iceccme2026/raw_private/texts \
+  --texts-dir data/catalogs/texts_private \
   --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --sleep-sec 0.7 \
   --resume

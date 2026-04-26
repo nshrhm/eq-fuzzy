@@ -34,11 +34,11 @@ New work should use these paths once each workstream has a real design.
 | `src/core/` | `shared` | Future shared utilities only after a second workstream needs them. |
 | `configs/shared/` | `shared` | Shared model, text, and persona registry/config fragments, not paper-specific experiment plans. |
 | `prompts/shared/` | `shared` | Shared schemas or prompt fragments only when they are claim-neutral. |
-| `data/catalogs/` | `shared` | Text, persona, and model catalogs with provenance. |
+| `data/catalogs/` | `shared` | Text, persona, and model catalogs with provenance. Private shared text bodies live locally under `data/catalogs/texts_private/` and remain untracked. |
 | `configs/iceccme/` | `iceccme` | Canonical ICECCME experiment and paper configs. |
 | `prompts/iceccme/` | `iceccme` | Canonical ICECCME prompt text. |
 | `scripts/iceccme2026/` | `iceccme` | Canonical ICECCME script implementations. |
-| `data/iceccme2026/` | `iceccme` | Canonical ICECCME derived data, manifests, interim files, raw-private local data, and data-side summaries. |
+| `data/iceccme2026/` | `iceccme` | Canonical ICECCME derived data, manifests, interim files, ICECCME-only raw-private local data, and data-side summaries. Shared text bodies should not live here. |
 | `results/iceccme2026/` | `iceccme` | Canonical ICECCME result CSV/JSON/table/figure outputs. |
 | `runs/iceccme2026/` | `iceccme` | New ICECCME run outputs and logs. |
 | `artifacts/iceccme2026/` | `iceccme` | New ICECCME generated figures, tables, and manuscript exports. |

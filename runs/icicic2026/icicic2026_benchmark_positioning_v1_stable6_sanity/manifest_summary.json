@@ -1,5 +1,5 @@
 {
-  "run_id": "icicic2026_benchmark_positioning_v1_sanity",
+  "run_id": "icicic2026_benchmark_positioning_v1_stable6_sanity",
   "design_id": "icicic2026_benchmark_positioning_v1",
   "stage": "sanity",
   "n_rows": 4,
@@ -7,6 +7,6 @@
   "n_stories": 1,
   "n_target_modes": 2,
   "n_repetitions": 2,
-  "output_manifest": "/home/naruki/GitHub/eq-fuzzy/runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/manifest.csv",
+  "output_manifest": "/home/naruki/GitHub/eq-fuzzy/runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/manifest.csv",
   "git_commit": "898c64da6d23f1d7187ff2928b666d83d4fc3300"
 }

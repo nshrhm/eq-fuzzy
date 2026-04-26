@@ -3,7 +3,7 @@ from __future__ import annotations
 """Run an OpenRouter-backed experiment manifest for ICECCME 2026.
 
 This module reads a manifest CSV produced by `python -m src.iceccme2026.cli build-manifest`, loads the
-validated multilingual text files from `data/iceccme2026/raw_private/texts/<lang>/<story>.txt`,
+validated multilingual text files from `data/catalogs/texts_private/<lang>/<story>.txt`,
 constructs the system/user prompts, calls OpenRouter's chat completions endpoint with
 JSON-schema structured outputs, and writes one JSONL line per completed request.
 
@@ -23,6 +23,8 @@ import time
 from pathlib import Path
 from typing import Any
 from urllib import error, request
+
+from src.core.text_inputs import read_text_file as read_shared_text_file
 
 
 DEFAULT_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
@@ -180,10 +182,7 @@ Text:
 
 
 def read_text_file(texts_dir: Path, language: str, story_id: str) -> str:
-    path = texts_dir / language / f"{story_id}.txt"
-    if not path.exists():
-        raise FileNotFoundError(f"Missing text file: {path}")
-    return path.read_text(encoding="utf-8")
+    return read_shared_text_file(texts_dir, language, story_id)
 
 
 def post_chat_completion(
@@ -430,7 +429,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run the ICECCME primary manifest on OpenRouter")
     parser.add_argument("--repo-root", default=".")
     parser.add_argument("--manifest", default="data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv")
-    parser.add_argument("--texts-dir", default="data/iceccme2026/raw_private/texts")
+    parser.add_argument("--texts-dir", default="data/catalogs/texts_private")
     parser.add_argument("--schema", default="prompts/shared/response_schema.json")
     parser.add_argument("--output-jsonl", default="data/iceccme2026/raw_private/openrouter_primary_raw.jsonl")
     parser.add_argument("--limit", type=int, default=None, help="Run only the first N unfinished manifest rows")

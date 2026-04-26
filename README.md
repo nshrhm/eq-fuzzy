@@ -135,7 +135,7 @@ ICECCME prompt text lives in `prompts/iceccme/`, and the shared response schema 
 Use the preview script before large runs:
 
 ```bash
-python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/iceccme2026/raw_private/texts/ja/T1.txt   --output T1_p0_ja_prompt.txt
+python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/catalogs/texts_private/ja/T1.txt   --output T1_p0_ja_prompt.txt
 ```
 
 ## Paper artifact regeneration

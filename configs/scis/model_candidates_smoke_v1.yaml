@@ -18,7 +18,7 @@ smoke_test:
   response_schema: prompts/shared/response_schema.json
   system_prompt: prompts/scis/smoke_v1_system.md
   user_template: prompts/scis/smoke_v1_user_template.md
-  texts_dir: data/iceccme2026/raw_private/texts
+  texts_dir: data/catalogs/texts_private
   text_registry: configs/shared/texts_from_definitions.yaml
   persona_registry: configs/shared/personas_from_definitions.yaml
   prompt_temperature_policy: >
