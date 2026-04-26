@@ -1,0 +1,7 @@
+{
+  "matrix_id": "icicic2026_comparison_matrix_v1",
+  "n_rows": 4,
+  "csv": "/home/naruki/GitHub/eq-fuzzy/artifacts/icicic2026/comparison_matrix_v1/benchmark_coverage_matrix.csv",
+  "tex": "/home/naruki/GitHub/eq-fuzzy/artifacts/icicic2026/comparison_matrix_v1/benchmark_coverage_matrix.tex",
+  "claim_discipline": "positioning matrix only; no benchmark-superiority claim"
+}

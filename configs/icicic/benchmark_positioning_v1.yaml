@@ -1,0 +1,50 @@
+study:
+  design_id: icicic2026_benchmark_positioning_v1
+  paper_short_name: icicic2026
+  role: benchmark_positioning_matched_comparison
+  primary_language: en
+  story_ids:
+    - T1
+    - T2
+    - T3
+  emotions:
+    - interest
+    - surprise
+    - sadness
+    - anger
+  target_modes:
+    - target_mode: reader_side
+      target_label: reader-side post-reading affect
+      prompt_focus: Rate emotions felt by a reader after reading the whole text.
+    - target_mode: character_side
+      target_label: inferred character-side affect
+      prompt_focus: Rate emotions most plausibly experienced by the central character or speaker in the text.
+  repetitions:
+    sanity: 2
+    main: 10
+  model_panel: configs/shared/models_budget4.yaml
+  text_registry: configs/shared/texts_from_definitions.yaml
+  texts_dir: data/iceccme2026/raw_private/texts
+  membership_config: configs/scis/fuzzy_membership_v1.yaml
+  response_schema: prompts/shared/response_schema.json
+prompts:
+  prompt_version: icicic_eq_fuzzy_matched_subset_v1
+  schema_version: shared_emotion_scores_v1
+  system_prompt: prompts/icicic/eq_fuzzy_matched_subset_system.md
+  user_template: prompts/icicic/eq_fuzzy_matched_subset_user_template.md
+api_controls:
+  provider: openrouter
+  temperature: 0.4
+  top_p: 1.0
+  max_completion_tokens: 700
+outputs:
+  sanity_manifest: runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/manifest.csv
+  main_manifest: runs/icicic2026/icicic2026_benchmark_positioning_v1_main/manifest.csv
+  analysis_dir: artifacts/icicic2026/matched_subset_analysis_v1
+paper_role:
+  primary_question: What does EQ-Fuzzy capture beyond existing emotion benchmarks?
+  allowed_claim: EQ-Fuzzy adds uncertainty-aware, stability-oriented, and target-controllable descriptors.
+  forbidden_claims:
+    - EQ-Fuzzy is universally superior to existing benchmarks.
+    - This paper proves human validity by itself.
+    - This paper resolves persona and temperature deconfounding.

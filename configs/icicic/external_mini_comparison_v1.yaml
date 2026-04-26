@@ -1,0 +1,27 @@
+study:
+  design_id: icicic2026_external_mini_comparison_v1
+  role: descriptive_external_benchmark_mini_comparison
+  model_panel: configs/shared/models_budget4.yaml
+  curated_items_csv: configs/icicic/external_benchmark_items_v1.csv
+  prompt_version: icicic_external_mini_comparison_v1
+  schema_version: icicic_external_mini_response_v1
+  response_schema: prompts/icicic/external_mini_response_schema.json
+  expected_public_items:
+    eq_bench: 12
+    emobench: 12
+  seceu_policy: coverage_matrix_only_unless_reuse_terms_are_clear
+api_controls:
+  provider: openrouter
+  temperature: 0.0
+  top_p: 1.0
+  max_completion_tokens: 500
+outputs:
+  manifest: runs/icicic2026/icicic2026_external_mini_comparison_v1/manifest.csv
+required_curated_item_columns:
+  - benchmark_id
+  - item_id
+  - source_url
+  - license_or_reuse_note
+  - prompt_text
+  - answer_key
+  - native_metric

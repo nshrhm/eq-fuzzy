@@ -2,4 +2,7 @@
 
 This directory is reserved for ICICIC-specific planning and operational notes.
 
-Do not add fake experiment guides, placeholder configs, or provisional claims before the real ICICIC design is fixed.
+Current notes:
+
+- `context_jp.md` - Japanese collaboration context for ICICIC.
+- `experiment_plan_v1.md` - locked benchmark-positioning / matched-comparison experiment plan.

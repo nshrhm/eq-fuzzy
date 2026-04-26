@@ -1,0 +1,12 @@
+{
+  "run_id": "icicic2026_benchmark_positioning_v1_sanity",
+  "design_id": "icicic2026_benchmark_positioning_v1",
+  "stage": "sanity",
+  "n_rows": 4,
+  "n_models": 1,
+  "n_stories": 1,
+  "n_target_modes": 2,
+  "n_repetitions": 2,
+  "output_manifest": "/home/naruki/GitHub/eq-fuzzy/runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/manifest.csv",
+  "git_commit": "2905c756b9c150bb4003b629ef80947268a88355"
+}

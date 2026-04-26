@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "benchmark_id",
+    "item_id",
+    "answer",
+    "confidence",
+    "reason"
+  ],
+  "properties": {
+    "benchmark_id": {
+      "type": "string"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "reason": {
+      "type": "string"
+    }
+  }
+}
