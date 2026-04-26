@@ -34,6 +34,18 @@ python scripts/icicic2026/analyze_matched_subset.py \
   --input-jsonl runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/raw.jsonl
 ```
 
+Gate-check the analysis:
+
+```bash
+python scripts/icicic2026/check_matched_subset_run.py --stage sanity
+```
+
+If only a small number of rows fail, build a retry manifest:
+
+```bash
+python scripts/icicic2026/build_matched_subset_retry_manifest.py
+```
+
 Build the main manifest after the sanity run passes:
 
 ```bash
@@ -64,4 +76,14 @@ Summarize completed raw output with:
 
 ```bash
 python scripts/icicic2026/analyze_external_mini.py
+```
+
+## Primary tables and figures
+
+After the main matched-subset analysis exists, build manuscript-facing tables
+and figure candidates:
+
+```bash
+python scripts/icicic2026/build_icicic_primary_tables.py
+python scripts/icicic2026/build_icicic_primary_figures.py
 ```

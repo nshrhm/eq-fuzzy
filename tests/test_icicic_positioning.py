@@ -15,7 +15,11 @@ from analyze_matched_subset import run_analysis  # noqa: E402
 from analyze_external_mini import run_analysis as run_external_analysis  # noqa: E402
 from build_comparison_matrix import build_matrix  # noqa: E402
 from build_external_mini_manifest import build_manifest as build_external_manifest  # noqa: E402
+from build_icicic_primary_figures import build_primary_figures  # noqa: E402
+from build_icicic_primary_tables import build_primary_tables  # noqa: E402
 from build_matched_subset_manifest import build_manifest as build_matched_manifest  # noqa: E402
+from build_matched_subset_retry_manifest import build_retry_manifest  # noqa: E402
+from check_matched_subset_run import check_outputs  # noqa: E402
 
 
 MEMBERSHIP_CONFIG = REPO_ROOT / "configs" / "scis" / "fuzzy_membership_v1.yaml"
@@ -92,11 +96,34 @@ class IcicicPositioningTest(unittest.TestCase):
             self.assertTrue(output.exists())
             self.assertTrue((output.parent / "manifest_summary.json").exists())
 
+    def test_build_matched_subset_main_manifest_count(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "manifest.csv"
+            rows = build_matched_manifest(
+                repo_root=REPO_ROOT,
+                config_path=MATCHED_CONFIG,
+                stage="main",
+                output_path=output,
+            )
+
+            self.assertEqual(len(rows), 240)
+            self.assertEqual({row["language"] for row in rows}, {"en"})
+            self.assertEqual({row["target_mode"] for row in rows}, {"reader_side", "character_side"})
+
     def test_external_manifest_requires_curated_public_items(self):
         with tempfile.TemporaryDirectory() as tmp:
             with self.assertRaises(FileNotFoundError):
                 build_external_manifest(
                     repo_root=Path(tmp),
+                    config_path=EXTERNAL_CONFIG,
+                    output_path=Path(tmp) / "manifest.csv",
+                )
+
+    def test_external_manifest_rejects_empty_curation_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(ValueError):
+                build_external_manifest(
+                    repo_root=REPO_ROOT,
                     config_path=EXTERNAL_CONFIG,
                     output_path=Path(tmp) / "manifest.csv",
                 )
@@ -128,6 +155,117 @@ class IcicicPositioningTest(unittest.TestCase):
             self.assertTrue((tmp_path / "out" / "emotion_long.csv").exists())
             self.assertTrue((tmp_path / "out" / "response_profile_entropy.csv").exists())
             self.assertTrue((tmp_path / "out" / "target_shift.csv").exists())
+
+    def test_check_matched_subset_run_passes_complete_sanity_fixture(self):
+        records = [
+            make_record("reader_side", 1, {"interest": 20, "surprise": 30, "sadness": 40, "anger": 50}),
+            make_record("reader_side", 2, {"interest": 30, "surprise": 40, "sadness": 50, "anger": 60}),
+            make_record("character_side", 1, {"interest": 60, "surprise": 50, "sadness": 40, "anger": 30}),
+            make_record("character_side", 2, {"interest": 70, "surprise": 60, "sadness": 50, "anger": 40}),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            raw = tmp_path / "raw.jsonl"
+            raw.write_text(
+                "\n".join(json.dumps(record, ensure_ascii=False) for record in records) + "\n",
+                encoding="utf-8",
+            )
+            run_analysis(
+                input_jsonl=raw,
+                output_dir=tmp_path / "out",
+                membership_config_path=MEMBERSHIP_CONFIG,
+            )
+            result = check_outputs(analysis_dir=tmp_path / "out", stage="sanity")
+
+            self.assertTrue(result["passed"])
+
+    def test_check_matched_subset_run_fails_incomplete_sanity_fixture(self):
+        records = [
+            make_record("reader_side", 1, {"interest": 20, "surprise": 30, "sadness": 40, "anger": 50}),
+            make_record("character_side", 1, {"interest": 60, "surprise": 50, "sadness": 40, "anger": 30}),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            raw = tmp_path / "raw.jsonl"
+            raw.write_text(
+                "\n".join(json.dumps(record, ensure_ascii=False) for record in records) + "\n",
+                encoding="utf-8",
+            )
+            run_analysis(
+                input_jsonl=raw,
+                output_dir=tmp_path / "out",
+                membership_config_path=MEMBERSHIP_CONFIG,
+            )
+            result = check_outputs(analysis_dir=tmp_path / "out", stage="sanity")
+
+            self.assertFalse(result["passed"])
+            self.assertIn("unexpected_response_count", result["errors"])
+
+    def test_retry_manifest_keeps_only_failed_rows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            manifest = tmp_path / "manifest.csv"
+            raw = tmp_path / "raw.jsonl"
+            retry = tmp_path / "retry.csv"
+            with manifest.open("w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=["manifest_row", "model_id"])
+                writer.writeheader()
+                writer.writerows(
+                    [
+                        {"manifest_row": "0", "model_id": "m0"},
+                        {"manifest_row": "1", "model_id": "m1"},
+                        {"manifest_row": "2", "model_id": "m2"},
+                    ]
+                )
+            raw.write_text(
+                "\n".join(
+                    [
+                        json.dumps({"manifest_row": 0, "ok": True}),
+                        json.dumps({"manifest_row": 1, "ok": False}),
+                        json.dumps({"manifest_row": 2, "ok": True}),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            rows = build_retry_manifest(source_manifest=manifest, raw_jsonl=raw, output_path=retry)
+
+            self.assertEqual(rows, [{"manifest_row": "1", "model_id": "m1"}])
+            with retry.open("r", encoding="utf-8", newline="") as f:
+                written = list(csv.DictReader(f))
+            self.assertEqual(written, [{"manifest_row": "1", "model_id": "m1"}])
+
+    def test_primary_tables_and_figures_emit_artifacts(self):
+        records = [
+            make_record("reader_side", 1, {"interest": 20, "surprise": 30, "sadness": 40, "anger": 50}),
+            make_record("reader_side", 2, {"interest": 30, "surprise": 40, "sadness": 50, "anger": 60}),
+            make_record("character_side", 1, {"interest": 60, "surprise": 50, "sadness": 40, "anger": 30}),
+            make_record("character_side", 2, {"interest": 70, "surprise": 60, "sadness": 50, "anger": 40}),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            raw = tmp_path / "raw.jsonl"
+            raw.write_text(
+                "\n".join(json.dumps(record, ensure_ascii=False) for record in records) + "\n",
+                encoding="utf-8",
+            )
+            analysis_dir = tmp_path / "analysis"
+            run_analysis(input_jsonl=raw, output_dir=analysis_dir, membership_config_path=MEMBERSHIP_CONFIG)
+            table_summary = build_primary_tables(analysis_dir=analysis_dir, output_dir=tmp_path / "tables")
+            matrix_summary = build_matrix(tmp_path / "matrix")
+            figure_summary = build_primary_figures(
+                matrix_path=Path(matrix_summary["csv"]),
+                analysis_dir=analysis_dir,
+                output_dir=tmp_path / "figures",
+            )
+
+            self.assertEqual(table_summary["n_model_rows"], 1)
+            self.assertTrue((tmp_path / "tables" / "table2_model_added_descriptors.tex").exists())
+            self.assertEqual(figure_summary["n_figures"], 2)
+            self.assertTrue((tmp_path / "figures" / "figure_manifest.csv").exists())
+            self.assertGreater((tmp_path / "figures" / "figure1_benchmark_coverage_map.png").stat().st_size, 0)
+            self.assertGreater((tmp_path / "figures" / "figure2_added_descriptor_overview.png").stat().st_size, 0)
 
     def test_analyze_external_mini_fixture_outputs_native_summary(self):
         records = [

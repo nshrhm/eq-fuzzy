@@ -52,6 +52,11 @@ def read_curated_items(path: Path, required_columns: list[str]) -> list[dict[str
         if missing:
             raise ValueError(f"Curated item CSV is missing columns: {sorted(missing)}")
         rows = list(reader)
+    if not rows:
+        raise ValueError(
+            f"Curated external benchmark item file contains no rows: {path}. "
+            "Add public items with clear reuse notes before building the manifest."
+        )
     for row in rows:
         if not row.get("license_or_reuse_note", "").strip():
             raise ValueError(f"Missing reuse note for {row.get('benchmark_id')}:{row.get('item_id')}")

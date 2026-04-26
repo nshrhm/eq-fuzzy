@@ -1,0 +1,204 @@
+%% Authors: Please do not make any changes on the commands below.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,a4paper]{icicel}
+
+%\textheight=8.2 true in
+\setcounter{page}{1}
+\topmargin -20pt
+
+\textwidth 16cm
+\textheight 25.5cm
+
+\oddsidemargin 0cm
+\evensidemargin -0.06cm
+
+\def\currentvolume{0}
+\def\currentissue{0}
+\def\currentyear{2026}
+\def\currentmonth{July}
+\def\ppages{1--ICICIC-2026-000}
+
+\newcommand{\BOX}{\hfill $\Box$}
+\newcommand{\NAB}{\hfill $\nabla \nabla \nabla$}
+\newcommand {\done} {\quad\vrule height4pt WIDTH4PT}
+\newcommand{\BYD}{\stackrel{\Delta}{=}}
+
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage{epsf}
+
+%% Authors: Please do not make any changes on the commands above.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title[ICICIC 2026]
+      {Positioning EQ-Fuzzy Against Existing Emotion Benchmarks}
+
+\author[N. Shirahama]{}
+
+\begin{document}
+
+\maketitle
+
+\centerline{\scshape Naruki Shirahama$^1$}
+\medskip
+{\footnotesize
+\centerline{$^1$Shimonoseki City University}
+\centerline{Shimonoseki, Yamaguchi, Japan}
+\centerline{nshirahama@ieee.org}}
+\medskip
+
+\centerline{Received Month 2026; accepted Month 2026}
+
+%%\centerline{(Communicated by xxxx)}
+
+\medskip
+
+\begin{abstract}
+{\em
+Existing emotion and emotional-intelligence benchmarks commonly emphasize
+accuracy, agreement, empathy, or classification-style performance.
+This paper positions EQ-Fuzzy as a complementary benchmark method for large
+language model emotion scoring.
+Rather than claiming that EQ-Fuzzy replaces existing benchmarks, the study asks
+what additional signals it can expose when benchmark stimuli, scoring rules,
+and evaluation targets are compared in a matched setting.
+The planned ICICIC 2026 experiment combines a benchmark coverage matrix with a
+small English EQ-Fuzzy matched subset over literary texts, four emotion
+dimensions, repeated model responses, and two evaluation targets:
+reader-side post-reading affect and inferred character-side affect.
+The resulting descriptors include valid-output rate, cell means,
+within-cell dispersion, fuzzy entropy, profile entropy, and target-shift
+magnitude.
+The intended contribution is a compact benchmark-positioning analysis of
+uncertainty-aware, stability-oriented, and target-controllable evaluation
+signals.
+}\\
+{\bf Keywords:} Emotion benchmark, Large language model, Fuzzy emotion scoring,
+Uncertainty aware evaluation, Benchmark positioning.
+\end{abstract}
+
+\section{Introduction}
+Large language models are increasingly evaluated on emotional understanding,
+empathy, and affective reasoning tasks.
+Benchmarks such as EQ-Bench and EmoBench provide useful ways to compare models
+on dialogue-based emotional intensity prediction or emotional-intelligence
+question answering [1,2].
+Psychometric emotional-understanding tests offer another reference point by
+comparing model answers with human norm frames [3].
+These benchmarks are valuable, but their primary outputs often remain centered
+on correctness, agreement, leaderboard score, or human-level comparison.
+
+EQ-Fuzzy addresses a narrower and complementary question.
+For a fixed text and emotion scale, it records continuous emotion intensities
+and permits derived descriptors of uncertainty, repeat stability, and target
+control.
+The ICICIC 2026 workstream therefore asks what EQ-Fuzzy captures beyond
+existing emotion benchmarks, not whether it is universally superior to them.
+This distinction is important for keeping the paper as a benchmark-positioning
+study rather than as a broad leaderboard claim.
+
+\section{Matched Comparison Methodology}
+The comparison is organized around four benchmark families:
+EQ-Bench, EmoBench, SECEU / Emotion Understanding, and the EQ-Fuzzy matched
+subset.
+The coverage matrix compares task type, stimulus type, language, response
+format, scoring rule, human reference, repeatability, uncertainty output,
+controllability, persona-temperature handling, and reproducibility or license
+status.
+This matrix is generated from the repository script so that table entries can
+be regenerated from the same benchmark-positioning specification.
+
+The EQ-Fuzzy matched subset uses three English literary texts from the shared
+registry, four emotions, a budget model panel, and repeated sampling.
+Two evaluation targets are compared under the same text and response schema:
+\texttt{reader\_side}, which rates emotions felt by a reader after reading the
+whole text, and \texttt{character\_side}, which rates emotions plausibly
+experienced by the central character or speaker.
+This design makes target controllability visible without rerunning the
+human-grounded multilingual alignment analysis used in the ICECCME workstream.
+
+\section{EQ-Fuzzy Added Descriptors}
+Let $x_{m,t,c,r,e}$ denote a 0--100 score produced by model $m$ for text $t$,
+target condition $c$, repetition $r$, and emotion $e$.
+For each model-text-target-emotion cell, the analysis reports the mean score,
+standard deviation, interquartile range, and valid-output rate.
+Each score is also mapped to Low, Medium, and High fuzzy membership values, and
+a normalized fuzzy entropy descriptor is computed under the locked membership
+configuration used by the repository.
+
+The four-emotion profile entropy describes how concentrated or distributed the
+emotion profile is within a response.
+The reader-versus-character target shift is computed as the absolute difference
+between the target-mode cell means for the same model, text, and emotion.
+These descriptors are interpreted descriptively.
+They do not prove human validity by themselves and do not replace the
+factorial persona-temperature deconfounding analysis reserved for the SCIS
+workstream.
+
+\section{Planned Results and Artifact Chain}
+The primary outputs are generated artifacts rather than manually edited result
+tables.
+The coverage table is written to the ICICIC comparison-matrix artifact
+directory.
+After raw matched-subset responses are collected, the analysis script writes
+cell summaries, model summaries, target-shift summaries, and response-level
+profile entropy to the ICICIC matched-subset analysis artifact directory.
+Manuscript-facing tables and figures are then regenerated by
+the primary table and figure build scripts.
+
+External mini-comparison items are intentionally gated on manual curation.
+Only public items with clear source URLs and reuse notes should be entered in
+the external benchmark curation file.
+SECEU is kept as a coverage-matrix comparator unless item reuse terms are
+explicitly clear.
+
+\section{Limitations}
+This paper is designed as a compact benchmark-positioning study.
+It should not claim that EQ-Fuzzy is a definitive replacement for existing
+emotion benchmarks.
+It also should not claim standalone human validity, because that question
+belongs to the human-grounded alignment workstream.
+Likewise, persona-temperature main effects and interactions are not centered
+here; they belong to the SCIS factorial deconfounding workstream.
+The matched subset is intentionally small so that the paper can focus on
+coverage, uncertainty-aware descriptors, stability, and target control.
+
+\section{Conclusions}
+ICICIC 2026 positions EQ-Fuzzy as a complementary method for describing
+emotion-evaluation signals that are not always primary outputs of existing
+emotion benchmarks.
+The planned contribution is a matched comparison and a reproducible artifact
+chain showing how uncertainty-aware, stability-oriented, and target-controllable
+descriptors can be reported alongside conventional benchmark positioning.
+
+\section*{Acknowledgment}
+This work is supported by the EQ-Fuzzy research line under JSPS KAKENHI.
+
+\begin{thebibliography}{10}
+
+\bibitem{paech2023eqbench}
+S. J. Paech, EQ-Bench: An emotional intelligence benchmark for large language
+models, {\em arXiv preprint arXiv:2312.06281}, 2023.
+
+\bibitem{sabour2024emobench}
+S. Sabour, S. Liu, Z. Zhang, J. Liu, J. Zhou, A. Sunaryo, T. Lee,
+R. Mihalcea and M. Huang, EmoBench: Evaluating the emotional intelligence of
+large language models, {\em Proc. of the 62nd Annual Meeting of the Association
+for Computational Linguistics}, pp.5986--6004, 2024.
+
+\bibitem{wang2023ei}
+X. Wang, X. Li, Z. Yin, Y. Wu and J. Liu, Emotional intelligence of large
+language models, {\em Journal of Pacific Rim Psychology}, vol.17, 2023.
+
+\end{thebibliography}
+
+\end{document}
