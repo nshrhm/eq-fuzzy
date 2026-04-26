@@ -1,0 +1,5 @@
+run_id,stage,design_id,manifest_row,model_id,provider,language,story_id,target_mode,repetition,ok,profile_entropy
+icicic2026_benchmark_positioning_v1_stable6_sanity,sanity,icicic2026_benchmark_positioning_v1,0,openai/gpt-5.4,openrouter,en,T1,reader_side,1,True,0.744699376
+icicic2026_benchmark_positioning_v1_stable6_sanity,sanity,icicic2026_benchmark_positioning_v1,1,openai/gpt-5.4,openrouter,en,T1,reader_side,2,True,0.830192818
+icicic2026_benchmark_positioning_v1_stable6_sanity,sanity,icicic2026_benchmark_positioning_v1,2,openai/gpt-5.4,openrouter,en,T1,character_side,1,True,0.782157436
+icicic2026_benchmark_positioning_v1_stable6_sanity,sanity,icicic2026_benchmark_positioning_v1,3,openai/gpt-5.4,openrouter,en,T1,character_side,2,True,0.814862883

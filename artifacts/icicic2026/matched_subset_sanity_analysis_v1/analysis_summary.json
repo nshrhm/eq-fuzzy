@@ -1,0 +1,11 @@
+{
+  "analysis_id": "icicic2026_matched_subset_analysis_v1",
+  "input_jsonl": "/home/naruki/GitHub/eq-fuzzy/runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/raw.jsonl",
+  "n_response_rows": 4,
+  "n_emotion_rows": 16,
+  "n_cell_rows": 8,
+  "n_target_shift_rows": 4,
+  "n_model_rows": 1,
+  "primary_membership_family": "sigmoid_s_v1",
+  "claim_discipline": "descriptive uncertainty, stability, and target-control analysis only"
+}

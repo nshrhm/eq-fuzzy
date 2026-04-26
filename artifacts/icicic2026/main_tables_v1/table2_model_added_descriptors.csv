@@ -1,0 +1,5 @@
+model_id,valid_output_rate,mean_within_cell_sd_score,mean_cell_H_norm,mean_profile_entropy,mean_target_shift_abs
+anthropic/claude-haiku-4.5,1.0,1.909045,0.410033,0.956852,4.833333
+deepseek/deepseek-v3.2,1.0,7.328458,0.253647,0.780831,7.2
+openai/gpt-5-mini,1.0,8.0624,0.328239,0.878663,16.6
+qwen/qwen3.6-plus,0.0,,,,

@@ -1,0 +1,9 @@
+model_id,provider,story_id,target_mode,emotion,n_attempts,n_ok,valid_output_rate,n_valid_scores,mean_score,median_score,sd_score,iqr_score,mean_H_norm,median_H_norm,sd_H_norm
+openai/gpt-5-mini,openrouter,T1,character_side,anger,2,2,1.0,2,2.5,2.5,2.5,2.5,0.016829,0.016829,0.016829
+openai/gpt-5-mini,openrouter,T1,character_side,interest,2,2,1.0,2,25.0,25.0,5.0,5.0,0.451777,0.451777,0.451777
+openai/gpt-5-mini,openrouter,T1,character_side,sadness,2,2,1.0,2,25.0,25.0,20.0,20.0,0.016829,0.016829,0.016829
+openai/gpt-5-mini,openrouter,T1,character_side,surprise,2,2,1.0,2,35.0,35.0,30.0,30.0,0.326741,0.326741,0.293084
+openai/gpt-5-mini,openrouter,T1,reader_side,anger,2,2,1.0,2,5.0,5.0,0.0,0.0,0.033657,0.033657,0.0
+openai/gpt-5-mini,openrouter,T1,reader_side,interest,2,2,1.0,2,65.0,65.0,0.0,0.0,0.619825,0.619825,0.0
+openai/gpt-5-mini,openrouter,T1,reader_side,sadness,2,2,1.0,2,10.0,10.0,0.0,0.0,0.2048,0.2048,0.0
+openai/gpt-5-mini,openrouter,T1,reader_side,surprise,2,2,1.0,2,47.5,47.5,7.5,7.5,0.072389,0.072389,0.072389

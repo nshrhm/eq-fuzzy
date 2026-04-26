@@ -1,0 +1,2 @@
+model_id,provider,n_responses,valid_output_rate,mean_cell_valid_output_rate,mean_within_cell_sd_score,mean_cell_H_norm,mean_profile_entropy,mean_target_shift_abs
+openai/gpt-5.4,openrouter,4,1.0,1.0,1.75,0.341612,0.792978,6.0

@@ -1,0 +1,13 @@
+model_id,emotion,n_cells,mean_target_shift_abs,max_target_shift_abs
+anthropic/claude-haiku-4.5,anger,3,12.3,27.5
+anthropic/claude-haiku-4.5,interest,3,0.2,0.6
+anthropic/claude-haiku-4.5,sadness,3,5.866667,15.0
+anthropic/claude-haiku-4.5,surprise,3,0.966667,1.5
+deepseek/deepseek-v3.2,anger,3,17.0,35.0
+deepseek/deepseek-v3.2,interest,3,4.5,12.5
+deepseek/deepseek-v3.2,sadness,3,3.466667,6.9
+deepseek/deepseek-v3.2,surprise,3,3.833333,5.0
+openai/gpt-5-mini,anger,3,18.666667,41.0
+openai/gpt-5-mini,interest,3,15.566667,21.5
+openai/gpt-5-mini,sadness,3,26.0,38.0
+openai/gpt-5-mini,surprise,3,6.166667,9.5
