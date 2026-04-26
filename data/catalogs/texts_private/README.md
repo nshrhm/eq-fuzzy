@@ -18,3 +18,6 @@ Expected layout:
 The previous ICECCME-local directory,
 `data/iceccme2026/raw_private/texts`, is a legacy alias only. It should contain
 no text bodies in new checkouts.
+
+The legacy alias is temporary and planned for future removal after old ICECCME
+manifests and command examples have been retired or migrated.
