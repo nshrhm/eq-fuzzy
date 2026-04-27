@@ -141,6 +141,9 @@ def build_primary_figures(*, matrix_path: Path, analysis_dir: Path, output_dir: 
     write_csv(figures, manifest_path)
     summary = {
         "figure_set": "icicic2026_main_figures_v1",
+        "matrix_path": str(matrix_path),
+        "analysis_dir": str(analysis_dir),
+        "output_dir": str(output_dir),
         "n_figures": len(figures),
         "figure_manifest": str(manifest_path),
         "claim_discipline": "descriptive figures only",

@@ -306,6 +306,7 @@ class IcicicPositioningTest(unittest.TestCase):
             self.assertEqual(table_summary["n_model_rows"], 1)
             self.assertTrue((tmp_path / "tables" / "table2_model_added_descriptors.tex").exists())
             self.assertEqual(figure_summary["n_figures"], 2)
+            self.assertEqual(figure_summary["analysis_dir"], str(analysis_dir))
             self.assertTrue((tmp_path / "figures" / "figure_manifest.csv").exists())
             self.assertGreater((tmp_path / "figures" / "figure1_benchmark_coverage_map.png").stat().st_size, 0)
             self.assertGreater((tmp_path / "figures" / "figure2_added_descriptor_overview.png").stat().st_size, 0)
