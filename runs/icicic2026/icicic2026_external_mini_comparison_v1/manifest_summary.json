@@ -1,0 +1,8 @@
+{
+  "run_id": "icicic2026_external_mini_comparison_v1",
+  "design_id": "icicic2026_external_mini_comparison_v1",
+  "n_rows": 144,
+  "n_models": 6,
+  "n_items": 24,
+  "output_manifest": "/home/naruki/GitHub/eq-fuzzy/runs/icicic2026/icicic2026_external_mini_comparison_v1/manifest.csv"
+}

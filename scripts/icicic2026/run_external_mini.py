@@ -39,6 +39,15 @@ SYSTEM_PROMPT = (
 )
 
 
+def render_external_prompt(row: dict[str, str]) -> str:
+    return (
+        f"benchmark_id: {row['benchmark_id']}\n"
+        f"item_id: {row['item_id']}\n\n"
+        f"{row['prompt_text']}\n\n"
+        "Return JSON with the same benchmark_id and item_id values shown above."
+    )
+
+
 def validate_external_response(obj: dict[str, Any], row: dict[str, str]) -> list[str]:
     errors: list[str] = []
     for key in ("benchmark_id", "item_id", "answer", "confidence", "reason"):
@@ -95,7 +104,7 @@ def main() -> None:
         payload = build_payload(
             row=first,
             system_prompt=SYSTEM_PROMPT,
-            user_prompt=first["prompt_text"],
+            user_prompt=render_external_prompt(first),
             schema=schema,
         )
         payload["metadata"] = {
@@ -122,7 +131,7 @@ def main() -> None:
             payload = build_payload(
                 row=row,
                 system_prompt=SYSTEM_PROMPT,
-                user_prompt=row["prompt_text"],
+                user_prompt=render_external_prompt(row),
                 schema=schema,
             )
             payload["metadata"] = {
@@ -182,7 +191,7 @@ def main() -> None:
                 "git_commit": commit,
                 "prompt_version": row["prompt_version"],
                 "schema_version": row["schema_version"],
-                "rendered_user_prompt_sha256": sha256_text(row["prompt_text"]),
+                "rendered_user_prompt_sha256": sha256_text(render_external_prompt(row)),
                 "response_schema_sha256": row["response_schema_sha256"],
                 "curated_items_sha256": row["curated_items_sha256"],
                 "request": payload,

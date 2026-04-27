@@ -1,0 +1,8 @@
+{
+  "analysis_id": "icicic2026_external_mini_analysis_v1",
+  "input_jsonl": "/home/naruki/GitHub/eq-fuzzy/runs/icicic2026/icicic2026_external_mini_comparison_v1/raw.jsonl",
+  "n_response_rows": 144,
+  "n_item_rows": 144,
+  "n_summary_rows": 18,
+  "claim_discipline": "descriptive external benchmark mini-comparison only"
+}

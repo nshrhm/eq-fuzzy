@@ -5,6 +5,8 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
+import re
 from collections import defaultdict
 from pathlib import Path
 from statistics import mean
@@ -40,6 +42,53 @@ def normalize_answer(value: Any) -> str:
     return str(value or "").strip().casefold()
 
 
+def parse_eqbench_scores(value: Any, emotions: list[str]) -> dict[str, float]:
+    text = str(value or "")
+    scores: dict[str, float] = {}
+    for emotion in emotions:
+        match = re.search(rf"{re.escape(emotion)}\s*:\s*(-?\d+(?:\.\d+)?)", text, flags=re.IGNORECASE)
+        if match:
+            scores[emotion] = float(match.group(1))
+    return scores
+
+
+def eqbench_fullscale_score(answer: Any, answer_key: Any) -> float | None:
+    try:
+        reference = json.loads(str(answer_key))
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(reference, dict) or not reference:
+        return None
+
+    emotions = [str(emotion) for emotion in reference]
+    user_scores = parse_eqbench_scores(answer, emotions)
+    if set(user_scores) != set(emotions):
+        return None
+
+    difference_tally = 0.0
+    for emotion, reference_score in reference.items():
+        try:
+            d = abs(float(user_scores[str(emotion)]) - float(reference_score))
+        except (TypeError, ValueError):
+            return None
+        if d == 0:
+            scaled_difference = 0.0
+        elif d <= 5:
+            scaled_difference = 6.5 * (1 / (1 + math.e ** (-1.2 * (d - 4))))
+        else:
+            scaled_difference = d
+        difference_tally += scaled_difference
+    return round(10 - (difference_tally * 0.7477), 6)
+
+
+def native_score(record: dict[str, Any], answer: Any, answer_key: Any) -> float | str:
+    metric = str(record.get("native_metric", ""))
+    if metric == "eqbench_v2_fullscale_score":
+        score = eqbench_fullscale_score(answer, answer_key)
+        return "" if score is None else score
+    return ""
+
+
 def expand_item_rows(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for record in records:
@@ -47,6 +96,7 @@ def expand_item_rows(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
         answer = parsed.get("answer", "")
         answer_key = record.get("answer_key", "")
         is_exact_match = normalize_answer(answer) == normalize_answer(answer_key)
+        score = native_score(record, answer, answer_key)
         rows.append(
             {
                 "run_id": record.get("run_id", ""),
@@ -61,6 +111,7 @@ def expand_item_rows(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "answer": answer,
                 "answer_key": answer_key,
                 "exact_match": bool(record.get("ok") is True and is_exact_match),
+                "native_score": score if record.get("ok") is True else "",
                 "confidence": parsed.get("confidence", "") if record.get("ok") is True else "",
                 "validation_errors": ";".join(str(err) for err in (record.get("validation_errors") or [])),
             }
@@ -78,6 +129,7 @@ def build_summary_rows(item_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         ok_rows = [row for row in rows if row["ok"] is True]
         exact_rows = [row for row in rows if row["exact_match"] is True]
         confidence = [float(row["confidence"]) for row in ok_rows if row["confidence"] != ""]
+        native_scores = [float(row["native_score"]) for row in ok_rows if row["native_score"] != ""]
         out.append(
             {
                 "model_id": model_id,
@@ -87,6 +139,7 @@ def build_summary_rows(item_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "n_ok": len(ok_rows),
                 "valid_output_rate": round(len(ok_rows) / len(rows), 6) if rows else "",
                 "native_exact_match_rate": round(len(exact_rows) / len(rows), 6) if rows else "",
+                "mean_native_score": round(mean(native_scores), 6) if native_scores else "",
                 "mean_confidence": round(mean(confidence), 6) if confidence else "",
             }
         )

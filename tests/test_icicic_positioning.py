@@ -12,6 +12,7 @@ if str(ICICIC_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(ICICIC_SCRIPTS))
 
 from analyze_matched_subset import run_analysis  # noqa: E402
+from analyze_external_mini import eqbench_fullscale_score  # noqa: E402
 from analyze_external_mini import run_analysis as run_external_analysis  # noqa: E402
 from build_comparison_matrix import build_matrix  # noqa: E402
 from build_external_mini_manifest import build_manifest as build_external_manifest  # noqa: E402
@@ -119,14 +120,20 @@ class IcicicPositioningTest(unittest.TestCase):
                     output_path=Path(tmp) / "manifest.csv",
                 )
 
-    def test_external_manifest_rejects_empty_curation_file(self):
+    def test_external_manifest_builds_from_curated_public_items(self):
         with tempfile.TemporaryDirectory() as tmp:
-            with self.assertRaises(ValueError):
-                build_external_manifest(
-                    repo_root=REPO_ROOT,
-                    config_path=EXTERNAL_CONFIG,
-                    output_path=Path(tmp) / "manifest.csv",
-                )
+            rows = build_external_manifest(
+                repo_root=REPO_ROOT,
+                config_path=EXTERNAL_CONFIG,
+                output_path=Path(tmp) / "manifest.csv",
+            )
+
+            self.assertEqual(len(rows), 144)
+            self.assertEqual({row["benchmark_id"] for row in rows}, {
+                "eq_bench_v2",
+                "emobench_ea_en",
+                "emobench_eu_en",
+            })
 
     def test_analyze_matched_subset_fixture_outputs_target_shift(self):
         records = [
@@ -336,7 +343,27 @@ class IcicicPositioningTest(unittest.TestCase):
             {
                 "run_id": "fixture",
                 "design_id": "icicic2026_external_mini_comparison_v1",
-                "manifest_row": 1,
+                "manifest_row": 2,
+                "model_id": "m1",
+                "provider": "fixture",
+                "benchmark_id": "eq_bench_v2",
+                "item_id": "item3",
+                "native_metric": "eqbench_v2_fullscale_score",
+                "answer_key": json.dumps({"Happy": 8, "Sad": 0, "Angry": 1, "Calm": 4}),
+                "ok": True,
+                "validation_errors": [],
+                "parsed": {
+                    "benchmark_id": "eq_bench_v2",
+                    "item_id": "item3",
+                    "answer": "Happy: 8; Sad: 0; Angry: 1; Calm: 4",
+                    "confidence": 90,
+                    "reason": "fixture",
+                },
+            },
+            {
+                "run_id": "fixture",
+                "design_id": "icicic2026_external_mini_comparison_v1",
+                "manifest_row": 3,
                 "model_id": "m1",
                 "provider": "fixture",
                 "benchmark_id": "emobench",
@@ -363,11 +390,17 @@ class IcicicPositioningTest(unittest.TestCase):
             )
             summary = run_external_analysis(input_jsonl=raw, output_dir=tmp_path / "out")
 
-            self.assertEqual(summary["n_response_rows"], 2)
-            self.assertEqual(summary["n_item_rows"], 2)
-            self.assertEqual(summary["n_summary_rows"], 2)
+            self.assertEqual(summary["n_response_rows"], 3)
+            self.assertEqual(summary["n_item_rows"], 3)
+            self.assertEqual(summary["n_summary_rows"], 3)
             self.assertTrue((tmp_path / "out" / "item_results.csv").exists())
             self.assertTrue((tmp_path / "out" / "benchmark_model_summary.csv").exists())
+
+    def test_eqbench_fullscale_score_scores_exact_profile_as_ten(self):
+        answer_key = json.dumps({"Happy": 8, "Sad": 0, "Angry": 1, "Calm": 4})
+        answer = "Happy: 8; Sad: 0; Angry: 1; Calm: 4"
+
+        self.assertEqual(eqbench_fullscale_score(answer, answer_key), 10.0)
 
 
 if __name__ == "__main__":

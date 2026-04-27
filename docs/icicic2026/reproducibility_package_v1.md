@@ -43,9 +43,26 @@ After sanity passes, repeat the same chain for the main manifest:
 
 ## External mini-comparison chain
 
-`configs/icicic/external_benchmark_items_v1.csv` is intentionally empty until
-public benchmark items are manually curated with clear source URLs and reuse
-notes. The manifest builder must stop if this file has no curated rows.
+`configs/icicic/external_benchmark_items_v1.csv` contains manually curated
+public items with source URLs and reuse notes:
+
+- EQ-Bench v2 qid 1-12 from the official MIT-licensed EQ-Bench repository.
+- EmoBench English EA qid 1-6 and EU qid 1-6 from the official MIT-licensed
+  EmoBench repository.
+- SECEU remains coverage-matrix-only unless item reuse terms are explicitly
+  clear.
+
+Build, preview, run, and analyze the external mini comparison with:
+
+```bash
+python scripts/icicic2026/build_external_mini_manifest.py
+python scripts/icicic2026/run_external_mini.py --limit 1 --dry-run
+python scripts/icicic2026/run_external_mini.py
+python scripts/icicic2026/analyze_external_mini.py
+```
+
+The analysis reports native EQ-Bench fullscale item scores where parseable,
+EmoBench exact-match rates, model/benchmark valid-output rates, and confidence.
 
 ## Claim discipline
 

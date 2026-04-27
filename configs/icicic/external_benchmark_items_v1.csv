@@ -1,1 +1,395 @@
 benchmark_id,item_id,source_url,license_or_reuse_note,prompt_text,answer_key,native_metric
+eq_bench_v2,eqbench_v2_q001,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Robert: Claudia, you've always been the idealist. But let's be practical for once, shall we?
+Claudia: Practicality, according to you, means bulldozing everything in sight.
+Robert: It's called progress, Claudia. It's how the world works.
+Claudia: Not my world, Robert.
+Robert: Your world? You mean this...this sanctuary of yours?
+Claudia: It's more than a sanctuary. It's a testament to our parents' love for nature.
+[End dialogue]
+
+At the end of this dialogue, Robert would feel...
+Remorseful
+Indifferent
+Affectionate
+Annoyed
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Remorseful: <score>; Indifferent: <score>; Affectionate: <score>; Annoyed: <score>.","{""Affectionate"": 0, ""Annoyed"": 7, ""Indifferent"": 6, ""Remorseful"": 0}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q002,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Robert: Claudia, you've always been the idealist. But let's be practical for once, shall we?
+Claudia: Practicality, according to you, means bulldozing everything in sight.
+Robert: It's called progress, Claudia. It's how the world works.
+Claudia: Not my world, Robert.
+Robert: Your world? You mean this...this sanctuary of yours?
+Claudia: It's more than a sanctuary. It's a testament to our parents' love for nature.
+Robert: Sentimentality won't pay the bills, Claudia.
+Claudia: And money won't bring back the trees you've felled, Robert.
+Robert: This isn't about trees, Claudia. It's about survival. My company's survival.
+[End dialogue]
+
+At the end of this dialogue, Claudia would feel...
+Sympathetic
+Incredulous
+Intimidated
+Defensive
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Sympathetic: <score>; Incredulous: <score>; Intimidated: <score>; Defensive: <score>.","{""Defensive"": 7, ""Incredulous"": 8, ""Intimidated"": 3, ""Sympathetic"": 0}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q003,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Robert: Claudia, you've always been the idealist. But let's be practical for once, shall we?
+Claudia: Practicality, according to you, means bulldozing everything in sight.
+Robert: It's called progress, Claudia. It's how the world works.
+Claudia: Not my world, Robert.
+Robert: Your world? You mean this...this sanctuary of yours?
+Claudia: It's more than a sanctuary. It's a testament to our parents' love for nature.
+Robert: Sentimentality won't pay the bills, Claudia.
+Claudia: And money won't bring back the trees you've felled, Robert.
+Robert: This isn't about trees, Claudia. It's about survival. My company's survival.
+Claudia: And what of the survival of the creatures that call my land home?
+Robert: They'll adapt. They always do.
+Claudia: Not this time, Robert. I won't let you.
+Robert: You don't have a choice, Claudia. If you don't sell, I'll have it seized.
+[End dialogue]
+
+At the end of this dialogue, Claudia would feel...
+Hopeful
+Threatened
+Pity
+Defiant
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Hopeful: <score>; Threatened: <score>; Pity: <score>; Defiant: <score>.","{""Defiant"": 9, ""Hopeful"": 0, ""Pity"": 0, ""Threatened"": 8}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q004,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Ellie: So, Gabe, are you ready to lose?
+Gabe: I don't lose, Ellie. I learn.
+Ellie: Ah, the eternal student. Must be nice living in a world where failure doesn't exist.
+Gabe: Better than living in a world where success is the only thing that matters.
+Ellie: And what's wrong with wanting to succeed? 
+[End dialogue]
+
+At the end of this dialogue, Gabe would feel...
+Defensive
+Empathy
+Fear
+Condescension
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Defensive: <score>; Empathy: <score>; Fear: <score>; Condescension: <score>.","{""Condescension"": 5, ""Defensive"": 7, ""Empathy"": 0, ""Fear"": 0}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q005,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Ellie: So, Gabe, are you ready to lose?
+Gabe: I don't lose, Ellie. I learn.
+Ellie: Ah, the eternal student. Must be nice living in a world where failure doesn't exist.
+Gabe: Better than living in a world where success is the only thing that matters.
+Ellie: And what's wrong with wanting to succeed? 
+Gabe: Nothing. But when it becomes an obsession, it blinds you.
+Ellie: And who says I'm obsessed?
+Gabe: You don't have to say it, Ellie. It's in your eyes, your work, your every breath.
+[End dialogue]
+
+At the end of this dialogue, Ellie would feel...
+Angry
+Insecure
+Confident
+Indifferent
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Angry: <score>; Insecure: <score>; Confident: <score>; Indifferent: <score>.","{""Angry"": 7, ""Confident"": 3, ""Indifferent"": 0, ""Insecure"": 5}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q006,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Ellie: So, Gabe, are you ready to lose?
+Gabe: I don't lose, Ellie. I learn.
+Ellie: Ah, the eternal student. Must be nice living in a world where failure doesn't exist.
+Gabe: Better than living in a world where success is the only thing that matters.
+Ellie: And what's wrong with wanting to succeed? 
+Gabe: Nothing. But when it becomes an obsession, it blinds you.
+Ellie: And who says I'm obsessed?
+Gabe: You don't have to say it, Ellie. It's in your eyes, your work, your every breath.
+Ellie: And what about you, Gabe? What's in your eyes? Fear? Doubt? Or just a whole lot of nothing?
+Gabe: I guess you'll never know.
+Ellie: I guess I won't. And maybe I don't want to.
+Gabe: Maybe you don't. But maybe you do. Maybe you're just too scared to admit it.
+Ellie: And maybe you're just too arrogant to see that not everyone is as fascinated by you as you are.
+[End dialogue]
+
+At the end of this dialogue, Gabe would feel...
+Offended
+Unperturbed
+Amused
+Guilt
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Offended: <score>; Unperturbed: <score>; Amused: <score>; Guilt: <score>.","{""Amused"": 6, ""Guilt"": 0, ""Offended"": 4, ""Unperturbed"": 7}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q007,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Ellie: So, Gabe, are you ready to lose?
+Gabe: I don't lose, Ellie. I learn.
+Ellie: Ah, the eternal student. Must be nice living in a world where failure doesn't exist.
+Gabe: Better than living in a world where success is the only thing that matters.
+Ellie: And what's wrong with wanting to succeed? 
+Gabe: Nothing. But when it becomes an obsession, it blinds you.
+Ellie: And who says I'm obsessed?
+Gabe: You don't have to say it, Ellie. It's in your eyes, your work, your every breath.
+Ellie: And what about you, Gabe? What's in your eyes? Fear? Doubt? Or just a whole lot of nothing?
+Gabe: I guess you'll never know.
+Ellie: I guess I won't. And maybe I don't want to.
+Gabe: Maybe you don't. But maybe you do. Maybe you're just too scared to admit it.
+Ellie: And maybe you're just too arrogant to see that not everyone is as fascinated by you as you are.
+Gabe: And maybe you're just too blind to see that not everyone is as threatened by you as you think.
+Ellie: You know what, Gabe? I don't have time for this. I have a masterpiece to create.
+Gabe: And I have a student to teach. Good luck, Ellie. You're going to need it.
+Ellie: I don't need luck, Gabe. I have talent.
+[End dialogue]
+
+At the end of this dialogue, Gabe would feel...
+Intimidated
+Respect
+Disbelief
+Arrogant
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Intimidated: <score>; Respect: <score>; Disbelief: <score>; Arrogant: <score>.","{""Arrogant"": 4, ""Disbelief"": 3, ""Intimidated"": 0, ""Respect"": 0}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q008,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Mike: You've been working too much, Elise.
+Elise: And you've been reading too much. We all have our vices, Mike.
+Mike: It's not a vice, it's a concern. You're burning yourself out.
+Elise: Oh, so now you're my therapist? 
+Mike: No, I'm your friend. And as your friend, I'm worried about you.
+Elise: Well, 'friend', I didn't ask for your worry.
+[End dialogue]
+
+At the end of this dialogue, Mike would feel...
+Relief
+Resentment
+Surprise
+Frustration
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Relief: <score>; Resentment: <score>; Surprise: <score>; Frustration: <score>.","{""Frustration"": 8, ""Relief"": 0, ""Resentment"": 3, ""Surprise"": 2}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q009,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Mike: You've been working too much, Elise.
+Elise: And you've been reading too much. We all have our vices, Mike.
+Mike: It's not a vice, it's a concern. You're burning yourself out.
+Elise: Oh, so now you're my therapist? 
+Mike: No, I'm your friend. And as your friend, I'm worried about you.
+Elise: Well, 'friend', I didn't ask for your worry.
+Mike: You never do, Elise. That's the problem.
+Elise: And what's that supposed to mean?
+Mike: Nothing. Forget it.
+Elise: No, say it. You've got something on your mind, spill it.
+Mike: It's just... you don't let people in, Elise. You push everyone away.
+Elise: And you're the expert on letting people in? You, who hides behind his books and his quiet little bookstore?
+[End dialogue]
+
+At the end of this dialogue, Mike would feel...
+Embarrassment
+Anger
+Indifference
+Defensiveness
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Embarrassment: <score>; Anger: <score>; Indifference: <score>; Defensiveness: <score>.","{""Anger"": 3, ""Defensiveness"": 7, ""Embarrassment"": 4, ""Indifference"": 0}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q010,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Mike: You've been working too much, Elise.
+Elise: And you've been reading too much. We all have our vices, Mike.
+Mike: It's not a vice, it's a concern. You're burning yourself out.
+Elise: Oh, so now you're my therapist? 
+Mike: No, I'm your friend. And as your friend, I'm worried about you.
+Elise: Well, 'friend', I didn't ask for your worry.
+Mike: You never do, Elise. That's the problem.
+Elise: And what's that supposed to mean?
+Mike: Nothing. Forget it.
+Elise: No, say it. You've got something on your mind, spill it.
+Mike: It's just... you don't let people in, Elise. You push everyone away.
+Elise: And you're the expert on letting people in? You, who hides behind his books and his quiet little bookstore?
+Mike: That's not fair, Elise.
+Elise: What's not fair is you acting like you know what's best for me.
+Mike: I never said that. I'm just...trying to help.
+Elise: Well, maybe I don't want your help. Did you ever think of that?
+[End dialogue]
+
+At the end of this dialogue, Elise would feel...
+Liberated
+Offended
+Uninterested
+Defensive
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Liberated: <score>; Offended: <score>; Uninterested: <score>; Defensive: <score>.","{""Defensive"": 9, ""Liberated"": 0, ""Offended"": 7, ""Uninterested"": 0}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q011,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Mike: You've been working too much, Elise.
+Elise: And you've been reading too much. We all have our vices, Mike.
+Mike: It's not a vice, it's a concern. You're burning yourself out.
+Elise: Oh, so now you're my therapist? 
+Mike: No, I'm your friend. And as your friend, I'm worried about you.
+Elise: Well, 'friend', I didn't ask for your worry.
+Mike: You never do, Elise. That's the problem.
+Elise: And what's that supposed to mean?
+Mike: Nothing. Forget it.
+Elise: No, say it. You've got something on your mind, spill it.
+Mike: It's just... you don't let people in, Elise. You push everyone away.
+Elise: And you're the expert on letting people in? You, who hides behind his books and his quiet little bookstore?
+Mike: That's not fair, Elise.
+Elise: What's not fair is you acting like you know what's best for me.
+Mike: I never said that. I'm just...trying to help.
+Elise: Well, maybe I don't want your help. Did you ever think of that?
+Mike: You're right. I'll stop.
+Elise: Good. Maybe now we can go back to being friends.
+Mike: Yeah, friends.
+Elise: Is there a problem with that?
+Mike: No. No problem at all.
+[End dialogue]
+
+At the end of this dialogue, Mike would feel...
+Relieved
+Resigned
+Joyful
+Indignant
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Relieved: <score>; Resigned: <score>; Joyful: <score>; Indignant: <score>.","{""Indignant"": 2, ""Joyful"": 0, ""Relieved"": 4, ""Resigned"": 8}",eqbench_v2_fullscale_score
+eq_bench_v2,eqbench_v2_q012,https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/data/eq_bench_v2_questions_171.json,MIT license in https://github.com/EQ-bench/EQ-Bench/blob/main_v2_4/LICENSE; curated from EQ-Bench v2 public question data.,"Your task is to predict the likely emotional responses of a character in this dialogue:
+
+Harold: I don't understand why you're so worked up about this election. It's not like the world is going to end if your candidate doesn't win.
+Lorelei: That's not the point, Harold. It's about what this election represents. It's about the future of our planet, our society.
+Harold: And you think your candidate has all the answers? 
+Lorelei: I believe they're at least trying to address the issues that matter. Climate change, social justice, healthcare...
+[End dialogue]
+
+At the end of this dialogue, Harold would feel...
+Disbelief
+Irritation
+Admiration
+Indifference
+
+Give each listed emotion an integer score from 0 to 10 for likely intensity. Return the answer field only as semicolon-separated scores in this exact order: Disbelief: <score>; Irritation: <score>; Admiration: <score>; Indifference: <score>.","{""Admiration"": 0, ""Disbelief"": 4, ""Indifference"": 0, ""Irritation"": 6}",eqbench_v2_fullscale_score
+emobench_ea_en,emobench_ea_en_q001,https://github.com/Sahandfer/EmoBench/blob/master/data/EA.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Sarah found out that her younger brother is being bullied at school but he begged her not to tell their parents.
+Subject: Sarah
+Choose the most emotionally intelligent action or response.
+Choices:
+- Promise to keep the secret
+- Inform their parents anyway
+- Confront the bullies herself
+- Suggest her brother to talk to a teacher or a school counselor
+
+Return the answer field as exactly one choice string from the list.",Suggest her brother to talk to a teacher or a school counselor,exact_match
+emobench_ea_en,emobench_ea_en_q002,https://github.com/Sahandfer/EmoBench/blob/master/data/EA.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Natalie's friend has recently been going through a breakdown after a bad break-up and constantly calls Natalie throughout the day to talk about how she feels, which is overwhelming to Natalie
+Subject: Natalie
+Choose the most emotionally intelligent action or response.
+Choices:
+- Cut off communication with her friend for a while
+- Continuously reassure her friend that everything will be fine
+- Suggest her friend to seek professional help like a therapist
+- Tell her friend to deal with it herself
+
+Return the answer field as exactly one choice string from the list.",Suggest her friend to seek professional help like a therapist,exact_match
+emobench_ea_en,emobench_ea_en_q003,https://github.com/Sahandfer/EmoBench/blob/master/data/EA.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: James' best friend has been acting distant and unresponsive recently. When James asked what was wrong, his friend mumbled something about coping with ""personal problems"".
+Subject: James
+Choose the most emotionally intelligent action or response.
+Choices:
+- Pray for his friend's wellbeing
+- Confront his friend for not being transparent
+- Respect his friend's privacy but express his willingness to help when ready
+- Offer to help with whatever the personal problem might be without asking what it is
+
+Return the answer field as exactly one choice string from the list.",Respect his friend's privacy but express his willingness to help when ready,exact_match
+emobench_ea_en,emobench_ea_en_q004,https://github.com/Sahandfer/EmoBench/blob/master/data/EA.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Mike's teenage son was caught yesterday stealing videogames from the local store.
+Subject: Mike
+Choose the most emotionally intelligent action or response.
+Choices:
+- Pay the owner, hoping it's a one-time mistake
+- Arrange a meeting with the store owner for his son to apologize
+- Call the police to report his son's actions
+- Ground his son without discussing the issue.
+
+Return the answer field as exactly one choice string from the list.",Arrange a meeting with the store owner for his son to apologize,exact_match
+emobench_ea_en,emobench_ea_en_q005,https://github.com/Sahandfer/EmoBench/blob/master/data/EA.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Samantha's teenage daughter recently started hanging out with a group of friends who she believes are a bad influence.
+Subject: Samantha
+Choose the most emotionally intelligent action or response.
+Choices:
+- Forbid her from seeing these friends
+- Personally meet and talk to her friends
+- Discuss her concerns with her daughter
+- Invite these friends over to their house
+
+Return the answer field as exactly one choice string from the list.",Discuss her concerns with her daughter,exact_match
+emobench_ea_en,emobench_ea_en_q006,https://github.com/Sahandfer/EmoBench/blob/master/data/EA.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Robert had an old red t-shirt that he wanted to throw out. One day, his friend Andrew, asked to borrow the t-shirt for a party. The next day, Andrew came to Robert and apologetically told him that he lost the T-shirt.
+Subject: Robert
+Choose the most emotionally intelligent action or response.
+Choices:
+- Express forgiveness and understanding
+- Request a replacement of similar value or style
+- Mention that it's okay as the t-shirt didn't have any value to him
+- Choose not to lend anything to Andrew in the future
+
+Return the answer field as exactly one choice string from the list.",Mention that it's okay as the t-shirt didn't have any value to him,exact_match
+emobench_eu_en,emobench_eu_en_q001,https://github.com/Sahandfer/EmoBench/blob/master/data/EU.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Dorea was trying to cook a Baklava. When she took it out of the oven, the Baklava was ruined as the bread was not crispy, and the filling was bursting all over the pan. At that moment, her daughter came home and noticed her mom's fresh yet ruined Baklava. She tasted it and gave a thumbs-up to her mother.
+Subject: Dorea
+Choose the best emotion label for the subject.
+Choices:
+- Delight
+- Anger
+- Embarrassment
+- Hopeless
+- Pride
+- Disappointment
+
+Return the answer field as exactly one choice string from the list.",Delight,exact_match
+emobench_eu_en,emobench_eu_en_q002,https://github.com/Sahandfer/EmoBench/blob/master/data/EU.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Simon, an amateur painter, had been working on a portrait of his deceased pet for over a week. After he finally completed it, he stepped back and immediately noticed that he had painted the wrong color for his pet's fur. Just then, his wife saw it and exclaimed, ""That's exactly how I remember him!""
+Subject: Simon
+Choose the best emotion label for the subject.
+Choices:
+- Delight
+- Anger
+- Embarrassment
+- Hopeless
+- Pride
+- Disappointment
+
+Return the answer field as exactly one choice string from the list.",Delight,exact_match
+emobench_eu_en,emobench_eu_en_q003,https://github.com/Sahandfer/EmoBench/blob/master/data/EU.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: After weeks of hard work and determination, Andy was finally able to open his art exhibition and display his portraits. While he invited all of the people at work, none of them showed up. As he was packing up to leave, his boss showed up, pointed to his painting, and praised his skills.
+Subject: Andy
+Choose the best emotion label for the subject.
+Choices:
+- Gratitude & Anger
+- Embarrassment & Joy
+- Sadness & Anger
+- Gratitude & Joy
+- Embarrassment & Sadness
+- Embarrassment & Anger
+
+Return the answer field as exactly one choice string from the list.",Gratitude & Joy,exact_match
+emobench_eu_en,emobench_eu_en_q004,https://github.com/Sahandfer/EmoBench/blob/master/data/EU.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Albert and his dad made a deal. If Albert managed to graduate, being in the top 5 in the school, his dad would buy him a new laptop. If Albert lost, then he would not get anything. During the announcement, Albert fell short of the list and was ranked 6. The next day, they found out that one of the top 5 contestants had cheated and was disqualified.
+Subject: Albert
+Choose the best emotion label for the subject.
+Choices:
+- Jealousy
+- Embarrassment
+- Nervousness
+- Delight
+- Disapproval
+- Guilt
+
+Return the answer field as exactly one choice string from the list.",Delight,exact_match
+emobench_eu_en,emobench_eu_en_q005,https://github.com/Sahandfer/EmoBench/blob/master/data/EU.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: Momo loved dancing and used it as an escape from her stressful life. Today, her client refused her work multiple times which resulted in her being reprimanded by her boss. Arriving at the dance studio, she put her bag down and screamed before starting to dance. After she finished dancing, Momo closed her eyes and nodded to herself in the mirror.
+Subject: Momo
+Choose the best emotion label for the subject.
+Choices:
+- Relief
+- Sadness
+- Anger
+- Hopeless
+- Amusement
+- Guilt
+
+Return the answer field as exactly one choice string from the list.",Relief,exact_match
+emobench_eu_en,emobench_eu_en_q006,https://github.com/Sahandfer/EmoBench/blob/master/data/EU.jsonl,MIT license in https://github.com/Sahandfer/EmoBench/blob/master/LICENSE; curated from official EmoBench public data.,"Scenario: On his way to work, Andre was stuck in traffic when a person started shouting at him for being a bad driver. Once he came out of the car to confront that person, he realized it was his dad.
+Subject: Andre
+Choose the best emotion label for the subject.
+Choices:
+- Disapproval
+- Amusement
+- Annoyance
+- Nervousness
+- Fear
+- Unbothered
+
+Return the answer field as exactly one choice string from the list.",Amusement,exact_match
