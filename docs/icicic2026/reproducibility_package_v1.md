@@ -21,16 +21,18 @@ submission-ready claim document.
 2. Preview request:
    `python scripts/icicic2026/run_matched_subset.py --limit 1 --dry-run`
 3. Run sanity raw output:
-   `runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/raw.jsonl`
+   `runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/raw.jsonl`
 4. Analyze raw output:
-   `python scripts/icicic2026/analyze_matched_subset.py --input-jsonl <raw>`
+   `python scripts/icicic2026/analyze_matched_subset.py --input-jsonl <raw> --output-dir artifacts/icicic2026/matched_subset_stable6_sanity_analysis_v1`
 5. Gate-check analysis:
-   `python scripts/icicic2026/check_matched_subset_run.py --stage sanity`
+   `python scripts/icicic2026/check_matched_subset_run.py --stage sanity --analysis-dir artifacts/icicic2026/matched_subset_stable6_sanity_analysis_v1`
 6. Build and run retry manifest only for failed rows if needed:
    `python scripts/icicic2026/build_matched_subset_retry_manifest.py`
 
 After sanity passes, repeat the same chain for the main manifest:
 `runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/manifest.csv`.
+The accepted main analysis directory is
+`artifacts/icicic2026/matched_subset_stable6_analysis_v1/`.
 
 ## Paper artifact chain
 
@@ -40,6 +42,11 @@ After sanity passes, repeat the same chain for the main manifest:
   `python scripts/icicic2026/build_icicic_primary_figures.py`
 - Manuscript scaffold:
   `paper/icicic2026/main.tex`
+
+The earlier budget4 matched-subset run and analysis are retained only as pilot
+provenance. They are indexed under
+`artifacts/icicic2026/pilot_budget4_archive_v1/` and are not final ICICIC
+materials.
 
 ## External mini-comparison chain
 

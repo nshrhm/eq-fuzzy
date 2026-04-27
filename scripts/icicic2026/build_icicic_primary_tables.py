@@ -11,7 +11,7 @@ from statistics import mean
 from typing import Any
 
 
-DEFAULT_ANALYSIS_DIR = "artifacts/icicic2026/matched_subset_analysis_v1"
+DEFAULT_ANALYSIS_DIR = "artifacts/icicic2026/matched_subset_stable6_analysis_v1"
 DEFAULT_OUTPUT_DIR = "artifacts/icicic2026/main_tables_v1"
 
 

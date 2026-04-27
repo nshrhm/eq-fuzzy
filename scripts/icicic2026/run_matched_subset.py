@@ -37,8 +37,8 @@ from src.core.openrouter_runner import (  # noqa: E402
 )
 
 
-DEFAULT_MANIFEST = "runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/manifest.csv"
-DEFAULT_OUTPUT = "runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/raw.jsonl"
+DEFAULT_MANIFEST = "runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/manifest.csv"
+DEFAULT_OUTPUT = "runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/raw.jsonl"
 
 
 def render_user_prompt(

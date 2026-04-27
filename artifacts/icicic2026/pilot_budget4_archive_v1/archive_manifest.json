@@ -1,0 +1,27 @@
+{
+  "archive_id": "icicic2026_budget4_pilot_archive_v1",
+  "status": "pilot_provenance_only",
+  "not_final_main_result": true,
+  "reason": "The Qwen-containing budget4 pilot showed schema noncompliance and was replaced by the stable6 main run.",
+  "pilot": {
+    "model_panel": "configs/shared/models_budget4.yaml",
+    "sanity_run": "runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/",
+    "main_run": "runs/icicic2026/icicic2026_benchmark_positioning_v1_main/",
+    "sanity_analysis": "artifacts/icicic2026/matched_subset_sanity_analysis_v1/",
+    "main_analysis": "artifacts/icicic2026/matched_subset_analysis_v1/",
+    "main_response_rows": 240,
+    "main_emotion_rows": 960,
+    "main_model_rows": 4
+  },
+  "accepted_main": {
+    "model_panel": "configs/icicic/models_stable6_from_scis.yaml",
+    "sanity_run": "runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/",
+    "main_run": "runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/",
+    "sanity_analysis": "artifacts/icicic2026/matched_subset_stable6_sanity_analysis_v1/",
+    "main_analysis": "artifacts/icicic2026/matched_subset_stable6_analysis_v1/",
+    "main_response_rows": 360,
+    "main_emotion_rows": 1440,
+    "main_model_rows": 6
+  },
+  "claim_discipline": "Archive metadata only; do not use budget4 pilot as manuscript-facing main result."
+}

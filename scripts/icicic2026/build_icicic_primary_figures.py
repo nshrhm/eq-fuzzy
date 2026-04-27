@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 
 DEFAULT_MATRIX = "artifacts/icicic2026/comparison_matrix_v1/benchmark_coverage_matrix.csv"
-DEFAULT_ANALYSIS_DIR = "artifacts/icicic2026/matched_subset_analysis_v1"
+DEFAULT_ANALYSIS_DIR = "artifacts/icicic2026/matched_subset_stable6_analysis_v1"
 DEFAULT_OUTPUT_DIR = "artifacts/icicic2026/main_figures_v1"
 
 

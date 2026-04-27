@@ -96,8 +96,9 @@ Candidate cleanup targets:
 
 ## Deferred work
 
-- Replace or archive the budget4 pilot as final ICICIC materials once stable6
-  main outputs are accepted.
+- Budget4 pilot archival is complete. The pilot remains available as provenance
+  through `artifacts/icicic2026/pilot_budget4_archive_v1/`, while script
+  defaults and reproducibility notes point to stable6 final materials.
 - Add a small model-screening command only if another panel change becomes
   necessary.
 - Consider a future public/private data inventory that explains which generated

@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 
-DEFAULT_ANALYSIS_DIR = "artifacts/icicic2026/matched_subset_analysis_v1"
+DEFAULT_ANALYSIS_DIR = "artifacts/icicic2026/matched_subset_stable6_analysis_v1"
 EXPECTED_RESPONSES = {"sanity": 4, "main": 360}
 EXPECTED_TARGET_SHIFT_ROWS = {"sanity": 4, "main": 72}
 EMOTIONS = {"interest", "surprise", "sadness", "anger"}

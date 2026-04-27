@@ -21,7 +21,8 @@ python scripts/icicic2026/build_comparison_matrix.py
 python scripts/icicic2026/build_matched_subset_manifest.py --stage sanity
 python scripts/icicic2026/run_matched_subset.py --limit 1 --dry-run
 python scripts/icicic2026/analyze_matched_subset.py \
-  --input-jsonl runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/raw.jsonl
+  --input-jsonl runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/raw.jsonl \
+  --output-dir artifacts/icicic2026/matched_subset_stable6_sanity_analysis_v1
 ```
 
 The main run manifest is built only after the sanity run passes:

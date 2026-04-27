@@ -31,13 +31,16 @@ After a completed raw JSONL run, analyze the matched subset:
 
 ```bash
 python scripts/icicic2026/analyze_matched_subset.py \
-  --input-jsonl runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/raw.jsonl
+  --input-jsonl runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/raw.jsonl \
+  --output-dir artifacts/icicic2026/matched_subset_stable6_sanity_analysis_v1
 ```
 
 Gate-check the analysis:
 
 ```bash
-python scripts/icicic2026/check_matched_subset_run.py --stage sanity
+python scripts/icicic2026/check_matched_subset_run.py \
+  --stage sanity \
+  --analysis-dir artifacts/icicic2026/matched_subset_stable6_sanity_analysis_v1
 ```
 
 If only a small number of rows fail, build a retry manifest:
@@ -51,6 +54,19 @@ Build the main manifest after the sanity run passes:
 ```bash
 python scripts/icicic2026/build_matched_subset_manifest.py --stage main
 ```
+
+Run and analyze the accepted stable6 main manifest:
+
+```bash
+python scripts/icicic2026/run_matched_subset.py \
+  --manifest runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/manifest.csv \
+  --output-jsonl runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/raw.jsonl
+python scripts/icicic2026/analyze_matched_subset.py
+python scripts/icicic2026/check_matched_subset_run.py --stage main
+```
+
+The earlier budget4 matched-subset outputs are archived as pilot/provenance
+material only; the script defaults now point to the stable6 final chain.
 
 ## External mini comparison
 

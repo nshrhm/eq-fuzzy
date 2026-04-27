@@ -9,9 +9,9 @@ from pathlib import Path
 from typing import Any
 
 
-DEFAULT_SOURCE_MANIFEST = "runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/manifest.csv"
-DEFAULT_RAW_JSONL = "runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/raw.jsonl"
-DEFAULT_OUTPUT = "runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/retry_failed_manifest.csv"
+DEFAULT_SOURCE_MANIFEST = "runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/manifest.csv"
+DEFAULT_RAW_JSONL = "runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/raw.jsonl"
+DEFAULT_OUTPUT = "runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/retry_failed_manifest.csv"
 
 
 def load_csv(path: Path) -> list[dict[str, str]]:

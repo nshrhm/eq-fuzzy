@@ -23,6 +23,8 @@ matched-subset analysis.
 The earlier Qwen-containing budget4 artifacts remain pilot/provenance material
 only. They showed schema noncompliance for `qwen/qwen3.6-plus` and should not
 be used as the final ICICIC main panel.
+They are indexed in
+`artifacts/icicic2026/pilot_budget4_archive_v1/`.
 
 ICICIC remains a benchmark-positioning paper. These artifacts support
 descriptive uncertainty, stability, and target-control reporting only; they do

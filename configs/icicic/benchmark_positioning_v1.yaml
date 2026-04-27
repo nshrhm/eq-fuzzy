@@ -40,7 +40,7 @@ api_controls:
 outputs:
   sanity_manifest: runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_sanity/manifest.csv
   main_manifest: runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/manifest.csv
-  analysis_dir: artifacts/icicic2026/matched_subset_analysis_v1
+  analysis_dir: artifacts/icicic2026/matched_subset_stable6_analysis_v1
 paper_role:
   primary_question: What does EQ-Fuzzy capture beyond existing emotion benchmarks?
   allowed_claim: EQ-Fuzzy adds uncertainty-aware, stability-oriented, and target-controllable descriptors.

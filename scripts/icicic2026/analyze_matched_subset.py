@@ -21,8 +21,8 @@ from src.core.fuzzy_entropy import entropy_for_score, hmax_by_family, load_membe
 
 
 EMOTIONS = ("interest", "surprise", "sadness", "anger")
-DEFAULT_INPUT = "runs/icicic2026/icicic2026_benchmark_positioning_v1_sanity/raw.jsonl"
-DEFAULT_OUTPUT_DIR = "artifacts/icicic2026/matched_subset_analysis_v1"
+DEFAULT_INPUT = "runs/icicic2026/icicic2026_benchmark_positioning_v1_stable6_main/raw.jsonl"
+DEFAULT_OUTPUT_DIR = "artifacts/icicic2026/matched_subset_stable6_analysis_v1"
 DEFAULT_MEMBERSHIP_CONFIG = "configs/scis/fuzzy_membership_v1.yaml"
 
 

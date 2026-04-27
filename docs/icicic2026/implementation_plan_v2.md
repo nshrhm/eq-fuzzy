@@ -15,7 +15,7 @@ ICECCME human alignment or SCIS persona-temperature deconfounding.
 ## Phase 2: matched-subset main run
 
 - Run the stable6 360-row main manifest.
-- Analyze into `artifacts/icicic2026/matched_subset_analysis_v1/`.
+- Analyze into `artifacts/icicic2026/matched_subset_stable6_analysis_v1/`.
 - Build manuscript-facing tables with `build_icicic_primary_tables.py`.
 - Build figure candidates with `build_icicic_primary_figures.py`.
 
