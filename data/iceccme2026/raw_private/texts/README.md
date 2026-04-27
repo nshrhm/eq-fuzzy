@@ -7,12 +7,11 @@ ICECCME, SCIS, and ICICIC is:
 
 - `data/catalogs/texts_private`
 
-The ICECCME runner preserves `data/iceccme2026/raw_private/texts` as a legacy
-alias so historical commands and manifests can still resolve text bodies after
-the files have moved.
+Runners no longer preserve this path as a fallback text-body location.
+Historical commands and manifests should point directly to the canonical shared
+directory.
 
-This compatibility alias is temporary and planned for future removal after
-historical ICECCME manifests, docs, and command examples no longer depend on
-the old path.
+This directory remains only as a README-only deprecation marker for older local
+checkouts and notes.
 
 Lock the T1 to T3 mapping before writing the final paper.

@@ -82,18 +82,17 @@ Do not synthesize placeholder external items.
 
 ## Phase E: shared text alias retirement
 
-- Keep `data/iceccme2026/raw_private/texts` as a README-only compatibility alias
-  for now.
-- Before removing fallback code, migrate or retire historical ICECCME command
-  examples and manifests that still mention the old path.
-- Remove the alias only after ICECCME, SCIS, and ICICIC dry-runs all succeed
-  using `data/catalogs/texts_private` with no fallback.
+- Keep `data/iceccme2026/raw_private/texts` as a README-only deprecation marker
+  for older local notes.
+- Historical manifests that mentioned the old path have been migrated to
+  `data/catalogs/texts_private`.
+- Runner fallback code for the old path has been removed after ICECCME, SCIS,
+  and ICICIC dry-runs succeeded using `data/catalogs/texts_private`.
 
 Candidate cleanup targets:
 
-- `src/core/text_inputs.py` legacy alias branch.
-- ICECCME preview fallback for old `--text-file` paths.
-- Any remaining docs that mention the legacy path outside deprecation notes.
+- Remove the README-only deprecation marker in a future cleanup if no local
+  notebooks or notes still reference it.
 
 ## Deferred work
 

@@ -37,18 +37,14 @@ class MetricsSmokeTest(unittest.TestCase):
 
 
 class TextInputsTest(unittest.TestCase):
-    def test_legacy_iceccme_text_path_falls_back_to_shared_texts(self):
+    def test_read_text_file_uses_shared_texts(self):
         with tempfile.TemporaryDirectory() as tmp:
             repo_root = Path(tmp)
             shared = repo_root / "data" / "catalogs" / "texts_private" / "en"
             shared.mkdir(parents=True)
             (shared / "T1.txt").write_text("shared text\n", encoding="utf-8")
 
-            text = read_text_file(
-                repo_root / "data" / "iceccme2026" / "raw_private" / "texts",
-                "en",
-                "T1",
-            )
+            text = read_text_file(repo_root / "data" / "catalogs" / "texts_private", "en", "T1")
 
             self.assertEqual(text, "shared text\n")
 

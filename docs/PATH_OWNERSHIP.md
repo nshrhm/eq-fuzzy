@@ -24,7 +24,7 @@ These paths remain valid for the current ICECCME 2026 workflow. Root-level Pytho
 | `src/iceccme2026/` | `iceccme` | Working implementation package, including CLI, runner, verification, analysis, and export code. |
 | `paper/iceccme2026/` | `iceccme` | Manuscript source and submission-specific assets. |
 | root-level ICECCME guide docs | deprecated compatibility location | ICECCME guides now belong under `docs/iceccme2026/`; do not add new workstream-specific docs at the repository root. |
-| `data/iceccme2026/raw_private/texts` | deprecated compatibility alias | T1/T2/T3 text bodies moved to `data/catalogs/texts_private`. This path should contain only README documentation; resolver fallback exists only to keep historical ICECCME manifests and commands working and is planned for future removal. |
+| `data/iceccme2026/raw_private/texts` | deprecated README-only alias | T1/T2/T3 text bodies moved to `data/catalogs/texts_private`. This path should contain only README documentation; runners no longer resolve it as a fallback text-body location. |
 
 ## Future canonical paths
 

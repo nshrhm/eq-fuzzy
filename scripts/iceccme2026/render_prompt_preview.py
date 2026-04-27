@@ -27,8 +27,6 @@ from typing import Any
 
 
 SUPPORTED_LANGS = ("ja", "en", "zh")
-LEGACY_ICECCME_TEXT_PARTS = ("data", "iceccme2026", "raw_private", "texts")
-SHARED_TEXT_PARTS = ("data", "catalogs", "texts_private")
 
 
 PRIMARY_PERSONA_P0 = {
@@ -374,16 +372,6 @@ def read_text_content(
     texts_map: dict[str, dict[str, Any]],
 ) -> str:
     if text_file is not None:
-        if text_file.exists():
-            return text_file.read_text(encoding="utf-8").strip()
-        parts = text_file.parts
-        legacy_len = len(LEGACY_ICECCME_TEXT_PARTS)
-        for index in range(0, len(parts) - legacy_len + 1):
-            if tuple(parts[index : index + legacy_len]) == LEGACY_ICECCME_TEXT_PARTS:
-                shared_file = Path(*parts[:index], *SHARED_TEXT_PARTS, *parts[index + legacy_len :])
-                if shared_file.exists():
-                    return shared_file.read_text(encoding="utf-8").strip()
-                break
         return text_file.read_text(encoding="utf-8").strip()
     text_meta = texts_map[story_key]
     content_by_lang = text_meta.get("content_by_lang", {})
