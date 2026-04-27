@@ -1,0 +1,4 @@
+benchmark_source,response_rows,valid_rows,valid_rate,main_invalidity_source,role
+EQ-Bench v2 mini,72,62,0.861,llama-4-maverick format/parse failures,provenance only
+EmoBench English mini,72,68,0.944,llama-4-maverick format/parse failures,provenance only
+Total,144,130,0.903,not retried; limitation,descriptive only

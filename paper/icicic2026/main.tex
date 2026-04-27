@@ -42,18 +42,39 @@
 \title[ICICIC 2026]
       {Positioning EQ-Fuzzy Against Existing Emotion Benchmarks}
 
-\author[N. Shirahama]{}
+\author[N. Shirahama, Y. Yoshimoto, N. Nakaya, J. Nishino and S. Watanabe]{}
 
 \begin{document}
 
 \maketitle
 
-\centerline{\scshape Naruki Shirahama$^1$}
+\centerline{\scshape Naruki Shirahama$^1$, Yuma Yoshimoto$^2$, Naofumi Nakaya$^3$,}
+\centerline{\scshape Junji Nishino$^4$ and Satoshi Watanabe$^5$}
 \medskip
 {\footnotesize
 \centerline{$^1$Shimonoseki City University}
 \centerline{Shimonoseki, Yamaguchi, Japan}
 \centerline{nshirahama@ieee.org}}
+\medskip
+{\footnotesize
+\centerline{$^2$NIT (KOSEN), Kitakyushu College}
+\centerline{Kitakyushu, Fukuoka, Japan}
+\centerline{yoshimoto@kct.ac.jp}}
+\medskip
+{\footnotesize
+\centerline{$^3$Juntendo University}
+\centerline{Urayasu, Chiba, Japan}
+\centerline{n.nakaya.ac@juntendo.ac.jp}}
+\medskip
+{\footnotesize
+\centerline{$^4$Tamagawa University}
+\centerline{Machida, Tokyo, Japan}
+\centerline{nishinojunji@eng.tamagawa.ac.jp}}
+\medskip
+{\footnotesize
+\centerline{$^5$Shizuoka Institute of Science and Technology}
+\centerline{Fukuroi, Shizuoka, Japan}
+\centerline{satoshi\_watanabe@ieee.org}}
 \medskip
 
 \centerline{Received Month 2026; accepted Month 2026}
@@ -72,15 +93,16 @@ Rather than claiming that EQ-Fuzzy replaces existing benchmarks, the study asks
 what additional signals it can expose when benchmark stimuli, scoring rules,
 and evaluation targets are compared in a matched setting.
 The ICICIC 2026 experiment combines a benchmark coverage matrix with a
-small English EQ-Fuzzy matched subset over literary texts, four emotion
-dimensions, repeated model responses, and two evaluation targets:
-reader-side post-reading affect and inferred character-side affect.
+stable six-model English EQ-Fuzzy matched subset:
+6 models $\times$ 3 literary texts $\times$ 2 evaluation targets $\times$
+10 repetitions, yielding 360 response rows and 1440 emotion rows with
+valid-output rate 1.0.
 The resulting descriptors include valid-output rate, cell means,
 within-cell dispersion, fuzzy entropy, profile entropy, and target-shift
 magnitude.
 An external mini-comparison against curated public EQ-Bench and EmoBench items
 is used only as descriptive provenance for conventional benchmark behavior.
-The intended contribution is a compact benchmark-positioning analysis of
+The contribution is a compact benchmark-positioning analysis of
 uncertainty-aware, stability-oriented, and target-controllable evaluation
 signals.
 }\\
@@ -98,6 +120,11 @@ Psychometric emotional-understanding tests offer another reference point by
 comparing model answers with human norm frames [3].
 These benchmarks are valuable, but their primary outputs often remain centered
 on correctness, agreement, leaderboard score, or human-level comparison.
+Such outputs are useful when the research question is whether a model solved a
+benchmark item.
+They are less direct when the question is how a model distributes affective
+intensity over several emotions, how stable that distribution is, or whether
+the distribution changes when the requested target of interpretation changes.
 
 EQ-Fuzzy addresses a narrower and complementary question.
 For a fixed text and emotion scale, it records continuous emotion intensities
@@ -107,8 +134,70 @@ The ICICIC 2026 workstream therefore asks what EQ-Fuzzy captures beyond
 existing emotion benchmarks, not whether it is universally superior to them.
 This distinction is important for keeping the paper as a benchmark-positioning
 study rather than as a broad leaderboard claim.
+It also separates the present paper from adjacent EQ-Fuzzy work on
+human-grounded multilingual alignment and persona-temperature effects [4,5].
+The paper makes three contributions.
+First, it records a reproducible coverage matrix that locates EQ-Fuzzy relative
+to EQ-Bench, EmoBench, and SECEU-style emotional-understanding tests.
+Second, it reports a stable six-model matched subset in which the same texts,
+emotion dimensions, response schema, and repetitions are used across all
+models.
+Third, it demonstrates reader-side versus character-side target control as a
+descriptor that conventional single-target benchmark scores do not naturally
+expose.
 
-\section{Matched Comparison Methodology}
+\section{Benchmark Context}
+EQ-Bench evaluates emotional intelligence through dialogue situations and
+emotion-intensity judgments.
+Its output is a conventional score for a fixed benchmark task [1].
+EmoBench evaluates emotional understanding and application with
+question-answering items, so its natural output is closer to item accuracy than
+to a distributional description of an emotion profile [2].
+SECEU and related emotional-understanding studies use psychometric test
+frames, making them useful reference points for human-norm comparison but less
+directly suited to repeated target-control experiments [3].
+
+These benchmark families are intentionally different from EQ-Fuzzy.
+They help answer whether a model gives the expected answer under a predefined
+task.
+EQ-Fuzzy instead asks how strongly a model scores several emotions for the
+same text, how stable those scores are under repeated sampling, and how the
+profile changes when the requested evaluation target changes.
+The comparison is therefore not a replacement argument.
+It is a positioning argument: EQ-Fuzzy contributes descriptors that are not
+usually primary outputs of existing emotion benchmarks.
+This distinction also shapes the evaluation criteria.
+The relevant question is not whether EQ-Fuzzy achieves a higher benchmark
+score than the alternatives.
+The relevant question is whether it makes additional, reproducible descriptors
+available while remaining clear about what those descriptors can and cannot
+establish.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Compact benchmark-positioning matrix generated from the ICICIC comparison artifact.}
+\label{tab:icicic-coverage}
+{\tiny\setlength{\tabcolsep}{0pt}\input{../../artifacts/icicic2026/comparison_matrix_v1/benchmark_coverage_matrix.tex}}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\fbox{\begin{minipage}{0.92\linewidth}
+\footnotesize
+\begin{tabular}{p{0.42\linewidth}p{0.42\linewidth}}
+Conventional benchmark output &
+EQ-Fuzzy descriptor layer \\
+\hline
+correctness, agreement, native task score &
+valid-output rate, cell dispersion, fuzzy entropy, profile entropy, target shift
+\end{tabular}
+\end{minipage}}
+\caption{Conceptual role of EQ-Fuzzy as a descriptor layer beside conventional benchmark outputs.}
+\label{fig:descriptor-layer}
+\end{figure}
+
+\section{Matched Comparison Method}
 The comparison is organized around four benchmark families:
 EQ-Bench, EmoBench, SECEU / Emotion Understanding, and the EQ-Fuzzy matched
 subset.
@@ -118,16 +207,42 @@ controllability, persona-temperature handling, and reproducibility or license
 status.
 This matrix is generated from the repository script so that table entries can
 be regenerated from the same benchmark-positioning specification.
+Table \ref{tab:icicic-coverage} gives a compact manuscript-facing view of this
+matrix; the full generated CSV retains the broader audit dimensions.
+The matrix is intentionally qualitative.
+It records whether a benchmark family exposes a property as a primary output,
+not whether that property could be approximated through a secondary analysis.
+This conservative coding avoids overstating EQ-Fuzzy's novelty while still
+showing where its artifact chain differs.
 
 The EQ-Fuzzy matched subset uses three English literary texts from the shared
-registry, four emotions, a stable six-model panel selected from the repository
-model registry, and repeated sampling.
+registry, four emotions, and a stable six-model panel selected from the
+repository model registry.
+The stable6 outputs were collected on April 27, 2026 (JST), using OpenRouter
+model identifiers recorded in the model registry and generated CSV artifacts.
+Manuscript tables use short aliases for layout, while the artifact tables keep
+the exact identifiers.
+The panel was adopted from the passed SCIS main panel after the earlier
+budget4 pilot showed schema noncompliance for Qwen.
 Two evaluation targets are compared under the same text and response schema:
 \texttt{reader\_side}, which rates emotions felt by a reader after reading the
 whole text, and \texttt{character\_side}, which rates emotions plausibly
 experienced by the central character or speaker.
+The arithmetic is explicit:
+6 models $\times$ 3 texts $\times$ 2 target modes $\times$ 10 repetitions
+= 360 response rows; multiplying each response by four emotions yields
+1440 emotion rows.
+A response row is one schema-checked model-text-target-repetition output.
+An emotion row is one response row expanded to one emotion dimension.
+A model-text-target-emotion cell aggregates 10 repeated scores.
+For this run, all 360 response rows were valid.
 This design makes target controllability visible without rerunning the
 human-grounded multilingual alignment analysis used in the ICECCME workstream.
+Each matched-subset response is required to return the same four emotion
+scores and short text-grounded reasons.
+The reasons are retained for auditability, but the ICICIC analysis centers on
+the structured score fields so that the descriptors can be regenerated from
+raw JSONL records.
 
 The external mini-comparison uses only manually curated public items whose
 source URLs and reuse notes are recorded in the repository configuration.
@@ -143,25 +258,54 @@ standard deviation, interquartile range, and valid-output rate.
 Each score is also mapped to Low, Medium, and High fuzzy membership values, and
 a normalized fuzzy entropy descriptor is computed under the locked membership
 configuration used by the repository.
+The primary \texttt{sigmoid\_s\_v1} membership family uses Low as a smooth
+z-function over [0,30], Medium as a smooth pi-function with rise [10,30],
+plateau [30,50], and fall [50,70], and High as a smooth s-function over
+[50,100].
+Fuzzy entropy is $H=-\sum_i \mu_i \log_2 \mu_i$ with $0\log_2 0=0$, normalized
+by the dense-grid maximum for the locked family.
 
 The four-emotion profile entropy describes how concentrated or distributed the
 emotion profile is within a response.
+It is computed by normalizing nonnegative emotion scores as
+$p_e=\max(x_e,0)/\sum_e\max(x_e,0)$ and applying
+$H_p=-\sum_e p_e\log_2 p_e/\log_2 4$; an all-zero profile is assigned entropy
+0.
 The reader-versus-character target shift is computed as the absolute difference
 between the target-mode cell means for the same model, text, and emotion.
+Thus Table \ref{tab:icicic-target-shift} uses $n=3$ paired text cells for each
+model-emotion row, whereas Table \ref{tab:icicic-valid-output} uses $n=12$
+model-target cells from 3 texts $\times$ 4 emotions.
 These descriptors are interpreted descriptively.
+They are meant to be read together.
+A model can be schema-compliant but unstable, stable but target-insensitive, or
+target-sensitive only for particular emotions.
+This is why the ICICIC analysis reports several descriptors rather than
+collapsing the run into one aggregate score.
 They do not prove human validity by themselves and do not replace the
 factorial persona-temperature deconfounding analysis reserved for the SCIS
 workstream.
 
-\section{Results and Artifact Chain}
-The primary outputs are generated artifacts rather than manually edited result
-tables.
-The coverage matrix is written to its ICICIC artifact directory.
-The matched-subset analysis script writes cell summaries, model summaries,
-target-shift summaries, and response-level profile entropy to the stable6
-analysis artifact directory.
-Manuscript-facing tables are then regenerated by the primary table build
-script and included below.
+\section{Results}
+The stable6 matched subset produced the manuscript-facing ICICIC results.
+All result tables in this section are generated from the analysis artifacts
+rather than manually edited in the manuscript source.
+This keeps the paper text separate from the numerical source of record.
+
+Table \ref{tab:icicic-model-descriptors} summarizes model-level descriptors.
+The valid-output column shows that the final matched-subset run was suitable
+for descriptor analysis across the stable model panel.
+The remaining columns show that the models are not interchangeable even when
+they all satisfy the response schema.
+Within-cell dispersion, fuzzy entropy, profile entropy, and mean target shift
+vary by model, which is the signal that a single leaderboard-style score would
+hide.
+For example, mean target shift is largest for Gemini and Claude, while Grok,
+Llama, and GPT show much smaller shifts.
+Conversely, Grok has the highest profile entropy despite its small target
+shift, and DeepSeek has the largest within-cell dispersion.
+The table therefore separates target sensitivity, profile concentration, and
+repeat stability instead of collapsing them into a winner-take-all ranking.
 
 \begin{table}[t]
 \centering
@@ -171,6 +315,33 @@ script and included below.
 {\tiny\setlength{\tabcolsep}{1pt}\input{../../artifacts/icicic2026/main_tables_v1/table2_model_added_descriptors.tex}}
 \end{table}
 
+Table \ref{tab:icicic-target-shift} reports the same target-control idea at a
+finer resolution.
+The reader-side and character-side prompts use the same texts, emotions, schema,
+and model panel.
+Under this fixed text, schema, model, and repetition protocol, the observed
+shift is operationally attributable to the target-mode prompt rather than to a
+different benchmark item.
+The largest shifts concentrate in particular model-emotion cells, especially
+where the reader's post-reading affect and the central character's plausible
+affect need not coincide.
+Across the table, anger and interest drive many of the larger shifts, whereas
+sadness shifts are often smaller.
+This pattern is consistent with the task distinction: a reader may feel
+interest or surprise toward a scene even when the character or speaker's
+plausible affect is anger or sadness.
+This is the clearest ICICIC example of the added value of target-controllable
+emotion scoring.
+It matters for benchmark design because reader-affect and character-affect
+prompts may both look like emotion-scoring tasks, but they generate measurably
+different score profiles.
+EQ-Fuzzy makes that distinction inspectable rather than leaving it implicit
+inside an aggregate benchmark score.
+The target-shift table also makes the paper's scope concrete.
+It does not say that one target mode is correct and the other is wrong.
+Instead, it shows that the two targets are experimentally distinguishable and
+that their difference can be measured under a fixed text and response schema.
+
 \begin{table}[t]
 \centering
 \footnotesize
@@ -178,6 +349,19 @@ script and included below.
 \label{tab:icicic-target-shift}
 {\tiny\setlength{\tabcolsep}{2pt}\input{../../artifacts/icicic2026/main_tables_v1/table3_target_shift_by_model_emotion.tex}}
 \end{table}
+
+Table \ref{tab:icicic-valid-output} gives a direct schema-compliance check by
+target mode.
+For the accepted stable6 run, the matched-subset descriptors are not driven by
+missing or invalid cells.
+This matters because an earlier budget4 pilot was archived as provenance after
+schema noncompliance appeared in the panel.
+The stable6 panel is therefore used for the manuscript-facing result
+interpretation.
+The archived pilot remains useful because it shows why schema compliance is a
+substantive part of benchmark engineering.
+However, all manuscript claims about the matched-subset descriptors are based
+on the stable6 analysis rather than on the pilot.
 
 \begin{table}[t]
 \centering
@@ -187,33 +371,144 @@ script and included below.
 {\tiny\setlength{\tabcolsep}{2pt}\input{../../artifacts/icicic2026/main_tables_v1/table4_valid_output_by_target_mode.tex}}
 \end{table}
 
-The regenerated figure candidates are stored in the ICICIC main-figures
-artifact directory and are not manually redrawn in the manuscript source.
-The external mini-comparison is analyzed separately and reports only native
-EQ-Bench item scores where parseable, EmoBench exact-match rates, and
-valid-output rates.
+\section{External Mini-Comparison}
+The external mini-comparison is included to connect the ICICIC positioning
+claim with conventional public benchmark behavior.
+It uses curated public EQ-Bench v2 and English EmoBench items whose source
+URLs and reuse notes are recorded in the repository.
+The analysis reports native EQ-Bench scores where the required score profile
+can be parsed, EmoBench exact-match rates, model confidence, and valid-output
+rates.
+Table \ref{tab:icicic-external-mini} summarizes this provenance-only run.
+The external mini-comparison is not used to evaluate model quality.
+It is used only to document how public benchmark-style formats behave under
+the same artifact discipline.
 
-\section{Limitations}
+The external results should be read descriptively.
+They are not used to rank the model panel, and they do not override the
+matched-subset results.
+The table contains 144 response rows, of which 130 are valid.
+The invalid rows come from Llama under public-benchmark response formats.
+Because the external mini-comparison is provenance rather than the main
+experiment, those rows are reported as a limitation instead of being retried in
+this phase.
+This handling is deliberately conservative.
+Rerunning failed external rows could improve a table, but it would blur the
+distinction between the accepted matched-subset experiment and the smaller
+public-item comparison.
+For ICICIC, the important observation is that the same model can be fully
+schema-compliant in the EQ-Fuzzy matched subset while being less reliable under
+a different public benchmark response format.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{External mini-comparison summary generated from curated public benchmark items; provenance only, not a model-quality ranking.}
+\label{tab:icicic-external-mini}
+{\tiny\setlength{\tabcolsep}{1pt}\input{../../artifacts/icicic2026/main_tables_v1/table5_external_mini_summary.tex}}
+\end{table}
+
+\section{Reproducibility and Artifact Discipline}
+The ICICIC artifact chain is designed so that the manuscript can be checked
+against stored manifests and generated summaries.
+The accepted matched-subset result is the stable6 main run and its stable6
+analysis directory.
+The corresponding raw JSONL, analysis CSV files, manuscript-facing tables, and
+diagnostic plots retained in the artifact directory are all stored under
+ICICIC paths.
+No result used for the ICICIC paper is written into the ICECCME result tree.
+The Qwen-containing budget4 run is retained as archived provenance, but it is
+not used for the ICICIC main tables, figures, or claims.
+The external mini-comparison is also separated from the final matched-subset
+evidence.
+Keeping final, pilot, and provenance roles distinct makes the paper auditable
+and prevents accidental mixing of result chains.
+
+\section{Implications for Benchmark Design}
+The ICICIC results suggest three practical design lessons for emotion
+benchmarking with large language models.
+First, schema compliance is not a clerical detail.
+If a benchmark asks for structured emotional intensities, invalid or
+shape-incompatible responses directly affect whether dispersion, entropy, and
+target-shift descriptors can be computed.
+The stable6 main run therefore matters not only because it produced complete
+rows, but because it made the downstream descriptors interpretable.
+
+Second, repeated sampling should be treated as a benchmark design feature when
+the target is affective scoring.
+Emotion judgments over literary texts are not simply correct or incorrect in
+the same way as multiple-choice answers.
+A model that returns plausible scores may still vary in a way that changes the
+interpretation of its emotional profile.
+The within-cell dispersion and fuzzy-entropy descriptors give a compact way to
+report this stability question without making a stronger claim about human
+validity.
+
+Third, target specification should be explicit.
+Reader-side post-reading affect and inferred character-side affect are both
+reasonable tasks, but they are not the same task.
+When a benchmark does not distinguish them, target ambiguity can be hidden
+inside an aggregate score.
+The ICICIC matched subset shows that holding text, model, schema, and
+repetition count fixed while changing only the target mode creates an auditable
+measure of target sensitivity.
+This lesson is independent of any particular model ranking and is the main
+reason EQ-Fuzzy is useful as a complement to existing benchmarks.
+
+These lessons are intentionally modest.
+They do not imply that every emotion benchmark should use literary texts or
+fuzzy membership functions.
+They imply that benchmark reports should distinguish item correctness,
+response validity, repeat stability, uncertainty representation, and target
+control when those questions are relevant.
+In that sense, EQ-Fuzzy is best understood as a descriptor layer that can sit
+beside conventional benchmark scores rather than as a competing leaderboard.
+
+\section{Discussion and Limitations}
 This paper is designed as a compact benchmark-positioning study.
-It should not claim that EQ-Fuzzy is a definitive replacement for existing
-emotion benchmarks.
-It also should not claim standalone human validity, because that question
+The principal finding is that EQ-Fuzzy adds a different kind of evidence to
+the evidence produced by existing emotion benchmarks.
+It exposes whether repeated responses are stable, whether fuzzy memberships
+remain concentrated or ambiguous, and whether a model changes its emotion
+profile when the target is switched from reader-side affect to character-side
+affect.
+These are useful descriptors for benchmark positioning, but they are not a
+claim of universal superiority.
+
+The limitations follow directly from the design.
+The matched subset is intentionally small, English-only, and based on literary
+texts.
+It supports a focused comparison of descriptors, not a broad model leaderboard.
+The paper therefore should be judged by whether the benchmark-positioning
+argument is coherent and reproducible, not by whether it exhausts the space of
+emotion benchmarks or literary stimuli.
+The external mini-comparison uses only public items with clear reuse notes, so
+SECEU remains coverage-matrix-only in this version.
+The invalid external mini-comparison rows are retained in the analysis as
+valid-output evidence rather than hidden through reruns.
+Finally, ICICIC does not establish standalone human validity; that question
 belongs to the human-grounded alignment workstream.
-Likewise, persona-temperature main effects and interactions are not centered
-here; they belong to the SCIS factorial deconfounding workstream.
-The matched subset is intentionally small so that the paper can focus on
-coverage, uncertainty-aware descriptors, stability, and target control.
+Persona-temperature main effects and interactions are also outside the center
+of this paper and remain part of the SCIS factorial deconfounding workstream.
 
 \section{Conclusions}
 ICICIC 2026 positions EQ-Fuzzy as a complementary method for describing
 emotion-evaluation signals that are not always primary outputs of existing
 emotion benchmarks.
-The planned contribution is a matched comparison and a reproducible artifact
-chain showing how uncertainty-aware, stability-oriented, and target-controllable
+The contribution is a matched comparison and a reproducible artifact chain
+showing how uncertainty-aware, stability-oriented, and target-controllable
 descriptors can be reported alongside conventional benchmark positioning.
+The results support using EQ-Fuzzy as an additional lens for model emotion
+evaluation, while keeping benchmark accuracy, human validity, and
+persona-temperature deconfounding as separate questions.
+This separation is the main practical value of the paper.
+It lets future work combine EQ-Fuzzy descriptors with human-grounded and
+factorial analyses without forcing all evaluation goals into a single
+benchmark score.
 
 \section*{Acknowledgment}
-This work is supported by the EQ-Fuzzy research line under JSPS KAKENHI.
+This work was partially supported by JSPS Grants-in-Aid for Scientific
+Research (JSPS KAKENHI), Grant Numbers 26K14983 and 24K13350.
 
 \begin{thebibliography}{10}
 
@@ -230,6 +525,18 @@ for Computational Linguistics}, pp.5986--6004, 2024.
 \bibitem{wang2023ei}
 X. Wang, X. Li, Z. Yin, Y. Wu and J. Liu, Emotional intelligence of large
 language models, {\em Journal of Pacific Rim Psychology}, vol.17, 2023.
+
+\bibitem{shirahama2025vas}
+N. Shirahama, N. Nakaya, S. Watanabe, et al., Assessing emotional intelligence
+in AI: Visual Analogue Scale vs. Likert Scale in short story comprehension,
+{\em Journal of the Institute of Industrial Applications Engineers}, vol.13,
+no.1, pp.21--31, 2025.
+
+\bibitem{shirahama2026math}
+N. Shirahama, Y. Yoshimoto, N. Nakaya and S. Watanabe, Mathematical framework
+for characterizing emotional individuality in large language models:
+Temperature control, fuzzy entropy, and persona-based diversity analysis,
+{\em Mathematics}, vol.14, no.7, Art. no.1224, 2026.
 
 \end{thebibliography}
 

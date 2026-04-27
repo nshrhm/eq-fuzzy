@@ -1,9 +1,11 @@
 {
   "table_set": "icicic2026_main_tables_v1",
   "analysis_dir": "/home/naruki/GitHub/eq-fuzzy/artifacts/icicic2026/matched_subset_stable6_analysis_v1",
+  "external_analysis_dir": "/home/naruki/GitHub/eq-fuzzy/artifacts/icicic2026/external_mini_analysis_v1",
   "output_dir": "/home/naruki/GitHub/eq-fuzzy/artifacts/icicic2026/main_tables_v1",
   "n_model_rows": 6,
   "n_target_shift_rows": 24,
   "n_valid_output_rows": 12,
+  "n_external_summary_rows": 3,
   "claim_discipline": "descriptive added descriptors only"
 }

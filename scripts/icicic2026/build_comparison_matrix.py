@@ -119,21 +119,46 @@ def write_csv(rows: list[dict[str, str]], path: Path) -> None:
 
 
 def write_tex(rows: list[dict[str, str]], path: Path) -> None:
-    selected_columns = [
-        "benchmark",
-        "task_type",
-        "scoring_rule",
-        "uncertainty_output",
-        "controllability",
-        "icicic_role",
+    compact_rows = [
+        {
+            "benchmark": "EQ-Bench",
+            "output": "emotional-intensity score",
+            "uncertainty": "not primary",
+            "target": "fixed dialogue task",
+        },
+        {
+            "benchmark": "EmoBench",
+            "output": "EI question correctness",
+            "uncertainty": "not primary",
+            "target": "fixed EI question",
+        },
+        {
+            "benchmark": "SECEU / Emotion Understanding",
+            "output": "human-norm score",
+            "uncertainty": "not primary",
+            "target": "fixed psychometric construct",
+        },
+        {
+            "benchmark": "EQ-Fuzzy matched subset",
+            "output": "descriptor layer",
+            "uncertainty": "native descriptor",
+            "target": "reader-side vs. character-side",
+        },
     ]
+    selected_columns = ["benchmark", "output", "uncertainty", "target"]
+    column_labels = {
+        "benchmark": "Benchmark",
+        "output": "Output",
+        "uncertainty": "Uncertainty",
+        "target": "Target",
+    }
     lines = [
-        r"\begin{tabular}{p{0.15\linewidth}p{0.17\linewidth}p{0.18\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.18\linewidth}}",
+        r"\begin{tabular}{p{0.28\linewidth}p{0.23\linewidth}p{0.18\linewidth}p{0.23\linewidth}}",
         r"\hline",
-        " & ".join(tex_escape(col.replace("_", " ")) for col in selected_columns) + r" \\",
+        " & ".join(tex_escape(column_labels[col]) for col in selected_columns) + r" \\",
         r"\hline",
     ]
-    for row in rows:
+    for row in compact_rows:
         lines.append(" & ".join(tex_escape(row[col]) for col in selected_columns) + r" \\")
     lines.extend([r"\hline", r"\end{tabular}", ""])
     path.write_text("\n".join(lines), encoding="utf-8")

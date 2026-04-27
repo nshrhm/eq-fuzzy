@@ -21,7 +21,9 @@ SCIS-style persona-temperature deconfounding.
   `configs/icicic/models_stable6_from_scis.yaml`.
 - The active text-body directory is `data/catalogs/texts_private`.
 - The legacy ICECCME text path `data/iceccme2026/raw_private/texts` is a
-  temporary compatibility alias and is planned for future removal.
+  README-only deprecation marker and is no longer resolved by runners.
+- The post-experiment manuscript strategy is recorded in
+  `docs/icicic2026/writing_plan_v1.md`.
 
 ## Phase A: stable6 main run
 
@@ -99,6 +101,8 @@ Candidate cleanup targets:
 - Budget4 pilot archival is complete. The pilot remains available as provenance
   through `artifacts/icicic2026/pilot_budget4_archive_v1/`, while script
   defaults and reproducibility notes point to stable6 final materials.
+- Manuscript development has moved to `writing_plan_v1.md`; no additional
+  experiments are planned before the next writing pass.
 - Add a small model-screening command only if another panel change becomes
   necessary.
 - Consider a future public/private data inventory that explains which generated
