@@ -48,14 +48,21 @@ def tex_escape(value: Any) -> str:
     return "".join(replacements.get(ch, ch) for ch in text)
 
 
-def write_tex_table(rows: list[dict[str, Any]], columns: list[str], path: Path) -> None:
+def write_tex_table(
+    rows: list[dict[str, Any]],
+    columns: list[str],
+    path: Path,
+    *,
+    column_labels: dict[str, str] | None = None,
+) -> None:
     if not rows:
         path.write_text("% No rows available.\n", encoding="utf-8")
         return
+    labels = column_labels or {}
     lines = [
         r"\begin{tabular}{" + "l" * len(columns) + "}",
         r"\hline",
-        " & ".join(tex_escape(col.replace("_", " ")) for col in columns) + r" \\",
+        " & ".join(tex_escape(labels.get(col, col.replace("_", " "))) for col in columns) + r" \\",
         r"\hline",
     ]
     for row in rows:
@@ -147,16 +154,38 @@ def build_primary_tables(*, analysis_dir: Path, output_dir: Path) -> dict[str, A
             "mean_target_shift_abs",
         ],
         output_dir / "table2_model_added_descriptors.tex",
+        column_labels={
+            "model_id": "Model",
+            "valid_output_rate": "Valid",
+            "mean_within_cell_sd_score": "Mean SD",
+            "mean_cell_H_norm": "Cell H",
+            "mean_profile_entropy": "Profile H",
+            "mean_target_shift_abs": "Shift",
+        },
     )
     write_tex_table(
         target_table,
         ["model_id", "emotion", "n_cells", "mean_target_shift_abs", "max_target_shift_abs"],
         output_dir / "table3_target_shift_by_model_emotion.tex",
+        column_labels={
+            "model_id": "Model",
+            "emotion": "Emotion",
+            "n_cells": "n",
+            "mean_target_shift_abs": "Mean shift",
+            "max_target_shift_abs": "Max shift",
+        },
     )
     write_tex_table(
         valid_table,
         ["model_id", "target_mode", "n_cells", "mean_valid_output_rate", "min_valid_output_rate"],
         output_dir / "table4_valid_output_by_target_mode.tex",
+        column_labels={
+            "model_id": "Model",
+            "target_mode": "Target",
+            "n_cells": "n",
+            "mean_valid_output_rate": "Mean valid",
+            "min_valid_output_rate": "Min valid",
+        },
     )
 
     summary = {
