@@ -17,7 +17,7 @@ Before structural changes, read:
 - Use canonical paths only. Do not recreate root compatibility wrappers or compatibility symlinks.
 - Do not add fake SCIS or ICICIC configs, prompts, experiments, outputs, or manuscript claims.
 - Keep `.venv/` local and untracked.
-- Keep `requirements.txt` as the shared baseline environment unless a concrete dependency conflict justifies an additional requirements file.
+- Keep `pyproject.toml`, `uv.lock`, and `.python-version` as the shared baseline environment. `requirements.txt` is retained only as migration compatibility.
 - Do not extract code into `src/core/` merely because it looks reusable. Extract only when a second workstream actually needs the same claim-neutral behavior and tests cover it.
 - Do not split `tests/` speculatively. Split tests when shared core or new workstream implementation pressure requires it.
 - Use `artifacts/scratch/` only for temporary cross-workstream drafts. Promote accepted artifacts into the owning workstream directory.
@@ -27,10 +27,10 @@ Before structural changes, read:
 Use module commands and workstream paths:
 
 ```bash
-python -m src.iceccme2026.cli --help
-python -m src.iceccme2026.openrouter_runner --dry-run --limit 1
-python -m src.iceccme2026.verify
-python -m unittest discover -s tests
+uv run python -m src.iceccme2026.cli --help
+uv run python -m src.iceccme2026.openrouter_runner --dry-run --limit 1
+uv run python -m src.iceccme2026.verify
+uv run python -m unittest discover -s tests
 ```
 
 The root `main.py`, `run_openrouter_manifest.py`, `verify_results.py`, root `scripts/*.py` wrappers, and compatibility symlinks have been removed intentionally.

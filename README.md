@@ -65,9 +65,9 @@ SPReAD1000 may later reuse a small frozen utility package, vendored module, or e
 The current working pipeline is still the ICECCME 2026 pipeline. ICECCME-specific implementations live under `src/iceccme2026/`, and root-level compatibility wrappers have been removed:
 
 - `src/iceccme2026/` remains the working package.
-- `python -m src.iceccme2026.cli ...` is the canonical ICECCME CLI.
-- `python -m src.iceccme2026.openrouter_runner ...` is the canonical OpenRouter runner.
-- `python -m src.iceccme2026.verify` is the canonical verification command.
+- `uv run python -m src.iceccme2026.cli ...` is the canonical ICECCME CLI.
+- `uv run python -m src.iceccme2026.openrouter_runner ...` is the canonical OpenRouter runner.
+- `uv run python -m src.iceccme2026.verify` is the canonical verification command.
 - `paper/iceccme2026/` remains the working manuscript path.
 - `scripts/iceccme2026/` is the canonical home for ICECCME script implementations.
 - `configs/iceccme/`, `configs/shared/`, `prompts/iceccme/`, and `prompts/shared/` are the canonical config and prompt locations.
@@ -103,20 +103,18 @@ The canonical config locations are `configs/iceccme/` for ICECCME-specific exper
 ## First commands to run
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+uv sync
 
-python -m src.iceccme2026.cli prepare-human   --input /absolute/path/to/文学短編作品.xlsx   --output-dir data/iceccme2026/derived_public
+uv run python -m src.iceccme2026.cli prepare-human   --input /absolute/path/to/文学短編作品.xlsx   --output-dir data/iceccme2026/derived_public
 
-python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
+uv run python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 
-python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment_secondary_persona.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_secondary_persona_manifest.csv
+uv run python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment_secondary_persona.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_secondary_persona_manifest.csv
 
-python -m src.iceccme2026.verify
+uv run python -m src.iceccme2026.verify
 
 # optional: normalize raw run outputs into the long-format file expected by score-alignment
-python -m src.iceccme2026.cli normalize-model-scores   --input path/to/raw_outputs.jsonl   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv   --join-on-order   --output data/iceccme2026/interim/model_scores.csv
+uv run python -m src.iceccme2026.cli normalize-model-scores   --input path/to/raw_outputs.jsonl   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv   --join-on-order   --output data/iceccme2026/interim/model_scores.csv
 ```
 
 Equivalent Make targets use explicit ICECCME names:
@@ -135,7 +133,7 @@ ICECCME prompt text lives in `prompts/iceccme/`, and the shared response schema 
 Use the preview script before large runs:
 
 ```bash
-python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/catalogs/texts_private/ja/T1.txt   --output T1_p0_ja_prompt.txt
+uv run python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/catalogs/texts_private/ja/T1.txt   --output T1_p0_ja_prompt.txt
 ```
 
 ## Paper artifact regeneration
@@ -143,9 +141,9 @@ python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-
 After `results/iceccme2026/csv/ja_primary_ranking.csv` and `results/iceccme2026/csv/model_language_drift_vs_ja.csv` exist, regenerate Figure 2, Figure 3, and Table 2 with:
 
 ```bash
-python scripts/iceccme2026/plot_figure2_ja_ranking.py
-python scripts/iceccme2026/plot_figure3_cross_language_drift.py
-python scripts/iceccme2026/export_table2_primary.py
+uv run python scripts/iceccme2026/plot_figure2_ja_ranking.py
+uv run python scripts/iceccme2026/plot_figure3_cross_language_drift.py
+uv run python scripts/iceccme2026/export_table2_primary.py
 ```
 
 ## Future directory stubs

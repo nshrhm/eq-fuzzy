@@ -1,4 +1,4 @@
-PYTHON ?= python
+PYTHON ?= uv run python
 
 .PHONY: iceccme-prepare-human iceccme-manifest iceccme-verify iceccme-paper
 

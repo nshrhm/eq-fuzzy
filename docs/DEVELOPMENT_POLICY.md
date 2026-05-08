@@ -7,7 +7,10 @@ This document records development decisions for the `eq-fuzzy` monorepo before n
 Use one repository-level Python environment.
 
 - `.venv/` is a local developer environment and remains untracked.
-- `requirements.txt` is the shared baseline environment for the EQ-Fuzzy repository.
+- `pyproject.toml`, `uv.lock`, and `.python-version` define the shared baseline environment for the EQ-Fuzzy repository.
+- Use `uv sync` to create or update the local environment.
+- Run repository Python commands through `uv run`, for example `uv run python -m unittest discover -s tests`.
+- `requirements.txt` is retained temporarily as a migration compatibility file; the uv project files are authoritative.
 - Do not create per-conference virtual environments or per-conference baseline requirements files by default.
 
 This is intentional. ICECCME, SCIS, and ICICIC share the same benchmark substrate, analysis style, plotting stack, and reproducibility surface. Splitting the Python environment too early would increase maintenance cost and make dependency drift more likely.
