@@ -1,12 +1,18 @@
 # eq-fuzzy
 
+[![Python](https://img.shields.io/badge/python-3.14.4-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![uv](https://img.shields.io/badge/package%20manager-uv-4B32C3)](https://docs.astral.sh/uv/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![LaTeX](https://img.shields.io/badge/paper-LaTeX-008080?logo=latex&logoColor=white)](paper/)
+[![Workstreams](https://img.shields.io/badge/workstreams-ICECCME%20%7C%20SCIS%20%7C%20ICICIC-blue)](#workstream-boundaries)
+
 Private monorepo for the JSPS KAKENHI-side **EQ-Fuzzy** research line on uncertainty-aware evaluation of LLM emotional intelligence.
 
 This repository now covers three scientifically separate workstreams:
 
-- **ICECCME 2026**: human-grounded multilingual pilot
-- **SCIS 2026**: persona x temperature factorial deconfounding
-- **ICICIC 2026**: benchmark positioning / matched comparison
+- **ICECCME 2026**: human-grounded multilingual pilot ([conference site](https://www.iceccme.com/))
+- **SCIS 2026**: persona x temperature factorial deconfounding ([conference site](https://soft-cr.org/scis/2026/))
+- **ICICIC 2026**: benchmark positioning / matched comparison ([conference site](http://www.icicconference.org/icicic2026/))
 
 The repository is shared because the implementation substrate is shared. The papers remain separate because the scientific claims are separate.
 
