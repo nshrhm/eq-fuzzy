@@ -22,6 +22,9 @@ from src.iceccme2026.paper_exports import (
     require_columns,
 )
 
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
+
 INPUT_PATH = RESULTS_CSV_DIR / "ja_primary_ranking.csv"
 OUTPUT_STEM = PAPER_FIG_DIR / "figure2_ja_ranking"
 X_LABEL = "Mean absolute error to Japanese human reference (lower is better)"
@@ -50,7 +53,7 @@ def load_ranking(path: Path = INPUT_PATH) -> pd.DataFrame:
 def save_figure(ranking: pd.DataFrame, output_stem: Path = OUTPUT_STEM) -> list[Path]:
     ensure_dir(output_stem.parent)
 
-    fig_height = max(3.2, 0.45 * len(ranking) + 1.4)
+    fig_height = max(3.2, 0.38 * len(ranking) + 1.2)
     fig, ax = plt.subplots(figsize=(7.0, fig_height))
     ax.barh(ranking["Model"], ranking["MAE"])
     ax.invert_yaxis()
@@ -62,7 +65,7 @@ def save_figure(ranking: pd.DataFrame, output_stem: Path = OUTPUT_STEM) -> list[
 
     output_paths = [output_stem.with_suffix(".png"), output_stem.with_suffix(".pdf")]
     for output_path in output_paths:
-        fig.savefig(output_path, bbox_inches="tight", dpi=300)
+        fig.savefig(output_path, bbox_inches="tight", pad_inches=0.02, dpi=300)
     plt.close(fig)
     return output_paths
 

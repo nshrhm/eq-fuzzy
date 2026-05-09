@@ -64,9 +64,9 @@ Perform a **documentation-first, non-destructive monorepo bootstrap**.
    - `artifacts/icicic2026/`
 
 4. Preserve the ICECCME workflow through canonical module commands when implementation code moves.
-   - use `python -m src.iceccme2026.cli`
-   - use `python -m src.iceccme2026.openrouter_runner`
-   - use `python -m src.iceccme2026.verify`
+   - use `uv run python -m src.iceccme2026.cli`
+   - use `uv run python -m src.iceccme2026.openrouter_runner`
+   - use `uv run python -m src.iceccme2026.verify`
    - keep `paper/iceccme2026/` intact
    - keep current scripts runnable
 

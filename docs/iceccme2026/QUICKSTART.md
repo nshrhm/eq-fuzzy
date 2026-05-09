@@ -17,7 +17,7 @@
 ## 2. Create the sanitized human reference
 
 ```bash
-python -m src.iceccme2026.cli prepare-human   --input data/iceccme2026/raw_private/human/文学短編作品.xlsx   --output-dir data/iceccme2026/derived_public
+uv run python -m src.iceccme2026.cli prepare-human   --input data/iceccme2026/raw_private/human/文学短編作品.xlsx   --output-dir data/iceccme2026/derived_public
 ```
 
 ## 3. Review the model panel
@@ -31,7 +31,7 @@ Fallback if you need a smaller run:
 ## 4. Build the primary neutral manifest
 
 ```bash
-python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
+uv run python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 ```
 
 Expected size: **540 rows** (= 6 models × 3 languages × 3 stories × 1 persona × 10 repeats)
@@ -39,7 +39,7 @@ Expected size: **540 rows** (= 6 models × 3 languages × 3 stories × 1 persona
 ## 5. Build the secondary persona-sensitivity manifest
 
 ```bash
-python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment_secondary_persona.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_secondary_persona_manifest.csv
+uv run python -m src.iceccme2026.cli build-manifest   --config configs/iceccme/experiment_secondary_persona.yaml   --models configs/shared/models_default.yaml   --output data/iceccme2026/manifests/iceccme2026_secondary_persona_manifest.csv
 ```
 
 Expected size: **1080 rows** (= 6 models × 3 languages × 3 stories × 4 personas × 5 repeats)
@@ -47,7 +47,7 @@ Expected size: **1080 rows** (= 6 models × 3 languages × 3 stories × 4 person
 ## 6. Preview a prompt before the run
 
 ```bash
-python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/catalogs/texts_private/ja/T1.txt
+uv run python scripts/iceccme2026/render_prompt_preview.py   --story-id T1   --persona-id p0   --language ja   --text-file data/catalogs/texts_private/ja/T1.txt
 ```
 
 ## 7. Run or resume the OpenRouter primary collector
@@ -62,7 +62,7 @@ Expected output schema is documented in:
 Primary run output:
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --resume
@@ -71,7 +71,7 @@ python -m src.iceccme2026.openrouter_runner \
 Export a retry-only manifest from the existing raw JSONL. Rows are included only when they have at least one failed record and no `ok == true` record:
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --export-failed-manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_retry_failed.csv
@@ -80,7 +80,7 @@ python -m src.iceccme2026.openrouter_runner \
 Smoke-test one Claude failed row and one Gemini failed row before a larger retry:
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_retry_failed.csv \
   --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --resume \
@@ -88,7 +88,7 @@ python -m src.iceccme2026.openrouter_runner \
   --limit 1 \
   --max-completion-tokens 900
 
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_retry_failed.csv \
   --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --resume \
@@ -100,7 +100,7 @@ python -m src.iceccme2026.openrouter_runner \
 Retry failed rows only, appending retry records to the same raw JSONL:
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_retry_failed.csv \
   --output-jsonl data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --resume \
@@ -110,7 +110,7 @@ python -m src.iceccme2026.openrouter_runner \
 If your collector writes JSON/JSONL or a wide CSV, normalize it first. For the OpenRouter primary raw JSONL, do not use `--join-on-order`; each raw record already carries its manifest metadata, and retry appends can make file order differ from manifest order:
 
 ```bash
-python -m src.iceccme2026.cli normalize-model-scores \
+uv run python -m src.iceccme2026.cli normalize-model-scores \
   --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --output data/iceccme2026/interim/model_scores.csv
@@ -125,13 +125,13 @@ cp data/iceccme2026/interim/model_scores_smoketest.csv data/iceccme2026/interim/
 ## 8. Score human alignment
 
 ```bash
-python -m src.iceccme2026.cli score-alignment   --human data/iceccme2026/derived_public/human_vas_summary.csv   --model-scores data/iceccme2026/interim/model_scores.csv   --output-dir results/iceccme2026/csv
+uv run python -m src.iceccme2026.cli score-alignment   --human data/iceccme2026/derived_public/human_vas_summary.csv   --model-scores data/iceccme2026/interim/model_scores.csv   --output-dir results/iceccme2026/csv
 ```
 
 ## 9. Export primary and robustness tables
 
 ```bash
-python scripts/iceccme2026/export_primary_tables.py \
+uv run python scripts/iceccme2026/export_primary_tables.py \
   --alignment results/iceccme2026/csv/model_language_alignment.csv \
   --output-dir results/iceccme2026/csv \
   --primary-language ja \
@@ -147,9 +147,10 @@ Generated outputs:
 These commands use the already exported CSV files and do not rerun model calls:
 
 ```bash
-python scripts/iceccme2026/plot_figure2_ja_ranking.py
-python scripts/iceccme2026/plot_figure3_cross_language_drift.py
-python scripts/iceccme2026/export_table2_primary.py
+uv run python scripts/iceccme2026/plot_figure2_ja_ranking.py
+uv run python scripts/iceccme2026/plot_figure3_cross_language_drift.py
+uv run python scripts/iceccme2026/plot_figure4_alignment_vs_avg_drift.py
+uv run python scripts/iceccme2026/export_table2_primary.py
 ```
 
 Generated outputs:
@@ -157,6 +158,8 @@ Generated outputs:
 - `paper/iceccme2026/fig/figure2_ja_ranking.pdf`
 - `paper/iceccme2026/fig/figure3_cross_language_drift.png`
 - `paper/iceccme2026/fig/figure3_cross_language_drift.pdf`
+- `paper/iceccme2026/fig/figure4_alignment_vs_avg_drift.png`
+- `paper/iceccme2026/fig/figure4_alignment_vs_avg_drift.pdf`
 - `results/iceccme2026/tables/table2_primary_summary.csv`
 - `paper/iceccme2026/tables/table2_primary_summary.tex`
 

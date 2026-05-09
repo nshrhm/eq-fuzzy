@@ -1,8 +1,7 @@
 # Running the 540-row primary manifest
 
-This note assumes you already fixed:
-- `scipy>=1.11` in `requirements.txt`
-- standalone scripts adding repo root to `sys.path`
+This note assumes you already ran `uv sync` and are using the repository-level
+environment defined by `pyproject.toml` and `uv.lock`.
 
 ## 1. Confirm the expected private inputs
 
@@ -27,7 +26,7 @@ data/iceccme2026/raw_private/human/文学短編作品.xlsx
 ## 2. Build or rebuild the Japanese human reference
 
 ```bash
-python -m src.iceccme2026.cli prepare-human \
+uv run python -m src.iceccme2026.cli prepare-human \
   --input data/iceccme2026/raw_private/human/文学短編作品.xlsx \
   --output-dir data/iceccme2026/derived_public
 ```
@@ -35,7 +34,7 @@ python -m src.iceccme2026.cli prepare-human \
 ## 3. Build the primary manifest
 
 ```bash
-python -m src.iceccme2026.cli build-manifest \
+uv run python -m src.iceccme2026.cli build-manifest \
   --config configs/iceccme/experiment.yaml \
   --models configs/shared/models_default.yaml \
   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
@@ -46,7 +45,7 @@ Expected size: 540 rows.
 ## 4. Inspect one prompt before the full run
 
 ```bash
-python scripts/iceccme2026/render_prompt_preview.py \
+uv run python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
@@ -62,7 +61,7 @@ export OPENROUTER_API_KEY='YOUR_KEY_HERE'
 ## 6. Dry-run the runner on the first unfinished row
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/catalogs/texts_private \
@@ -74,7 +73,7 @@ python -m src.iceccme2026.openrouter_runner \
 ## 7. Run a 6-row smoke test first
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/catalogs/texts_private \
@@ -87,7 +86,7 @@ python -m src.iceccme2026.openrouter_runner \
 ## 8. Normalize the raw JSONL into `model_scores.csv`
 
 ```bash
-python -m src.iceccme2026.cli normalize-model-scores \
+uv run python -m src.iceccme2026.cli normalize-model-scores \
   --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
@@ -97,7 +96,7 @@ python -m src.iceccme2026.cli normalize-model-scores \
 ## 9. Score human alignment
 
 ```bash
-python -m src.iceccme2026.cli score-alignment \
+uv run python -m src.iceccme2026.cli score-alignment \
   --human data/iceccme2026/derived_public/human_vas_summary.csv \
   --model-scores data/iceccme2026/interim/model_scores.csv \
   --output-dir results/iceccme2026/csv \
@@ -107,7 +106,7 @@ python -m src.iceccme2026.cli score-alignment \
 ## 10. Run the full 540-row manifest
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/catalogs/texts_private \
@@ -119,13 +118,13 @@ python -m src.iceccme2026.openrouter_runner \
 After completion:
 
 ```bash
-python -m src.iceccme2026.cli normalize-model-scores \
+uv run python -m src.iceccme2026.cli normalize-model-scores \
   --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
   --output data/iceccme2026/interim/model_scores.csv
 
-python -m src.iceccme2026.cli score-alignment \
+uv run python -m src.iceccme2026.cli score-alignment \
   --human data/iceccme2026/derived_public/human_vas_summary.csv \
   --model-scores data/iceccme2026/interim/model_scores.csv \
   --output-dir results/iceccme2026/csv \

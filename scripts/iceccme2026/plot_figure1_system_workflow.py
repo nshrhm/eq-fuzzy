@@ -18,6 +18,9 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 from src.iceccme2026.paper_exports import PAPER_FIG_DIR, ensure_dir
 
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
+
 OUTPUT_STEM = PAPER_FIG_DIR / "figure1_system_workflow"
 
 

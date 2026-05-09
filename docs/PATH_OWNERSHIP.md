@@ -15,7 +15,7 @@ The migration policy is canonical-path-first: the current ICECCME 2026 pipeline 
 
 ## Current compatibility paths
 
-These paths remain valid for the current ICECCME 2026 workflow. Root-level Python command wrappers have been removed; canonical commands use `python -m src.iceccme2026...`.
+These paths remain valid for the current ICECCME 2026 workflow. Root-level Python command wrappers have been removed; canonical commands use `uv run python -m src.iceccme2026...`.
 
 | Path | Current owner | Notes |
 |---|---|---|

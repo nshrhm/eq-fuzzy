@@ -22,6 +22,9 @@ from src.iceccme2026.paper_exports import (
     require_columns,
 )
 
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
+
 DRIFT_INPUT_PATH = RESULTS_CSV_DIR / "model_language_drift_vs_ja.csv"
 RANKING_INPUT_PATH = RESULTS_CSV_DIR / "ja_primary_ranking.csv"
 OUTPUT_STEM = PAPER_FIG_DIR / "figure3_cross_language_drift"
@@ -94,7 +97,7 @@ def save_figure(drift: pd.DataFrame, output_stem: Path = OUTPUT_STEM) -> list[Pa
     width = 0.36
 
     fig_width = max(7.0, 0.8 * len(pivot.index) + 2.5)
-    fig, ax = plt.subplots(figsize=(fig_width, 4.2))
+    fig, ax = plt.subplots(figsize=(fig_width, 3.75))
     ax.bar([x - width / 2 for x in x_positions], pivot["EN"], width=width, label="EN")
     ax.bar([x + width / 2 for x in x_positions], pivot["ZH"], width=width, label="ZH")
     ax.set_xticks(x_positions)
@@ -108,7 +111,7 @@ def save_figure(drift: pd.DataFrame, output_stem: Path = OUTPUT_STEM) -> list[Pa
 
     output_paths = [output_stem.with_suffix(".png"), output_stem.with_suffix(".pdf")]
     for output_path in output_paths:
-        fig.savefig(output_path, bbox_inches="tight", dpi=300)
+        fig.savefig(output_path, bbox_inches="tight", pad_inches=0.02, dpi=300)
     plt.close(fig)
     return output_paths
 

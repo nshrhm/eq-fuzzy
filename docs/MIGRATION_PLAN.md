@@ -22,12 +22,12 @@ Before restructuring, confirm that the current ICECCME build still works end to 
 Minimum must-pass commands:
 
 ```bash
-python -m src.iceccme2026.cli prepare-human ...
-python -m src.iceccme2026.cli build-manifest ...
-python -m src.iceccme2026.cli score-alignment ...
-python scripts/iceccme2026/plot_figure2_ja_ranking.py
-python scripts/iceccme2026/plot_figure3_cross_language_drift.py
-python scripts/iceccme2026/export_table2_primary.py
+uv run python -m src.iceccme2026.cli prepare-human ...
+uv run python -m src.iceccme2026.cli build-manifest ...
+uv run python -m src.iceccme2026.cli score-alignment ...
+uv run python scripts/iceccme2026/plot_figure2_ja_ranking.py
+uv run python scripts/iceccme2026/plot_figure3_cross_language_drift.py
+uv run python scripts/iceccme2026/export_table2_primary.py
 ```
 
 ## Phase 1 — documentation-first monorepo conversion
@@ -62,7 +62,7 @@ Operating rule: **Share code, not claims.**
    - `snapshots/iceccme2026/`
    - `snapshots/scis2026/`
    - `snapshots/icicic2026/`
-5. keep ICECCME runnable through `python -m src.iceccme2026...` commands
+5. keep ICECCME runnable through `uv run python -m src.iceccme2026...` commands
 6. keep `src/iceccme2026/` as the ICECCME implementation package
 7. do not move current raw or processed ICECCME files
 

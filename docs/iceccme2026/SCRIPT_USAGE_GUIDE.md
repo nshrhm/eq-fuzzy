@@ -2,8 +2,8 @@
 
 ## 前提
 
-- 仮想環境を有効化済み
-- `requirements.txt` に `scipy>=1.11` を追加済み
+- `uv sync` でリポジトリ共通環境を同期済み
+- `pyproject.toml` / `uv.lock` に基づく依存関係を使用
 - standalone scripts は repo root を `sys.path` に追加する修正済み
 - private texts は以下に配置済み
   - `data/catalogs/texts_private/ja/T1.txt`
@@ -23,7 +23,7 @@
 ### 1. 人間データを整形
 
 ```bash
-python scripts/iceccme2026/prepare_human_data.py \
+uv run python scripts/iceccme2026/prepare_human_data.py \
   --input data/iceccme2026/raw_private/human/文学短編作品.xlsx \
   --output-dir data/iceccme2026/derived_public
 ```
@@ -31,7 +31,7 @@ python scripts/iceccme2026/prepare_human_data.py \
 同等の canonical module コマンド:
 
 ```bash
-python -m src.iceccme2026.cli prepare-human \
+uv run python -m src.iceccme2026.cli prepare-human \
   --input data/iceccme2026/raw_private/human/文学短編作品.xlsx \
   --output-dir data/iceccme2026/derived_public
 ```
@@ -44,7 +44,7 @@ python -m src.iceccme2026.cli prepare-human \
 ### 2. primary manifest を生成
 
 ```bash
-python scripts/iceccme2026/build_run_manifest.py \
+uv run python scripts/iceccme2026/build_run_manifest.py \
   --config configs/iceccme/experiment.yaml \
   --models configs/shared/models_default.yaml \
   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
@@ -53,7 +53,7 @@ python scripts/iceccme2026/build_run_manifest.py \
 同等の canonical module コマンド:
 
 ```bash
-python -m src.iceccme2026.cli build-manifest \
+uv run python -m src.iceccme2026.cli build-manifest \
   --config configs/iceccme/experiment.yaml \
   --models configs/shared/models_default.yaml \
   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
@@ -65,7 +65,7 @@ python -m src.iceccme2026.cli build-manifest \
 確認:
 
 ```bash
-python - <<'PY'
+uv run python - <<'PY'
 import pandas as pd
 p='data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv'
 df=pd.read_csv(p)
@@ -78,7 +78,7 @@ PY
 ### 3. prompt を1本だけ確認
 
 ```bash
-python scripts/iceccme2026/render_prompt_preview.py \
+uv run python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
@@ -89,7 +89,7 @@ python scripts/iceccme2026/render_prompt_preview.py \
 画面に直接出すなら:
 
 ```bash
-python scripts/iceccme2026/render_prompt_preview.py \
+uv run python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
@@ -107,7 +107,7 @@ export OPENROUTER_API_KEY='YOUR_KEY_HERE'
 6件だけ smoke test:
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/catalogs/texts_private \
@@ -120,7 +120,7 @@ python -m src.iceccme2026.openrouter_runner \
 540件を本実行:
 
 ```bash
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/catalogs/texts_private \
@@ -132,7 +132,7 @@ python -m src.iceccme2026.openrouter_runner \
 ### 5. raw 出力を model_scores.csv に正規化
 
 ```bash
-python -m src.iceccme2026.cli normalize-model-scores \
+uv run python -m src.iceccme2026.cli normalize-model-scores \
   --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
@@ -142,7 +142,7 @@ python -m src.iceccme2026.cli normalize-model-scores \
 ### 6. human alignment を採点
 
 ```bash
-python scripts/iceccme2026/score_human_alignment.py \
+uv run python scripts/iceccme2026/score_human_alignment.py \
   --human data/iceccme2026/derived_public/human_vas_summary.csv \
   --model-scores data/iceccme2026/interim/model_scores.csv \
   --output-dir results/iceccme2026/csv \
@@ -152,7 +152,7 @@ python scripts/iceccme2026/score_human_alignment.py \
 同等の canonical module コマンド:
 
 ```bash
-python -m src.iceccme2026.cli score-alignment \
+uv run python -m src.iceccme2026.cli score-alignment \
   --human data/iceccme2026/derived_public/human_vas_summary.csv \
   --model-scores data/iceccme2026/interim/model_scores.csv \
   --output-dir results/iceccme2026/csv \
@@ -166,7 +166,7 @@ python -m src.iceccme2026.cli score-alignment \
 ### 7. primary ranking / language drift table を出力
 
 ```bash
-python scripts/iceccme2026/export_primary_tables.py \
+uv run python scripts/iceccme2026/export_primary_tables.py \
   --alignment results/iceccme2026/csv/model_language_alignment.csv \
   --output-dir results/iceccme2026/csv \
   --primary-language ja \
@@ -180,22 +180,22 @@ python scripts/iceccme2026/export_primary_tables.py \
 ## いちばん安全な実行順
 
 ```bash
-python scripts/iceccme2026/prepare_human_data.py \
+uv run python scripts/iceccme2026/prepare_human_data.py \
   --input data/iceccme2026/raw_private/human/文学短編作品.xlsx \
   --output-dir data/iceccme2026/derived_public
 
-python scripts/iceccme2026/build_run_manifest.py \
+uv run python scripts/iceccme2026/build_run_manifest.py \
   --config configs/iceccme/experiment.yaml \
   --models configs/shared/models_default.yaml \
   --output data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv
 
-python scripts/iceccme2026/render_prompt_preview.py \
+uv run python scripts/iceccme2026/render_prompt_preview.py \
   --story-id T1 \
   --persona-id p0 \
   --language ja \
   --text-file data/catalogs/texts_private/ja/T1.txt
 
-python -m src.iceccme2026.openrouter_runner \
+uv run python -m src.iceccme2026.openrouter_runner \
   --repo-root . \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --texts-dir data/catalogs/texts_private \
@@ -204,13 +204,13 @@ python -m src.iceccme2026.openrouter_runner \
   --sleep-sec 1.0 \
   --resume
 
-python -m src.iceccme2026.cli normalize-model-scores \
+uv run python -m src.iceccme2026.cli normalize-model-scores \
   --input data/iceccme2026/raw_private/openrouter_primary_raw.jsonl \
   --manifest data/iceccme2026/manifests/iceccme2026_primary_neutral_manifest.csv \
   --join-on-order \
   --output data/iceccme2026/interim/model_scores.csv
 
-python scripts/iceccme2026/score_human_alignment.py \
+uv run python scripts/iceccme2026/score_human_alignment.py \
   --human data/iceccme2026/derived_public/human_vas_summary.csv \
   --model-scores data/iceccme2026/interim/model_scores.csv \
   --output-dir results/iceccme2026/csv \

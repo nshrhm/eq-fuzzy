@@ -1,15 +1,18 @@
-\documentclass[conference]{IEEEtran}
+% \documentclass[conference]{IEEEtran}
+\documentclass[conference,a4paper]{IEEEtran}
 
-\makeatletter
-\def\ps@IEEEtitlepagestyle{%
-  \def\@oddfoot{\mycopyrightnotice}%
-  \def\@evenfoot{}%
-}
-\def\mycopyrightnotice{%
-{\footnotesize XXX-X-XXXX-XXXX-X/XX/\$XX.00~\copyright~20XX IEEE\hfill}%
-  \gdef\mycopyrightnotice{}
-}
-\makeatother
+% Copyright notice is omitted for the initial submission.
+% It will be inserted according to the ICECCME / IEEE camera-ready instructions after acceptance.
+% \makeatletter
+% \def\ps@IEEEtitlepagestyle{%
+%   \def\@oddfoot{\mycopyrightnotice}%
+%   \def\@evenfoot{}%
+% }
+% \def\mycopyrightnotice{%
+% {\footnotesize XXX-X-XXXX-XXXX-X/XX/\$XX.00~\copyright~20XX IEEE\hfill}%
+%   \gdef\mycopyrightnotice{}
+% }
+% \makeatother
 
 \IEEEoverridecommandlockouts
 
@@ -41,21 +44,21 @@
 \IEEEauthorblockA{\textit{Shimonoseki City University} \\
 Shimonoseki, Yamaguchi, Japan \\
 nshirahama@ieee.org}
-% \and
-% \IEEEauthorblockN{Yuma Yoshimoto}
-%\IEEEauthorblockA{\textit{NIT (KOSEN), Kitakyushu College} \\
-% Kitakyushu, Fukuoka, Japan \\
-% yoshimoto@kct.ac.jp}
+\and
+\IEEEauthorblockN{Yuma Yoshimoto}
+\IEEEauthorblockA{\textit{NIT (KOSEN), Kitakyushu College} \\
+Kitakyushu, Fukuoka, Japan \\
+yoshimoto@kct.ac.jp}
 \and
 \IEEEauthorblockN{Naofumi Nakaya}
 \IEEEauthorblockA{\textit{Juntendo University} \\
 Urayasu, Chiba, Japan \\
 n.nakaya.ac@juntendo.ac.jp}
-% \and
-% \IEEEauthorblockN{Junji Nishino}
-% \IEEEauthorblockA{\textit{Tamagawa University} \\
-% Machida, Tokyo, Japan \\
-% nishinojunji@eng.tamagawa.ac.jp}
+\and
+\IEEEauthorblockN{Junji Nishino}
+\IEEEauthorblockA{\textit{Tamagawa University} \\
+Machida, Tokyo, Japan \\
+nishinojunji@eng.tamagawa.ac.jp}
 \and
 \IEEEauthorblockN{Satoshi Watanabe}
 \IEEEauthorblockA{\textit{Shizuoka Institute of Science and Technology} \\
@@ -67,7 +70,7 @@ Fukuroi, Shizuoka, Japan \\
 \conf{\textit{Proc. of the International Conference on Electrical, Computer, Communications and Mechatronics Engineering (ICECCME 2026) \\ 15--17 October 2026, Bali, Indonesia}}
 
 \begin{abstract}
-Human-grounded validation remains a central gap in large language model (LLM) evaluation for affective text understanding. Existing benchmarks and multilingual profiling can reveal model-to-model or language-to-language variation, but such variation alone does not show which systems are closest to human judgments. This study proposes a compact Japanese-human-grounded benchmark for literary emotion evaluation using three Japanese literary works and four continuous affective dimensions: interest, surprise, sadness, and anger. Japanese Visual Analog Scale (VAS) ratings from student readers were used to define the reference profile, and six API-accessible LLMs were compared using a unified multiprovider experimental platform. The primary endpoint was alignment with the Japanese human reference under a neutral reader prompt. The English and Chinese conditions are treated as translated-condition robustness probes, not as co-equal human-grounded endpoints. Claude Sonnet 4.5 had the lowest observed mean absolute error to the Japanese human reference (20.03), with the top four models tightly clustered within 1.09 points, whereas Gemini 2.5 Pro showed the largest error (28.95). GPT-5.4 had the highest observed Pearson and Spearman agreement over the 12 story-by-emotion cells, whereas Qwen3.6 Plus and GPT-5.4 exhibited the smallest average translated-condition drift (3.35 and 3.35, respectively). The results indicate that primary Japanese human alignment and translated-condition robustness are not identical in this panel, making the protocol suitable for compact, analysis-level, reproducible model screening.
+Human-grounded validation remains a central gap in large language model (LLM) evaluation for affective text understanding. Existing benchmarks and multilingual profiling can reveal model-to-model or language-to-language variation, but such variation alone does not show which systems are closest to human judgments. This study proposes a compact Japanese-human-grounded benchmark for literary emotion evaluation using three Japanese literary works and four continuous affective dimensions: interest, surprise, sadness, and anger. Japanese Visual Analogue Scale (VAS) ratings from student readers were used to define the reference profile, and six API-accessible LLMs were compared using a unified multiprovider experimental platform. The primary endpoint was alignment with the Japanese human reference under a neutral reader prompt. The English and Chinese conditions are treated as translated-condition robustness probes, not as co-equal human-grounded endpoints. Claude Sonnet 4.5 had the lowest observed mean absolute error to the Japanese human reference (20.03), with the top four models tightly clustered within 1.09 points, whereas Gemini 2.5 Pro showed the largest error (28.95). GPT-5.4 had the highest observed Pearson and Spearman agreement over the 12 story-by-emotion cells, whereas Qwen3.6 Plus and GPT-5.4 exhibited the smallest average translated-condition drift (3.35 and 3.35, respectively). The results indicate that primary Japanese human alignment and translated-condition robustness are not identical in this panel, making the protocol suitable for compact, analysis-level, reproducible model screening.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -97,7 +100,7 @@ The fourth line is our own prior platform-development and mathematical-character
 
 \textbf{Task definition.} The neutral-reader model run operationalized the same four affect dimensions on a 0--100 scale to approximate the human VAS task. One LLM experimental unit consisted of one model, language, text, neutral reader prompt, and repetition. The model received the full literary text, the neutral reader’s role, the four emotion definitions, and the scoring rule that 0 means the emotion is not felt at all, 50 means moderately felt, and 100 means extremely strongly felt. It returned one JSON object containing four integer scores and brief text-grounded explanations. A single neutral-reader prompt was used in all languages so that the benchmark would remain interpretable as a human alignment pilot rather than collapse back into persona-conditioned evaluation. Japanese human alignment was the primary endpoint because the reference VAS data were collected in Japanese, with Japanese source texts and Japanese task instructions used in the primary human--LLM alignment condition. English and Chinese are therefore not treated as co-equal human-grounded evaluations but as translated-condition robustness probes; in those runs, both the literary texts and the task instructions were language-matched using fixed author-prepared translations, so drift reflects the combined effect of translated text and prompt language rather than instruction language alone. Because the benchmark is intentionally compact, the analysis is interpreted descriptively for screening utility rather than formal significance testing. This design keeps persona-conditioned prompting outside the center of the present study, because persona and temperature were confounded in our earlier LLM-only design \cite{shirahama2026mdpi}.
 
-\textbf{Execution provenance.} Model calls were collected through OpenRouter from 17--April 19, 2026 (JST). All manifest rows used the neutral-reader persona, API temperature 0.4, ten repetitions, JSON-schema structured outputs, and a local parser that accepted JSON or legacy Q-score text only when all four 0--100 emotion scores were recoverable. No seed or top-$p$ overrides were supplied. The maximum completion-token cap was 700 for the main run and up to 1600 for the provider-compatible repair runs. A targeted retry manifest covered 90 of the 540 rows and reused the same scoring task; no scores were imputed. All 540 manifest rows had valid parsed scores after targeted repair; exact API replay may vary because provider routing and model aliases can be changed.
+\textbf{Execution provenance.} Model calls were collected through OpenRouter from 17 to 19 April 2026 (JST). All manifest rows used the neutral-reader persona, API temperature 0.4, ten repetitions, JSON-schema structured outputs, and a local parser that accepted JSON or legacy Q-score text only when all four 0--100 emotion scores were recoverable. No seed or top-$p$ overrides were supplied. The maximum completion-token cap was 700 for the main run and up to 1600 for the provider-compatible repair runs. A targeted retry manifest covered 90 of the 540 rows and reused the same scoring task; no scores were imputed. All 540 manifest rows had valid parsed scores after targeted repair; exact API replay may vary because provider routing and model aliases can be changed.
 
 \textbf{Aggregation.} Let $s \in \{1,2,3\}$ index texts and $d \in \{1,2,3,4\}$ index affect dimensions. The Japanese human reference profile is
 \begin{equation}
@@ -123,7 +126,7 @@ We also report the average drift
 \end{equation}
 A lower MAE and drift are better. Because the benchmark is intentionally compact, this study emphasizes descriptive comparison and screening utility rather than formal significance testing.
 
-\textbf{Protocol and reproducibility.} The protocol comprised 91 human responses, with 86 complete cases and 86--91 usable ratings per story-by-emotion cell after sanitation across three texts and four affect dimensions. The mean human within-cell standard deviation was 22.83 VAS points across 12 retained cells. The model side covered 6 models $\times$ 3 languages $\times$ 3 texts $\times$ 10 repetitions under one neutral-reader prompt, yielding 540 neutral-reader model runs, and 2160 numeric scores. The public repository supports analysis-level reproducibility through sanitized numeric derivatives, manifests, prompts, schemas, and scoring scripts; raw survey exports, model-free text justifications, and account-level API metadata are not redistributed.
+\textbf{Protocol and reproducibility.} The protocol comprised 91 human responses, with 86 complete cases and 86--91 usable ratings per story-by-emotion cell after sanitation across three texts and four affect dimensions. The mean human within-cell standard deviation was 22.83 VAS points across 12 retained cells. The model side covered 6 models $\times$ 3 languages $\times$ 3 texts $\times$ 10 repetitions under one neutral-reader prompt, yielding 540 neutral-reader model runs, and 2160 numeric scores. The public repository supports analysis-level reproducibility through sanitized numeric derivatives, manifests, prompts, schemas, and scoring scripts; raw survey exports, model-generated free-text justifications, and account-level API metadata are not redistributed. The analysis-level reproducibility package is available at: \url{https://github.com/nshrhm/eq-fuzzy}.
 
 \begin{table}[t]
 \caption{Primary benchmark design summary.}
@@ -207,7 +210,7 @@ No single model dominates both axes. Claude Sonnet 4.5 has the lowest observed e
 \section{Discussion}
 Three points follow from these results. First, translated-condition variation is not the same as human validity. A model can appear plausible under translated prompting yet still diverge substantially from the Japanese human reference when calibration is evaluated directly. This is the main reason we treat Japanese human alignment as the primary endpoint and EN/ZH behavior as robustness analysis rather than as co-equal human-grounded evaluation.
 
-Second, a compact benchmark can still produce operationally useful screening information if its rankings are interpreted descriptively. In the primary Japanese condition, Claude Sonnet 4.5 had the lowest observed MAE to the human reference (20.026), but the top four models were separated by only 1.087 MAE points each. The mean human within-cell SD of 22.83 VAS points indicates substantial reader-level variability; therefore, the reported MAE values should be interpreted as agreement with an aggregate Japanese reader profile rather than as replacement-level agreement with individual readers. GPT-5.4 yielded the highest Japanese Pearson and Spearman correlations (0.475 and 0.441, respectively) over 12 cells, indicating that absolute calibration and rank-order agreement should be distinguished rather than collapsed into a single score. For translated-condition robustness, Qwen3.6 Plus and GPT-5.4 showed the smallest average EN/ZH drift (3.346 and 3.354, respectively), whereas DeepSeek V3.2 showed the largest average drift (6.396). Therefore, no single model dominates both human alignment and translation condition robustness.
+Second, a compact benchmark can still produce operationally useful screening information if its rankings are interpreted descriptively. In the primary Japanese condition, Claude Sonnet 4.5 had the lowest observed MAE to the human reference (20.026), but the top four models spanned only 1.087 MAE points. The mean human within-cell SD of 22.83 VAS points indicates substantial reader-level variability; therefore, the reported MAE values should be interpreted as agreement with an aggregate Japanese reader profile rather than as replacement-level agreement with individual readers. GPT-5.4 yielded the highest Japanese Pearson and Spearman correlations (0.475 and 0.441, respectively) over 12 cells, indicating that absolute calibration and rank-order agreement should be distinguished rather than collapsed into a single score. For translated-condition robustness, Qwen3.6 Plus and GPT-5.4 showed the smallest average EN/ZH drift (3.346 and 3.354, respectively), whereas DeepSeek V3.2 showed the largest average drift (6.396). Therefore, no single model dominates both human alignment and translation condition robustness.
 
 Operationally, the panel should be read as a trade-off map, rather than a leaderboard. Claude Sonnet 4.5 is the lowest-MAE Japanese model in this run, DeepSeek V3.2 is close on Japanese MAE but has the largest average drift, Qwen3.6 Plus and GPT-5.4 are the most stable under EN/ZH translated conditions, and Gemini 2.5 Pro shows that moderate translated-condition stability does not imply strong Japanese human alignment. That makes the protocol useful for early-stage model narrowing before a larger validation campaign is launched.
 
@@ -225,7 +228,7 @@ This paper uses a compact human-grounded benchmark design developed within the b
 
 This work was partially supported by JSPS Grants-in-Aid for Scientific Research (JSPS KAKENHI), Grant Number 26K14983 and 24K13350.
 
-\IEEEtriggeratref{5}
+% \IEEEtriggeratref{5}
 \begin{thebibliography}{00}
 
 \bibitem{shirahama2025vas}
