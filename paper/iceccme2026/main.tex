@@ -218,7 +218,7 @@ Third, the paper clarifies how this ICECCME contribution differs from our earlie
 
 This neutral-reader constraint is methodological, not merely stylistic. Once role-playing or creativity prompts are introduced, it becomes harder to know whether score changes reflect better human alignment, a different interpretive stance, or prompt-induced variance. For a human-grounded pilot benchmark, anchoring the main endpoint to one neutral condition makes the comparison easier to interpret and reproduce across providers. Richer persona-conditioned evaluation remains worthwhile, but it should be layered onto a stable human-reference baseline rather than replacing it.
 
-The benchmark should be understood as a stage-1 filter rather than as a deployment certificate. Its main limitations are that it uses only three texts, one Japanese student-reader reference condition, and one neutral-reader prompt condition with ten repetitions per model--language--text condition. English and Chinese are robustness conditions rather than human-grounded endpoints, and the measured drift reflects both translated literary texts and language-matched task instructions rather than instruction language alone. The English and Chinese translations were fixed, author-prepared translations and were not independently validated against separate human affect references. The analysis is descriptive for screening utility rather than formal significance testing, and exact API replay is subject to provider routing and model version changes, even when manifests and scripts are preserved. Provider-compatibility adjustments were also required at the transport/schema layer during data collection, although the task definition, source texts, and scoring dimensions were kept fixed. The next steps are to layer new evidence in a controlled manner: more texts, larger and more diverse human reference samples, and matched human references for English and Chinese.
+The benchmark should be understood as a stage-1 filter rather than as a deployment certificate. Its main limitations are that it uses only three texts, one Japanese student-reader reference condition, and one neutral-reader prompt condition with ten repetitions per model--language--text condition. English and Chinese are robustness conditions rather than human-grounded endpoints, and the measured drift reflects both translated literary texts and language-matched task instructions rather than instruction language alone. The English and Chinese translations were fixed, author-prepared translations and were not independently validated against separate human affect references. The analysis is descriptive for screening utility rather than formal significance testing, and exact API replay is subject to provider routing and model version changes, even when manifests and scripts are preserved. Provider-compatibility adjustments were also required at the transport/schema layer during data collection, although the task definition, source texts, and scoring dimensions were kept fixed. The next steps are controlled evidence layering: more texts, broader human reference samples, and matched English/Chinese human references.
 
 \section{Conclusion}
 This study presents a compact Japanese-human-grounded benchmark for literary emotion evaluation in contemporary large language models. Using a Japanese VAS reference from student readers, we compared six API-accessible models under a neutral-reader prompt and found that Claude Sonnet 4.5 had the lowest observed absolute error to the Japanese human profile, GPT-5.4 had the highest observed Pearson and Spearman agreement over 12 cells, and Qwen3.6 Plus had the smallest average translated condition drift. More broadly, the results indicate that primary Japanese human alignment and translated-condition robustness are not identical in this study. We therefore recommend reporting them independently in future LLM emotion-evaluation studies and using compact human-grounded benchmarks as an initial screening step before larger multilingual or multi-persona evaluations.
@@ -234,17 +234,14 @@ This work was partially supported by JSPS Grants-in-Aid for Scientific Research 
 \bibitem{shirahama2025vas}
 N. Shirahama, N. Nakaya, S. Watanabe, et al., ``Assessing Emotional Intelligence in AI: Visual Analogue Scale vs. Likert Scale in Short Story Comprehension,'' \emph{Journal of the Institute of Industrial Applications Engineers}, vol. 13, no. 1, pp. 21--31, 2025.
 
-\bibitem{aitken1969vas}
-R. C. B. Aitken, ``Measurement of feelings using visual analogue scales,'' \emph{Proc. Royal Society of Medicine}, vol. 62, no. 10, pp. 989--993, 1969.
-
-\bibitem{shirahama2026mdpi}
-N. Shirahama, Y. Yoshimoto, N. Nakaya, and S. Watanabe, ``Mathematical Framework for Characterizing Emotional Individuality in Large Language Models: Temperature Control, Fuzzy Entropy, and Persona-Based Diversity Analysis,'' \emph{Mathematics}, vol. 14, no. 7, Art. no. 1224, 2026.
-
 \bibitem{paech2024eqbench}
 S. J. Paech, ``EQ-Bench: An Emotional Intelligence Benchmark for Large Language Models,'' arXiv:2312.06281, 2024.
 
 \bibitem{huang2024emotionbench}
 J. Huang, M. H. Lam, E. J. Li, S. Ren, W. Wang, W. Jiao, Z. Tu, and M. R. Lyu, ``Emotionally Numb or Empathetic? Evaluating How LLMs Feel Using EmotionBench,'' arXiv:2308.03656, 2024.
+
+\bibitem{aitken1969vas}
+R. C. B. Aitken, ``Measurement of feelings using visual analogue scales,'' \emph{Proc. Royal Society of Medicine}, vol. 62, no. 10, pp. 989--993, 1969.
 
 \bibitem{sabour2024emobench}
 S. Sabour, S. Liu, Z. Zhang, J. Liu, J. Zhou, A. Sunaryo, T. M. C. Lee, R. Mihalcea, and M. Huang, ``EmoBench: Evaluating the Emotional Intelligence of Large Language Models,'' in \emph{Proc. 62nd Annual Meeting of the Association for Computational Linguistics (ACL)}, 2024, pp. 5986--6004.
@@ -255,11 +252,14 @@ Y. Chen, S. Yan, S. Liu, Y. Li, and Y. Xiao, ``EmotionQueen: A Benchmark for Eva
 \bibitem{conneau2018xnli}
 A. Conneau, R. Rinott, G. Lample, A. Williams, S. R. Bowman, H. Schwenk, and V. Stoyanov, ``XNLI: Evaluating cross-lingual sentence representations,'' in \emph{Proc. EMNLP}, 2018, pp. 2475--2485.
 
-\bibitem{aozora}
-Aozora Bunko, ``Aozora Bunko online library,'' 2026. [Online]. Available: \url{https://www.aozora.gr.jp/}. Accessed: Apr. 26, 2026.
-
 \bibitem{openrouterplatform}
 N. Shirahama, N. Nakaya, and S. Watanabe, ``Development of an Experimental Platform for Evaluating LLM Emotion Understanding,'' \emph{ICIC Express Letters}, vol. 20, pp. 191--198, 2026.
+
+\bibitem{shirahama2026mdpi}
+N. Shirahama, Y. Yoshimoto, N. Nakaya, and S. Watanabe, ``Mathematical Framework for Characterizing Emotional Individuality in Large Language Models: Temperature Control, Fuzzy Entropy, and Persona-Based Diversity Analysis,'' \emph{Mathematics}, vol. 14, no. 7, Art. no. 1224, 2026.
+
+\bibitem{aozora}
+Aozora Bunko, ``Aozora Bunko online library,'' 2026. [Online]. Available: \url{https://www.aozora.gr.jp/}. Accessed: Apr. 26, 2026.
 
 \end{thebibliography}
 
