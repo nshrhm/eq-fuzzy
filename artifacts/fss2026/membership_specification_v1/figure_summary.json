@@ -1,0 +1,13 @@
+{
+  "figure": "figure1_membership_and_entropy_response",
+  "path": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/figure1_membership_and_entropy_response.png",
+  "source": "score-axis membership specification grid",
+  "families": [
+    "legacy_linear_v1",
+    "zadeh_s_z_pi_v1",
+    "sigmoid_composed_s_z_pi_v1"
+  ],
+  "contains_model_names": false,
+  "contains_persona_or_temperature_labels": false,
+  "contains_benchmark_or_target_shift_tables": false
+}

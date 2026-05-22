@@ -1,0 +1,42 @@
+{
+  "config_path": "/home/naruki/GitHub/eq-fuzzy/configs/fss/membership_specification_v1.yaml",
+  "config_sha256": "f955b8c6a309b4c1a89115862a40561a5e2fdb05528de2e3f91f5a1065d69de0",
+  "workflow_scripts": [
+    "scripts/fss2026/build_membership_response_curves.py",
+    "scripts/fss2026/export_membership_spec_card.py",
+    "scripts/fss2026/analyze_membership_sensitivity_protocol.py",
+    "scripts/fss2026/build_fss_tables.py",
+    "scripts/fss2026/build_fss_figures.py"
+  ],
+  "score_grid": {
+    "start": 0,
+    "stop": 100,
+    "step": 0.1,
+    "n_points": 1001
+  },
+  "family_ids": [
+    "legacy_linear_v1",
+    "zadeh_s_z_pi_v1",
+    "sigmoid_composed_s_z_pi_v1"
+  ],
+  "Hmax_by_family": {
+    "legacy_linear_v1": 1.057683465515,
+    "zadeh_s_z_pi_v1": 1.052410109437,
+    "sigmoid_composed_s_z_pi_v1": 1.018443156266
+  },
+  "generated_artifacts": {
+    "membership_grid": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/membership_grid.csv",
+    "entropy_response_grid": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/entropy_response_grid.csv",
+    "membership_specification_card_csv": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/membership_specification_card.csv",
+    "membership_specification_card_tex": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/membership_specification_card.tex",
+    "family_sensitivity_matrix_csv": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/family_sensitivity_matrix.csv",
+    "family_sensitivity_matrix_tex": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/family_sensitivity_matrix.tex",
+    "figure1": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/figure1_membership_and_entropy_response.png",
+    "figure_summary": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/figure_summary.json",
+    "analysis_summary": "/home/naruki/GitHub/eq-fuzzy/artifacts/fss2026/membership_specification_v1/analysis_summary.json"
+  },
+  "no_api_calls_made": true,
+  "no_raw_jsonl_files_read_or_copied": true,
+  "no_submitted_pdfs_modified": true,
+  "artifact_content_scope": "score_axis_only"
+}

@@ -1,0 +1,4 @@
+family_a,family_b,max_abs_delta_H_star,mean_abs_delta_H_star,score_at_max_delta,transition_region_at_max_delta,integrated_abs_delta_H_star
+legacy_linear_v1,zadeh_s_z_pi_v1,0.343287933167,0.110065383428,26.3,low_medium_overlap_10_30,11.017544881151
+legacy_linear_v1,sigmoid_composed_s_z_pi_v1,0.480918177479,0.158079545134,25.3,low_medium_overlap_10_30,15.823762467941
+zadeh_s_z_pi_v1,sigmoid_composed_s_z_pi_v1,0.166700691212,0.048119405464,24.0,low_medium_overlap_10_30,4.816752486922

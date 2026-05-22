@@ -1,0 +1,14 @@
+\begin{table}[t]
+\centering
+\caption{FSS 2026 membership specification card.}
+\label{tab:fss\_membership\_specification\_card}
+\begin{tabular}{llllllll}
+\hline
+family\_id & smoothness & endpoint\_behavior & low\_type & medium\_type & high\_type & entropy\_normalization & Hmax \\
+\hline
+legacy\_linear\_v1 & C0\_piecewise\_linear & exact\_piecewise\_endpoints & z\_like\_linear & pi\_like\_linear & s\_like\_linear & dense\_grid\_family\_specific\_hmax & 1.057683465515 \\
+zadeh\_s\_z\_pi\_v1 & C1\_piecewise\_quadratic & exact\_piecewise\_endpoints & z\_function & pi\_function & s\_function & dense\_grid\_family\_specific\_hmax & 1.052410109437 \\
+sigmoid\_composed\_s\_z\_pi\_v1 & C1\_or\_smoother\_with\_documented\_endpoint\_handling & exact\_at\_transition\_endpoints\_with\_clipped\_interior\_values & sigmoid\_composed\_z & sigmoid\_composed\_pi & sigmoid\_composed\_s & dense\_grid\_family\_specific\_hmax & 1.018443156266 \\
+\hline
+\end{tabular}
+\end{table}
