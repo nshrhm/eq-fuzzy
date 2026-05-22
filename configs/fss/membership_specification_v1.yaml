@@ -1,0 +1,90 @@
+config_id: fss2026_membership_specification_v1
+workstream: fss2026
+status: score_axis_shortnote_v1
+
+score_range: [0, 100]
+score_grid:
+  start: 0
+  stop: 100
+  step: 0.1
+
+labels:
+  - Low
+  - Medium
+  - High
+
+entropy_formula: shannon_type_membership_overlap_entropy
+entropy_normalization: dense_grid_family_specific_hmax
+
+membership_families:
+  - family_id: legacy_linear_v1
+    description: piecewise-linear Low/Medium/High family used as a prior EQ-Fuzzy baseline
+    smoothness: C0_piecewise_linear
+    endpoint_behavior: exact_piecewise_endpoints
+    low:
+      type: z_like_linear
+      transition: [0, 30]
+    medium:
+      type: pi_like_linear
+      rise: [10, 30]
+      plateau: [30, 50]
+      fall: [50, 70]
+    high:
+      type: s_like_linear
+      transition: [50, 100]
+
+  - family_id: zadeh_s_z_pi_v1
+    description: C1 smooth S/Z/pi family using the same semantic breakpoints
+    smoothness: C1_piecewise_quadratic
+    endpoint_behavior: exact_piecewise_endpoints
+    low:
+      type: z_function
+      transition: [0, 30]
+    medium:
+      type: pi_function
+      rise: [10, 30]
+      plateau: [30, 50]
+      fall: [50, 70]
+    high:
+      type: s_function
+      transition: [50, 100]
+
+  - family_id: sigmoid_composed_s_z_pi_v1
+    description: sigmoid-composed S/Z/pi family motivated by smooth membership-function design
+    smoothness: C1_or_smoother_with_documented_endpoint_handling
+    endpoint_behavior: exact_at_transition_endpoints_with_clipped_interior_values
+    low:
+      type: sigmoid_composed_z
+      transition: [0, 30]
+    medium:
+      type: sigmoid_composed_pi
+      rise: [10, 30]
+      plateau: [30, 50]
+      fall: [50, 70]
+    high:
+      type: sigmoid_composed_s
+      transition: [50, 100]
+
+planned_outputs:
+  - membership_grid
+  - entropy_response_grid
+  - membership_specification_card
+  - entropy_response_figure
+  - sensitivity_matrix
+  - analysis_summary
+
+guardrails:
+  score_axis_only: true
+  no_api_calls: true
+  no_raw_jsonl_read_or_copy: true
+  no_submitted_pdf_modification: true
+  excluded_artifact_content:
+    - model names
+    - provider names
+    - persona labels
+    - temperature levels
+    - SCIS factorial decomposition values
+    - SCIS heatmaps
+    - ICECCME human-alignment rankings
+    - ICICIC benchmark-positioning tables
+    - target-shift tables
