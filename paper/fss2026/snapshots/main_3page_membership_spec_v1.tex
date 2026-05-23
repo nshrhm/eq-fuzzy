@@ -1,0 +1,267 @@
+\documentclass[a4paper,10pt,twocolumn]{myjarticle2}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{url}
+
+\input{header}
+
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+\renewcommand{\refname}{References}
+
+\pagestyle{empty}
+
+\setlength{\topmargin}{6mm}
+\setlength{\oddsidemargin}{-4mm}
+\setlength{\evensidemargin}{-4mm}
+\setlength{\textwidth}{170mm}
+\setlength{\headsep}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\textheight}{235mm}
+\setlength{\columnsep}{5mm}
+
+\newcommand{\Hraw}{H_{\mathrm{raw}}}
+\newcommand{\Hstar}{H^{\ast}}
+
+\begin{document}
+\twocolumn[%
+\vspace{-20mm}
+\begin{center}
+{\LARGE\bf Membership Specification and Sensitivity Reporting for
+Fuzzy-Entropy-Based LLM Emotion Scoring}
+\vspace{2mm}\par\noindent
+{\large
+$\bigcirc$ Naruki Shirahama$^{1}$, Yuma Yoshimoto$^{2}$, Naofumi Nakaya$^{3}$,\\
+Junji Nishino$^{4}$, and Satoshi Watanabe$^{5}$}
+\vspace{2mm}\par\noindent
+{\small
+$^{1}$Shimonoseki City University, Shimonoseki, Yamaguchi, Japan\\
+$^{2}$NIT (KOSEN), Kitakyushu College, Kitakyushu, Fukuoka, Japan\\
+$^{3}$Juntendo University, Urayasu, Chiba, Japan\\
+$^{4}$Tamagawa University, Machida, Tokyo, Japan\\
+$^{5}$Shizuoka Institute of Science and Technology, Fukuroi, Shizuoka, Japan\\
+Contact: \url{nshirahama@ieee.org}}
+\vspace{2mm}\par\noindent
+\begin{minipage}{150mm}
+{\small
+{\bf Abstract:}
+Fuzzy entropy has been used as an ambiguity descriptor for continuous emotion
+scores produced by large language models. However, the resulting entropy value
+is not determined by the score alone; it also depends on the
+membership-function specification used to map a 0--100 score into Low, Medium,
+and High fuzzy memberships. This short note proposes a membership specification
+card and a minimal sensitivity-reporting protocol for fuzzy-entropy-based LLM
+emotion scoring. The proposed report records the score range, labels,
+breakpoints, membership family, smoothness, endpoint behavior, entropy formula,
+family-specific normalization, and version identifier. Using three score-axis
+membership families--piecewise linear, Zadeh-type S/Z/pi, and
+sigmoid-composed S/Z/pi--we illustrate how normalized entropy-response curves
+$\Hstar(x)$ and family-pair sensitivity summaries can be reported without
+introducing model rankings or persona-temperature analyses. The aim is not to
+select a universally correct membership function, but to make fuzzy-entropy
+reports reproducible and auditable.
+\par\noindent
+}
+\end{minipage} \par\noindent
+\end{center}
+]
+
+\section{Introduction}
+
+Continuous emotion scores produced by large language models (LLMs) are often
+reported on a bounded scale, for example from 0 to 100. Fuzzy-set methods offer
+a convenient way to describe such scores using linguistic memberships such as
+Low, Medium, and High. A scalar fuzzy entropy can then be used as an ambiguity
+descriptor: scores near a single dominant label have low entropy, while scores
+near transitions among labels have higher entropy.
+Prior EQ-Fuzzy work used fuzzy entropy as one LLM emotion-scoring descriptor
+[4]; this note uses that context only as motivation for reproducible reporting.
+
+This descriptor is useful only when its membership specification is visible.
+A score value does not determine its fuzzy entropy by itself. The entropy also
+depends on the score range, breakpoints, membership-function family,
+smoothness, endpoint behavior, and normalization convention. Two studies can
+therefore use the same LLM score and the same entropy formula but report
+different entropy values because their membership functions differ.
+
+This paper proposes a compact reporting unit for fuzzy-entropy-based LLM
+emotion scoring. The contribution is methodological rather than evaluative:
+it does not evaluate which LLM is best, analyze persona-temperature effects,
+provide human-grounded multilingual validation, or position EQ-Fuzzy against
+existing benchmarks. Instead, it specifies what should be reported when fuzzy
+entropy is used as a score-axis descriptor.
+
+\section{Fuzzy Entropy and Membership Dependence}
+
+Let $x \in [0,100]$ be a continuous emotion score. A membership specification
+maps $x$ to three membership degrees
+$\mu_L(x), \mu_M(x), \mu_H(x) \in [0,1]$ for Low, Medium, and High. The
+artifact used in this note computes a Shannon-type membership-overlap entropy
+\begin{equation}
+\Hraw(x)=-\sum_{\ell \in \{L,M,H\}}\mu_\ell(x)\log_2\mu_\ell(x),
+\end{equation}
+where $0\log_2 0:=0$. For comparison across membership families, we report a
+family-normalized response
+\begin{equation}
+\Hstar(x) = \Hraw(x) / H_{\max},
+\end{equation}
+where $H_{\max}$ is estimated for that family on the documented score grid.
+
+The dependence on membership functions is not incidental. Zadeh's fuzzy sets
+are defined through membership grades over a universe of discourse [1]. The
+De Luca--Termini formulation is part of the fuzzy-entropy literature [2], but
+the concrete descriptor reported here is the membership-overlap entropy in
+Eq. (1). Recent FSS discussion of membership functions also emphasizes that
+values of the universe and the shape of the membership function jointly affect
+interpretation [3]. For LLM emotion scoring, this means that an entropy number
+should be read as ``entropy under a documented membership specification.''
+
+\section{Membership Specification Card}
+
+Table 1 shows family-specific fields in the proposed membership specification
+card. The card records the minimum information needed to reproduce and audit a
+fuzzy-entropy descriptor over the score axis. The exact version identifiers and
+configuration hashes are retained in the machine-readable artifact; the
+manuscript uses short family aliases to keep the report readable in proceedings
+format.
+
+\begin{table}
+\centering
+\caption{Family-specific fields in the membership specification card.}
+\label{tab:membership-card}
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{|p{18mm}|p{16mm}|p{20mm}|p{10mm}|}
+\hline
+Family & Smoothness & Endpoint handling & $H_{\max}$ \\
+\hline
+linear & $C^0$ piecewise & exact endpoints & 1.0577 \\
+\hline
+Zadeh S/Z/pi & $C^1$ quadratic & exact endpoints & 1.0524 \\
+\hline
+sigmoid S/Z/pi & smooth transition & clipped interior values & 1.0184 \\
+\hline
+\end{tabular}
+\end{table}
+
+The three families illustrate common membership-function design choices.
+Piecewise-linear memberships are interpretable but nonsmooth at transition
+points. Zadeh-type S/Z/pi families smooth local transitions. Sigmoid-composed
+variants document score-axis warping before S/Z/pi mapping. These choices
+determine where a 0--100 score is treated as crisp or transition-like.
+
+The complete card should also state the score range $[0,100]$, score-grid
+resolution, labels, Low/Medium and Medium/High breakpoints, entropy formula,
+normalization rule, and version identifier. These fields are not decorative.
+For example, changing a breakpoint changes which scores are treated as
+transition scores; changing endpoint behavior changes whether the extreme
+scores have exactly zero ambiguity; changing $H_{\max}$ changes comparability
+across families.
+
+\section{Entropy-Response and Sensitivity Reporting}
+
+Figure 1 illustrates the reporting protocol. The upper panels
+show Low, Medium, and High memberships over the score axis for three membership
+families. The lower panel shows the corresponding normalized
+entropy-response curves $\Hstar(x)$. The figure is deliberately score-axis-only:
+it contains no model, provider, persona, temperature, benchmark, language-drift,
+or target-shift results.
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figures/figure1_membership_and_entropy_response.png}
+\caption{Score-axis-only membership functions and normalized entropy-response
+curves. The figure reports membership-family behavior over the 0--100 score
+axis only and contains no model, provider, persona, temperature, benchmark, or
+target-shift results.}
+\label{fig:response}
+\end{figure}
+
+A minimal sensitivity report compares unordered family pairs over the same
+score grid. Table 2 shows that the largest absolute differences in
+$\Hstar(x)$ occur in the Low--Medium transition region. These values are not
+model effects. They are score-axis sensitivity summaries under alternative
+membership specifications.
+
+\begin{table}
+\centering
+\caption{Score-axis sensitivity summary over the documented 0--100 grid.}
+\label{tab:sensitivity}
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{|p{23mm}|p{11mm}|p{12mm}|p{18mm}|}
+\hline
+Pair & Max $|\Delta\Hstar|$ & Mean $|\Delta\Hstar|$ & max region \\
+\hline
+linear--Zadeh S/Z/pi & 0.343 & 0.110 & Low--Medium \\
+\hline
+linear--sigmoid-composed & 0.481 & 0.158 & Low--Medium \\
+\hline
+Zadeh S/Z/pi--sigmoid-composed & 0.167 & 0.048 & Low--Medium \\
+\hline
+\end{tabular}
+\end{table}
+
+The minimum reporting checklist is: (i) score range and grid resolution;
+(ii) labels and breakpoints; (iii) family ID, smoothness, and endpoint
+convention; (iv) entropy equation and family-specific $H_{\max}$; and
+(v) score-axis sensitivity against at least one plausible alternative family.
+This is intentionally smaller than a full experiment table. It is meant to
+make the descriptor auditable before any downstream LLM comparison is
+interpreted.
+
+\section{Discussion and Conclusion}
+
+The proposed card does not identify a universally correct membership function.
+In many LLM emotion-scoring settings, several membership families may be
+defensible. The practical requirement is that the chosen family be specified
+and that nearby plausible choices be sensitivity-checked. Without that record,
+fuzzy entropy values can appear more self-contained than they really are.
+
+This short note reframes fuzzy entropy for LLM emotion scoring as a
+specification-dependent descriptor. A reproducible report should state the
+membership-function family, breakpoints, smoothness, endpoint handling,
+entropy formula, and family-specific normalization, then show the
+score-axis entropy response and minimal sensitivity summary. This small
+reporting unit is intended to support later experiments without importing
+model rankings, persona-temperature decompositions, human-alignment rankings,
+or benchmark-positioning claims into the membership specification itself.
+
+\vspace{1mm}
+\noindent{\large\bf Acknowledgment}\par\noindent
+
+This work is part of the EQ-Fuzzy research line. This work was partially
+supported by JSPS Grants-in-Aid for Scientific Research (JSPS KAKENHI), Grant
+Numbers 26K14983 and 24K13350. The present manuscript uses only generated
+score-axis membership-specification artifacts and does not use API calls or raw
+JSONL outputs.
+
+\vspace{1mm}
+\noindent{\large\bf References}\par\noindent
+[1] L. A. Zadeh, ``Fuzzy sets,'' \emph{Information and Control}, vol. 8,
+no. 3, pp. 338--353, 1965.
+\par\noindent
+[2] A. De Luca and S. Termini, ``A definition of a nonprobabilistic entropy in
+the setting of fuzzy sets theory,'' \emph{Information and Control}, vol. 20,
+no. 4, pp. 301--312, 1972.
+\par\noindent
+[3] M. Umano, ``Some considerations on membership functions of fuzzy sets,''
+\emph{Proceedings of the Fuzzy System Symposium}, vol. 41, no. 0, pp. 70--74,
+2025, \url{https://doi.org/10.14864/fss.41.0_70}.
+\par\noindent
+[4] N. Shirahama, Y. Yoshimoto, N. Nakaya, and S. Watanabe, ``Mathematical
+framework for characterizing emotional individuality in large language models:
+Temperature control, fuzzy entropy, and persona-based diversity analysis,''
+\emph{Mathematics}, vol. 14, no. 7, Art. no. 1224, 2026,
+doi:10.3390/math14071224.
+
+%%%%% Contact Information%%%%%
+\vspace{1mm}
+\noindent{\large\bf Contact Information}\par\noindent
+\begin{tabular}{l}
+Naruki Shirahama \\
+Shimonoseki City University\\
+E-mail: {\tt  nshirahama@ieee.org}
+\end{tabular}
+
+\end{document}
